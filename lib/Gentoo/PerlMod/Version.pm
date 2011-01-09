@@ -8,6 +8,7 @@ package Gentoo::PerlMod::Version;
 use Sub::Exporter -setup => { exports => [qw( gentooize_version)] };
 use Carp;
 use List::MoreUtils qw( natatime );
+use version 0.77;
 
 =head1 SYNOPSIS
 
