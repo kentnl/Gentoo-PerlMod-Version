@@ -37,10 +37,19 @@ use List::MoreUtils qw( natatime );
 
 =method gentooize_version
 
-    my $normalized = gentoo_version( $weird_version )
+    my $normalized = gentooize_version( $weird_version )
 
 gentooize_version tries hard to mangle a version thats part of a CPAN dist into a normalized form
-for Gentoo.
+for Gentoo, which can be used as the version number of the ebuild, while storing the original upstream version in the ebuild.
+
+    CPAN: Foo-Bar-Baz 1.5
+    print gentooize_version('1.5');  # -> 1.500
+    -> dev-perl/Foo-Bar-Baz-1.500.ebuild
+    cat dev-perl/Foo-Bar-Baz-1.500.ebuild
+    # ...
+    # MODULE_VERSION="1.5"
+    # ...
+
 
 Normal behaviour accepts only sane non-testing versions, and expands them to the form of \d(.\d\d\d)+ ie:
 
@@ -65,14 +74,51 @@ So assuming Perl can handle your versions, they can be normalised.
 
 =head3 lax level 1
 
-    my $nomralized = gentoo_version( $werid_version, { lax => 1 } );
+    my $nomralized = gentooize_version( $werid_version, { lax => 1 } );
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
 This adds one layer of laxitifity, and permits parsing and processing of "Developer Release" builds.
 
+    1.10-TRIAL  # 1.100_rc
+    1.11-TRIAL  # 1.110_rc
+    1.1_1       # 1.110_rc
 
+=head3 lax level 2
 
+    my $nomralized = gentooize_version( $werid_version, { lax => 1 } );
+
+B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
+
+This adds another layer of laxitifity, and permits parsing and processing of packages with versions not officially supported by Perl.
+
+This means versions such as
+
+    1.6.A       # 1.006.010
+    1.6.AA      # 1.006.370
+    1.6.AAA      # 1.006.370.010
+    1.6.AAAA      # 1.006.370.370
+
+    1.6.A6FGHKE # 1.006.366.556.632.014
+
+This is performed by some really nasty tricks, and treats the ASCII portion like a set of pairs.
+
+    1.6.A6.FG.HK.E
+
+And each ascii pair is treated like a Base36 number.
+
+    0 -> 0
+    ....
+    9 -> 9
+    A -> 10
+    ...
+    Z -> 35
+
+A6 is thus
+
+    10 * 36 + 6 => 366
+
+As you can see, its really nasty, and hopefully its not needed.
 
 
 =cut
@@ -96,12 +142,21 @@ sub gentooize_version {
   Carp::croak("Invalid version format (non-numeric data). ( set { lax => } for more permissive behaviour )");
 }
 
+###
+#
+# character to code translation
+#
+###
+
 my $char_map = {
   ( map { $_ => $_ } 0 .. 9 ),    # 0..9
   ( map { chr( $_ + 65 ) => $_ + 10 } 0 .. 25 ),    # A-Z
   ( map { chr( $_ + 97 ) => $_ + 10 } 0 .. 25 )     # a-z
 };
 
+#
+# _char_map() -> string of charmap dump
+#
 sub _char_map {
   require Data::Dumper;
   local $Data::Dumper::Sortkeys = 1;
@@ -110,6 +165,10 @@ sub _char_map {
   return Data::Dumper::Dumper($char_map);
 }
 
+#
+# _code_for('z') -> $number
+#
+
 sub _code_for {
   my $char = shift;
   if ( !exists $char_map->{$char} ) {
@@ -117,6 +176,14 @@ sub _code_for {
   }
   return $char_map->{$char};
 }
+
+###
+#
+# Pair to number transformation.
+#
+#   _enc_pair( 'x','y' ) ->  $number
+#
+##
 
 sub _enc_pair {
   my (@tokens) = @_;
@@ -129,6 +196,13 @@ sub _enc_pair {
   return ( _code_for( $tokens[0] ) * 36 ) + ( _code_for( $tokens[1] ) );
 }
 
+###
+#
+#  String to dotted-decimal conversion
+#
+# $dotstring = _ascii_to_int("HELLOWORLD");
+#
+###
 sub _ascii_to_int {
   my $string = shift;
   my @chars = split //, $string;
@@ -142,14 +216,25 @@ sub _ascii_to_int {
   return join '.', @output;
 }
 
+# if( _has_bad_bits( $string )  ){
+#   # do laxing?
+# }
+
 sub _has_bad_bits {
   shift(@_) =~ /[^0-9.]/;
 }
 
+#
+# Handler for gentooize_version( ... { lax => 0 } )
+#
 sub _lax_cleaning_0 {
   my $version = shift;
   return _expand_numeric($version);
 }
+
+#
+# Handler for gentooize_version( ... { lax => 1 } )
+#
 
 sub _lax_cleaning_1 {
   my $version       = shift;
@@ -172,6 +257,10 @@ sub _lax_cleaning_1 {
   }
   return $version;
 }
+
+#
+# Handler for gentooize_version( ... { lax => 2 } )
+#
 
 sub _lax_cleaning_2 {
   my $version = shift;
@@ -201,6 +290,10 @@ sub _lax_cleaning_2 {
   }
   return _lax_cleaning_1($version_out);
 }
+
+#
+# Expands dotted decimal to a float, and then chunks the float.
+#
 
 sub _expand_numeric {
   my $perlver = shift;
