@@ -39,7 +39,7 @@ use List::MoreUtils qw( natatime );
 
     my $normalized = gentooize_version( $weird_version )
 
-gentooize_version tries hard to mangle a version thats part of a CPAN dist into a normalized form
+gentooize_version tries hard to mangle a version that is part of a CPAN dist into a normalized form
 for Gentoo, which can be used as the version number of the ebuild, while storing the original upstream version in the ebuild.
 
     CPAN: Foo-Bar-Baz 1.5
@@ -51,7 +51,7 @@ for Gentoo, which can be used as the version number of the ebuild, while storing
     # ...
 
 
-Normal behaviour accepts only sane non-testing versions, and expands them to the form of \d(.\d\d\d)+ ie:
+Normal behaviour accepts only sane non-testing versions, and expands them to the form of \d(.\d\d\d)+ i.e.:
 
     0.1         -> 0.100
     0.001       -> 0.001
@@ -60,8 +60,8 @@ Normal behaviour accepts only sane non-testing versions, and expands them to the
 
 Etc.
 
-This uses L<< C<version.pm>|version >> to read versions and to normalize them to floatingpoint form, and the floating point form
-is sliced into arbitrary parts 3-digits long. ie:
+This uses L<< C<version.pm>|version >> to read versions and to normalize them to floating-point form, and the floating point form
+is sliced into arbitrary parts 3-digits long. i.e.:
 
     $x = version->parse( 0.01 )->numify;   # 0.010
     $x =~ s/(\.\d\d\d)(\d+)$/$1.$2/;       # 0.010
@@ -78,7 +78,7 @@ So assuming Perl can handle your versions, they can be normalised.
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
-This adds one layer of laxitifity, and permits parsing and processing of "Developer Release" builds.
+This adds one layer of laxativity, and permits parsing and processing of "Developer Release" builds.
 
     1.10-TRIAL  # 1.100_rc
     1.11-TRIAL  # 1.110_rc
@@ -90,7 +90,7 @@ This adds one layer of laxitifity, and permits parsing and processing of "Develo
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
-This adds another layer of laxitifity, and permits parsing and processing of packages with versions not officially supported by Perl.
+This adds another layer of laxativity, and permits parsing and processing of packages with versions not officially supported by Perl.
 
 This means versions such as
 
@@ -132,14 +132,14 @@ sub gentooize_version {
     return _lax_cleaning_0($perlver);
   }
 
-  if ( $config->{lax} eq 1 ) {
+  if ( $config->{lax} == 1 ) {
     return _lax_cleaning_1($perlver);
   }
-  if ( $config->{lax} eq 2 ) {
+  if ( $config->{lax} == 2 ) {
     return _lax_cleaning_2($perlver);
   }
 
-  Carp::croak("Invalid version format (non-numeric data). ( set { lax => } for more permissive behaviour )");
+  Carp::croak('Invalid version format (non-numeric data). ( set { lax => } for more permissive behaviour )');
 }
 
 ###
@@ -148,6 +148,7 @@ sub gentooize_version {
 #
 ###
 
+## no critic ( ProhibitMagicNumbers )
 my $char_map = {
   ( map { $_ => $_ } 0 .. 9 ),    # 0..9
   ( map { chr( $_ + 65 ) => $_ + 10 } 0 .. 25 ),    # A-Z
@@ -172,7 +173,7 @@ sub _char_map {
 sub _code_for {
   my $char = shift;
   if ( !exists $char_map->{$char} ) {
-    Carp::croak( "Character $char ( " . ord($char) . ") is not in the ascii-to-int translation table" );
+    Carp::croak( 'Character ' . $char . q{ ( } . ord($char) . q{) is not in the ascii-to-int translation table} );
   }
   return $char_map->{$char};
 }
@@ -188,10 +189,10 @@ sub _code_for {
 sub _enc_pair {
   my (@tokens) = @_;
   if ( not @tokens ) {
-    return '';
+    return q{};
   }
   if ( @tokens < 2 ) {
-    return _code_for( shift(@tokens) );
+    return _code_for( shift @tokens );
   }
   return ( _code_for( $tokens[0] ) * 36 ) + ( _code_for( $tokens[1] ) );
 }
@@ -213,7 +214,7 @@ sub _ascii_to_int {
     push @output, _enc_pair(@vals);
   }
 
-  return join '.', @output;
+  return join q{.}, @output;
 }
 
 # if( _has_bad_bits( $string )  ){
@@ -221,7 +222,7 @@ sub _ascii_to_int {
 # }
 
 sub _has_bad_bits {
-  shift(@_) =~ /[^0-9.]/;
+  return ( (shift) =~ /[^\d.]/ );
 }
 
 #
@@ -248,7 +249,7 @@ sub _lax_cleaning_1 {
     $prereleasever = "$1";
     $isdev         = 1;
     if ( $prereleasever =~ /_/ ) {
-      Carp::croak("More than one _ in a version is not permitted");
+      Carp::croak(q{More than one _ in a version is not permitted});
     }
   }
   $version = _expand_numeric($version);
@@ -300,7 +301,7 @@ sub _expand_numeric {
 
   my $numeric = version->parse($perlver)->numify;
 
-  1 while $numeric =~ s/(\.\d\d\d)(\d+)$/$1.$2/;
+  1 while $numeric =~ s/([.]\d\d\d)(\d+)$/$1.$2/;
 
   return $numeric;
 }
