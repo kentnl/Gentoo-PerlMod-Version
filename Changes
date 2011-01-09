@@ -2,6 +2,8 @@ Release history for Gentoo-PerlMod-Version
 
 {{$NEXT}}
 
+0.2.0     2011-01-10 11:26:45 Pacific/Auckland
+
         Managed to accidentally sneak the last one out without the dep on version.pm.
         Redid the whole version split->lint-tidyup chain w/ Vincent Pits code. (Thanks VPIT)
 
