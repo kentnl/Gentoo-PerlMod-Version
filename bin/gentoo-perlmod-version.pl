@@ -3,6 +3,9 @@
 use strict;
 use warnings;
 
+# PODNAME: gentoo-perlmod-version.pl
+# ABSTRACT: Command line utility for translating cpan versions to gentoo equivelants.
+
 use Gentoo::PerlMod::Version qw( :all );
 
 my $lax = 0;
