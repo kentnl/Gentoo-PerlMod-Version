@@ -29,7 +29,7 @@ use List::MoreUtils qw( natatime );
 
     say gentooize('1.9902-TRIAL')   #  <-- death, this is awful
 
-    say gentooize('1.9902-TRIAL', { lax => 1 })   #  1.990.200 # <-- -TRIAL gets nuked.
+    say gentooize('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
 
 
 
@@ -86,7 +86,7 @@ This adds one layer of laxativity, and permits parsing and processing of "Develo
 
 =head3 lax level 2
 
-    my $nomralized = gentooize_version( $werid_version, { lax => 1 } );
+    my $nomralized = gentooize_version( $werid_version, { lax => 2 } );
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
