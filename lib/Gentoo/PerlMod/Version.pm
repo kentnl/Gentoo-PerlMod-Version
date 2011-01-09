@@ -317,9 +317,9 @@ sub _expand_numeric {
 
 =over 4
 
-=item Torsten Veller
+=item Torsten Veller - Inspiration for this Module and all the work on Gentoo Perl.
 
-=item Vincent Pit
+=item Vincent Pit - For solving most of the real bugs in this code before people tried to use them.
 
 =back
 
