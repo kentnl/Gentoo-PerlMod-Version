@@ -6,6 +6,7 @@ MANIFEST
 META.json
 META.yml
 README
+bin/gentoo-perlmod-version.pl
 dist.ini
 lib/Gentoo/PerlMod/Version.pm
 perlcritic.rc

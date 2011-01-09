@@ -22,7 +22,7 @@ my %module_build_args = (
     'Kent Fredric <kentnl@cpan.org>'
   ],
   'dist_name' => 'Gentoo-PerlMod-Version',
-  'dist_version' => '0.001.000',
+  'dist_version' => '0.2.0',
   'license' => 'perl',
   'module_name' => 'Gentoo::PerlMod::Version',
   'recommends' => {},
@@ -31,9 +31,12 @@ my %module_build_args = (
     'Carp' => '0',
     'Data::Dumper' => '0',
     'List::MoreUtils' => '0',
-    'Sub::Exporter' => '0'
+    'Sub::Exporter' => '0',
+    'version' => '0.77'
   },
-  'script_files' => []
+  'script_files' => [
+    'bin/gentoo-perlmod-version.pl'
+  ]
 );
 
 

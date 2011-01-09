@@ -40,7 +40,8 @@
             "Carp" : 0,
             "Data::Dumper" : 0,
             "List::MoreUtils" : 0,
-            "Sub::Exporter" : 0
+            "Sub::Exporter" : 0,
+            "version" : "0.77"
          }
       },
       "test" : {
@@ -56,7 +57,7 @@
    "provides" : {
       "Gentoo::PerlMod::Version" : {
          "file" : "lib/Gentoo/PerlMod/Version.pm",
-         "version" : "v0.1.0"
+         "version" : "v0.2.0"
       }
    },
    "release_status" : "stable",
@@ -68,7 +69,7 @@
          "web" : "http://github.com/kentfredric/Gentoo-PerlMod-Version/tree"
       }
    },
-   "version" : "0.001.000",
+   "version" : "0.2.0",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.17",
@@ -80,7 +81,8 @@
          "Module::Build" : "0.3607",
          "Sub::Exporter" : "0.982",
          "Test::Fatal" : "0.003",
-         "Test::More" : "0.96"
+         "Test::More" : "0.96",
+         "version" : "0.86"
       },
       "perl" : {
          "original" : "v5.12.2",
@@ -334,6 +336,11 @@
                }
             },
             "name" : "Prereqs",
+            "version" : "4.200000"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::ExecDir",
+            "name" : "ExecDir",
             "version" : "4.200000"
          },
          {

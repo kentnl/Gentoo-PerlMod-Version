@@ -3,7 +3,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version;
 BEGIN {
-  $Gentoo::PerlMod::Version::VERSION = '0.001.000';
+  $Gentoo::PerlMod::Version::VERSION = '0.2.0';
 }
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
@@ -11,6 +11,7 @@ BEGIN {
 use Sub::Exporter -setup => { exports => [qw( gentooize_version)] };
 use Carp;
 use List::MoreUtils qw( natatime );
+use version 0.77;
 
 
 
@@ -190,12 +191,22 @@ sub _lax_cleaning_2 {
 sub _expand_numeric {
   my $perlver = shift;
 
-  my $numeric = version->parse($perlver)->numify;
+  my $ver = version->parse($perlver)->normal;
 
-  1 while $numeric =~ s/([.]\d\d\d)(\d+)$/$1.$2/;
+  $ver =~ s/^v//;           # strip leading v
+  $ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
 
-  return $numeric;
+  my @tokens = split /[.]/, $ver;
+  my @out;
+
+  for (@tokens) {
+    $_ =~ s/^0+([1-9])/$1/;    # strip leading 0's
+    push @out, $_;
+  }
+
+  return join q{.}, @out;
 }
+
 
 1;
 
@@ -208,14 +219,14 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.001.000
+version 0.2.0
 
 =head1 SYNOPSIS
 
     use Gentoo::PerlMod::Version qw( :all );
 
     # http://search.cpan.org/~gmpassos/XML-Smart-1.6.9/
-    say gentooize_version( '1.6.9' )  # 1.006.009
+    say gentooize_version( '1.6.9' )  # 1.6.9
 
     http://search.cpan.org/~pip/Math-BaseCnv-1.6.A6FGHKE/
 
@@ -225,7 +236,7 @@ version 0.001.000
 
     say gentooize('1.6.A6FGHKE',{ lax => 1}) # <-- still death
 
-    say gentooize('1.6.A6FGHKE',{ lax => 2}) # 1.006.366.556.632.014  # <-- the best we can do.
+    say gentooize('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
 
     say gentooize('1.9902-TRIAL')   #  <-- death, this is awful
 
@@ -248,24 +259,21 @@ for Gentoo, which can be used as the version number of the ebuild, while storing
     # MODULE_VERSION="1.5"
     # ...
 
-Normal behaviour accepts only sane non-testing versions, and expands them to the form of \d(.\d\d\d)+ i.e.:
+Normal behaviour accepts only sane non-testing versions, i.e.:
 
-    0.1         -> 0.100
-    0.001       -> 0.001
-    1.1         -> 1.100
-    1.123.13    -> 1.123.013
+    0.1         -> 0.001
+    0.001       -> 0.1
+    1.1         -> 1.001
+    1.123.13    -> 1.123.13
 
 Etc.
 
-This uses L<< C<version.pm>|version >> to read versions and to normalize them to floating-point form, and the floating point form
-is sliced into arbitrary parts 3-digits long. i.e.:
+This uses L<< C<version.pm>|version >> to read versions and to normalize them.
 
-    $x = version->parse( 0.01 )->numify;   # 0.010
-    $x =~ s/(\.\d\d\d)(\d+)$/$1.$2/;       # 0.010
-    $x = version->parse( 0.001 )->numify;  # 0.001
-    $x =~ s/(\.\d\d\d)(\d+)$/$1.$2/;       # 0.001
-    $x = version->parse( 0.0001 )->numify; # 0.000100
-    $x =~ s/(\.\d\d\d)(\d+)$/$1.$2/;       # 0.000.100
+    0.1    # 0.100
+    0.01   # 0.10
+    0.001  # 0.1
+    0.0001 # 0.0.100
 
 So assuming Perl can handle your versions, they can be normalised.
 
@@ -291,12 +299,12 @@ This adds another layer of laxativity, and permits parsing and processing of pac
 
 This means versions such as
 
-    1.6.A       # 1.006.010
-    1.6.AA      # 1.006.370
-    1.6.AAA      # 1.006.370.010
-    1.6.AAAA      # 1.006.370.370
+    1.6.A       # 1.6.10
+    1.6.AA      # 1.6.370
+    1.6.AAA      # 1.6.370.10
+    1.6.AAAA      # 1.6.370.370
 
-    1.6.A6FGHKE # 1.006.366.556.632.014
+    1.6.A6FGHKE # 1.6.366.556.632.14
 
 This is performed by some really nasty tricks, and treats the ASCII portion like a set of pairs.
 
@@ -316,6 +324,16 @@ A6 is thus
     10 * 36 + 6 => 366
 
 As you can see, its really nasty, and hopefully its not needed.
+
+=head1 THANKS
+
+=over 4
+
+=item Torsten Veller - Inspiration for this Module and all the work on Gentoo Perl.
+
+=item Vincent Pit - For solving most of the real bugs in this code before people tried to use them.
+
+=back
 
 =head1 AUTHOR
 

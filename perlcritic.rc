@@ -10,7 +10,7 @@ allow_includes = 1
 [CodeLayout::ProhibitTrailingWhitespace]
 
 [Documentation::PodSpelling]
-stop_words = Gentoo CPAN ebuild laxativity ascii
+stop_words = Gentoo CPAN ebuild laxativity ascii gentoo cpan perlmod Torsten Veller
 
 [Subroutines::ProhibitUnusedPrivateSubroutines]
 private_name_regex = _(?!build_)\w

@@ -60,6 +60,7 @@ eval { $v .= pmver('Module::Build','0.3601') };
 eval { $v .= pmver('Sub::Exporter','any version') };
 eval { $v .= pmver('Test::Fatal','any version') };
 eval { $v .= pmver('Test::More','0.96') };
+eval { $v .= pmver('version','0.77') };
 
 
 

@@ -21,16 +21,17 @@ name: Gentoo-PerlMod-Version
 provides:
   Gentoo::PerlMod::Version:
     file: lib/Gentoo/PerlMod/Version.pm
-    version: v0.1.0
+    version: v0.2.0
 requires:
   Carp: 0
   Data::Dumper: 0
   List::MoreUtils: 0
   Sub::Exporter: 0
+  version: 0.77
 resources:
   homepage: http://github.com/kentfredric/Gentoo-PerlMod-Version/tree
   repository: git://github.com/kentfredric/Gentoo-PerlMod-Version.git
-version: 0.001.000
+version: 0.2.0
 x_BuiltWith:
   modules:
     Carp: 1.17
@@ -43,6 +44,7 @@ x_BuiltWith:
     Sub::Exporter: 0.982
     Test::Fatal: 0.003
     Test::More: 0.96
+    version: 0.86
   perl:
     original: v5.12.2
     qv: 1
@@ -241,6 +243,10 @@ x_Dist_Zilla:
           phase: runtime
           type: requires
       name: Prereqs
+      version: 4.200000
+    -
+      class: Dist::Zilla::Plugin::ExecDir
+      name: ExecDir
       version: 4.200000
     -
       class: Dist::Zilla::Plugin::FinderCode
