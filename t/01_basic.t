@@ -70,12 +70,12 @@ is( $e = exception { gentooize_version( '1.6.A6FGHKE', { lax => 2 } ) }, undef, 
 is( $e = exception { gentooize_version( '1.6-TRIAL',   { lax => 2 } ) }, undef, '-TRIAL is ok with lax => 2' );               # 51
 is( $e = exception { gentooize_version( '1.6_0',       { lax => 2 } ) }, undef, 'x_y is ok with lax => 2 ' );                 # 52
 
-is( gentooize_version( '1.6-TRIAL',   { lax => 1 } ), '1.600',     'x.y-TRIAL' );                                             # 53
-is( gentooize_version( '1.67-TRIAL',  { lax => 1 } ), '1.670',     'x.yy-TRIAL' );                                            # 54
-is( gentooize_version( '1.675-TRIAL', { lax => 1 } ), '1.675',     'x.yyy-TRIAL' );                                           # 55
-is( gentooize_version( '1.6_01',      { lax => 1 } ), '1.601',     'x.y_z' );                                                 # 56
-is( gentooize_version( '1.67_01',     { lax => 1 } ), '1.670.100', 'x.yy_zz' );                                               # 57
-is( gentooize_version( '1.675_01',    { lax => 1 } ), '1.675.010', 'x.yyy_zz' );                                              # 58
+is( gentooize_version( '1.6-TRIAL',   { lax => 1 } ), '1.600_rc',     'x.y-TRIAL' );                                         # 53
+is( gentooize_version( '1.67-TRIAL',  { lax => 1 } ), '1.670_rc',     'x.yy-TRIAL' );                                        # 54
+is( gentooize_version( '1.675-TRIAL', { lax => 1 } ), '1.675_rc',     'x.yyy-TRIAL' );                                       # 55
+is( gentooize_version( '1.6_01',      { lax => 1 } ), '1.601_rc',     'x.y_z' );                                             # 56
+is( gentooize_version( '1.67_01',     { lax => 1 } ), '1.670.100_rc', 'x.yy_zz' );                                           # 57
+is( gentooize_version( '1.675_01',    { lax => 1 } ), '1.675.010_rc', 'x.yyy_zz' );                                          # 58
 
 isnt( $e = exception { gentooize_version( '1.6_01_01', { lax => 1 } ) }, undef, 'x.y_z_a fails' );                            # 59
 is( gentooize_version( '1.6.A',    { lax => 2 } ), '1.006.010',     'x.y.ASCII' );                                            # 60

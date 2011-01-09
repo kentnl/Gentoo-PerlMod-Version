@@ -147,33 +147,29 @@ sub _has_bad_bits {
 }
 
 sub _lax_cleaning_0 {
-    my $version = shift;
-    return _expand_numeric( $version );
+  my $version = shift;
+  return _expand_numeric($version);
 }
 
-
 sub _lax_cleaning_1 {
-  my $version = shift;
-  my $istrial = 0;
+  my $version       = shift;
+  my $isdev         = 0;
   my $prereleasever = undef;
 
-  if(  $version =~ s/-TRIAL$// ){
-      $istrial = 1;
+  if ( $version =~ s/-TRIAL$// ) {
+    $isdev = 1;
   }
-  if( $version =~ s/_(.*)$/$1/ ){
-     $prereleasever = "$1";
-     if( $prereleasever =~ /_/ ){
-         Carp::croak("More than one _ in a version is not permitted");
-     }
+  if ( $version =~ s/_(.*)$/$1/ ) {
+    $prereleasever = "$1";
+    $isdev         = 1;
+    if ( $prereleasever =~ /_/ ) {
+      Carp::croak("More than one _ in a version is not permitted");
+    }
   }
-  $version = _expand_numeric( $version );
-#  if( $istrial and not defined $prereleasever ){
-#      $version .= '_pre001';
-#  } elsif( defined $prereleasever ){
-#      $prereleasever = _expand_numeric( '1.' . $prereleasever );
-#      $prereleasever =~ s/^1.//;
-#      $version .= '_pre' . $prereleasever;
-#  }
+  $version = _expand_numeric($version);
+  if ($isdev) {
+    $version .= '_rc';
+  }
   return $version;
 }
 
@@ -181,29 +177,29 @@ sub _lax_cleaning_2 {
   my $version = shift;
   my $istrial = 0;
 
-  if(  $version =~ s/-TRIAL$// ){
+  if ( $version =~ s/-TRIAL$// ) {
     $istrial = 1;
   }
 
   my @parts = split /([._])/, $version;
   my @out;
-  for( @parts ) {
-      if( $_ =~ /^[_.]$/ ){
-          push @out, $_;
-          next;
-      }
-      if( not _has_bad_bits($_ ) ){
-          push @out, $_;
-          next;
-      }
-      push @out, _ascii_to_int( $_ );
+  for (@parts) {
+    if ( $_ =~ /^[_.]$/ ) {
+      push @out, $_;
+      next;
+    }
+    if ( not _has_bad_bits($_) ) {
+      push @out, $_;
+      next;
+    }
+    push @out, _ascii_to_int($_);
   }
 
   my $version_out = join q{}, @out;
-  if( $istrial ){
-      $version_out .= '-TRIAL';
+  if ($istrial) {
+    $version_out .= '-TRIAL';
   }
-  return _lax_cleaning_1( $version_out );
+  return _lax_cleaning_1($version_out);
 }
 
 sub _expand_numeric {
@@ -215,6 +211,5 @@ sub _expand_numeric {
 
   return $numeric;
 }
-
 
 1;
