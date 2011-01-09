@@ -83,4 +83,6 @@ is( gentooize_version( '1.6.AA',      { lax => 2 } ), '1.006.370',     'x.y.ASCI
 is( gentooize_version( '1.6.AAA',     { lax => 2 } ), '1.006.370.010', 'x.y.ASCII' );                                         # 62
 is( gentooize_version( '1.6.AAAA',    { lax => 2 } ), '1.006.370.370', 'x.y.ASCII' );                                         # 63
 is( gentooize_version( '1.6.A6FGHKE', { lax => 2 } ), '1.006.366.556.632.014', 'x.y.ASCII' );                                         # 64
+
+is( gentooize_version('1.1000.10'), '1.1000.10', '4-digit-middle-bit');
 done_testing;

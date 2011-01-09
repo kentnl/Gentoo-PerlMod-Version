@@ -300,11 +300,32 @@ sub _lax_cleaning_2 {
 sub _expand_numeric {
   my $perlver = shift;
 
-  my $numeric = version->parse($perlver)->numify;
+  my $ver = version->parse($perlver)->normal;
 
-  1 while $numeric =~ s/([.]\d\d\d)(\d+)$/$1.$2/;
+  $ver =~ s/^v//;           # strip leading v
+  $ver =~ s/(?:\.0+)*//;    # strip excess .0 groups
 
-  return $numeric;
+  my @tokens = split /\./, $ver;
+  my @out;
+
+  for (@tokens) {
+    $_ =~ s/^0+([1-9])/$1/;    # strip leading 0's
+    push @out, $_;
+  }
+
+  return join q{.}, @out;
 }
+
+=head1 THANKS
+
+=over4
+
+=item Torsten Veller
+
+=item Vincent Pit
+
+=back
+
+=cut
 
 1;
