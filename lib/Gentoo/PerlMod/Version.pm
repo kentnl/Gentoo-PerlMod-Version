@@ -300,9 +300,9 @@ sub _expand_numeric {
   my $ver = version->parse($perlver)->normal;
 
   $ver =~ s/^v//;           # strip leading v
-  $ver =~ s/(?:\.0+)*$//;    # strip excess .0 groups
+  $ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
 
-  my @tokens = split /\./, $ver;
+  my @tokens = split /[.]/, $ver;
   my @out;
 
   for (@tokens) {
@@ -315,7 +315,7 @@ sub _expand_numeric {
 
 =head1 THANKS
 
-=over4
+=over 4
 
 =item Torsten Veller
 

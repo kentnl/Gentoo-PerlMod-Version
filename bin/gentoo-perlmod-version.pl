@@ -3,11 +3,14 @@
 use strict;
 use warnings;
 
+package Gentoo::PerlMod::Version::Tool;
+
 # PODNAME: gentoo-perlmod-version.pl
-# ABSTRACT: Command line utility for translating cpan versions to gentoo equivelants.
+# ABSTRACT: Command line utility for translating cpan versions to gentoo equivalents.
 
+## no critic (ProhibitPunctuationVar)
 use Gentoo::PerlMod::Version qw( :all );
-
+use Carp qw( croak );
 my $lax = 0;
 
 =head1 SYNOPSIS
@@ -42,22 +45,22 @@ for ( 0 .. $#ARGV ) {
 
   if ( $ARGV[$_] =~ /^--lax=(\d+)$/ ) {
     $lax = 0 + $1;
-    splice( @ARGV, $_, 1, () );
+    splice @ARGV, $_, 1, ();
     last;
   }
 }
 
 if (@ARGV) {
   for (@ARGV) {
-    print "$_ => " . gentooize_version( $_, { lax => $lax } );
-    print "\n";
+    print "$_ => " . gentooize_version( $_, { lax => $lax } ) or croak "Print Error $1";
+    print "\n" or croak "Print Error $!";
   }
 }
 else {
   while (<>) {
     chomp;
-    print "$_ => " . gentooize_version( $_, { lax => $lax } );
-    print "\n";
+    print "$_ => " . gentooize_version( $_, { lax => $lax } ) or croak "Print error $!";
+    print "\n" or croak "Print error $!";
   }
 }
 
