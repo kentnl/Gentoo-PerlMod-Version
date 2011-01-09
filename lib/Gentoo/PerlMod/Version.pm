@@ -160,20 +160,20 @@ sub _lax_cleaning_1 {
   if(  $version =~ s/-TRIAL$// ){
       $istrial = 1;
   }
-  if( $version =~ s/_(.*)$// ){
+  if( $version =~ s/_(.*)$/$1/ ){
      $prereleasever = "$1";
      if( $prereleasever =~ /_/ ){
          Carp::croak("More than one _ in a version is not permitted");
      }
   }
   $version = _expand_numeric( $version );
-  if( $istrial and not defined $prereleasever ){
-      $version .= '_pre001';
-  } elsif( defined $prereleasever ){
-      $prereleasever = _expand_numeric( '1.' . $prereleasever );
-      $prereleasever =~ s/^1.//;
-      $version .= '_pre' . $prereleasever;
-  }
+#  if( $istrial and not defined $prereleasever ){
+#      $version .= '_pre001';
+#  } elsif( defined $prereleasever ){
+#      $prereleasever = _expand_numeric( '1.' . $prereleasever );
+#      $prereleasever =~ s/^1.//;
+#      $version .= '_pre' . $prereleasever;
+#  }
   return $version;
 }
 
