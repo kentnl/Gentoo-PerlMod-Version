@@ -10,6 +10,18 @@ use Gentoo::PerlMod::Version qw( :all );
 
 my $lax = 0;
 
+=head1 SYNOPSIS
+
+    gentoo-perlmod-version.pl 1.4 1.5 1.6
+    gentoo-perlmod-version.pl --lax=1 1.4_5 1.5_6
+    gentoo-perlmod-version.pl --lax=2 1.4.DONTDOTHISPLEASE432
+
+    echo 1.4 | gentoo-perlmod-version.pl
+    echo 1.4-5 | gentoo-perlmod-version.pl --lax=1
+    echo 1.4.NOOOOO | gentoo-perlmod-version.pl --lax=2
+
+=cut
+
 for (@ARGV) {
   if ( $_ =~ /^--?h/ ) {
     die <<"EOF";
