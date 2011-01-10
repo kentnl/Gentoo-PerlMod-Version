@@ -3,7 +3,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version;
 BEGIN {
-  $Gentoo::PerlMod::Version::VERSION = '0.2.0';
+  $Gentoo::PerlMod::Version::VERSION = '0.2.1';
 }
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
@@ -22,6 +22,12 @@ sub gentooize_version {
 
   if ( not _has_bad_bits($perlver) ) {
     return _lax_cleaning_0($perlver);
+  }
+
+  if ( $perlver =~ /^v(.*$)/ ) {
+    if ( not _has_bad_bits($1) ) {
+      return _lax_cleaning_0($perlver);
+    }
   }
 
   if ( $config->{lax} == 1 ) {
@@ -159,8 +165,13 @@ sub _lax_cleaning_2 {
   my $version = shift;
   my $istrial = 0;
 
+  my $has_v = 0;
+
   if ( $version =~ s/-TRIAL$// ) {
     $istrial = 1;
+  }
+  if ( $version =~ s/^v// ) {
+    $has_v = 1;
   }
 
   my @parts = split /([._])/, $version;
@@ -181,6 +192,9 @@ sub _lax_cleaning_2 {
   if ($istrial) {
     $version_out .= '-TRIAL';
   }
+  if ($has_v) {
+    $version_out = 'v' . $version_out;
+  }
   return _lax_cleaning_1($version_out);
 }
 
@@ -193,7 +207,7 @@ sub _expand_numeric {
 
   my $ver = version->parse($perlver)->normal;
 
-  $ver =~ s/^v//;           # strip leading v
+  $ver =~ s/^v//;             # strip leading v
   $ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
 
   my @tokens = split /[.]/, $ver;
@@ -219,7 +233,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.2.0
+version 0.2.1
 
 =head1 SYNOPSIS
 

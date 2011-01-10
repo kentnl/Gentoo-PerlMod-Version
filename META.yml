@@ -21,7 +21,7 @@ name: Gentoo-PerlMod-Version
 provides:
   Gentoo::PerlMod::Version:
     file: lib/Gentoo/PerlMod/Version.pm
-    version: v0.2.0
+    version: v0.2.1
 requires:
   Carp: 0
   Data::Dumper: 0
@@ -31,7 +31,7 @@ requires:
 resources:
   homepage: http://github.com/kentfredric/Gentoo-PerlMod-Version/tree
   repository: git://github.com/kentfredric/Gentoo-PerlMod-Version.git
-version: 0.2.0
+version: 0.2.1
 x_BuiltWith:
   modules:
     Carp: 1.17
@@ -39,19 +39,19 @@ x_BuiltWith:
     Dist::Zilla::PluginBundle::KENTNL: 1.000.000
     Dist::Zilla::PluginBundle::KENTNL::Lite: 0.01000002
     File::Temp: 0.22
-    List::MoreUtils: 0.26
-    Module::Build: 0.3607
+    List::MoreUtils: 0.30
+    Module::Build: 0.3603
     Sub::Exporter: 0.982
     Test::Fatal: 0.003
     Test::More: 0.96
     version: 0.86
   perl:
-    original: v5.12.2
+    original: v5.12.3
     qv: 1
     version:
       - 5
       - 12
-      - 2
+      - 3
   platform: linux
   uname: 'Linux 2.6.37-gentoo x86_64 GenuineIntel GNU/Linux'
 x_Dist_Zilla:
