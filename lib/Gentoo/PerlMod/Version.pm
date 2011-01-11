@@ -126,24 +126,22 @@ sub gentooize_version {
   $config ||= {};
   $config->{lax} = 0 unless defined $config->{lax};
 
-  if ( not _has_bad_bits($perlver) ) {
+  if ( $perlver =~ /^v?[\d.]+$/ ) {
     return _lax_cleaning_0($perlver);
   }
 
-  if ( $perlver =~ /^v(.*$)/ ) {
-    if ( not _has_bad_bits($1) ) {
-      return _lax_cleaning_0($perlver);
+  if ( $perlver =~ /^v?[\d._]+(-TRIAL)?$/ ) {
+    if ( $config->{lax} > 0 ){
+        return _lax_cleaning_1($perlver);
     }
+    Carp::croak('Invalid version format (non-numeric data, either _ or -TRIAL ). Set { lax => 1 } for more permissive behaviour.');
   }
 
-  if ( $config->{lax} == 1 ) {
-    return _lax_cleaning_1($perlver);
-  }
   if ( $config->{lax} == 2 ) {
     return _lax_cleaning_2($perlver);
   }
 
-  Carp::croak('Invalid version format (non-numeric data). ( set { lax => } for more permissive behaviour )');
+  Carp::croak('Invalid version format (non-numeric/ASCII data). ( set { lax => 2 } for more permissive behaviour )');
 }
 
 ###
@@ -221,14 +219,6 @@ sub _ascii_to_int {
   return join q{.}, @output;
 }
 
-# if( _has_bad_bits( $string )  ){
-#   # do laxing?
-# }
-
-sub _has_bad_bits {
-  return ( (shift) =~ /[^\d.]/ );
-}
-
 #
 # Handler for gentooize_version( ... { lax => 0 } )
 #
@@ -287,7 +277,7 @@ sub _lax_cleaning_2 {
       push @out, $_;
       next;
     }
-    if ( not _has_bad_bits($_) ) {
+    if ( $_ =~ /^\d+/ ) {
       push @out, $_;
       next;
     }
