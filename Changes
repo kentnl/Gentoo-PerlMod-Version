@@ -2,6 +2,8 @@ Release history for Gentoo-PerlMod-Version
 
 {{$NEXT}}
 
+        Removed a few errors from the POD.
+
         Hack it so lax version doesn't influence the whole parse, instead,
              laxing is only applied when its deemed the input isn't within a
              defined format.
