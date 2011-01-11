@@ -3,7 +3,7 @@ NAME
     normalised Gentoo versions.
 
 VERSION
-    version 0.2.1
+    version 0.2.2
 
 SYNOPSIS
         use Gentoo::PerlMod::Version qw( :all );
@@ -13,17 +13,17 @@ SYNOPSIS
 
         http://search.cpan.org/~pip/Math-BaseCnv-1.6.A6FGHKE/
 
-        say gentooize('1.6.A6FGHKE')   #  <-- death, this is awful
+        say gentooize_version('1.6.A6FGHKE')   #  <-- death, this is awful
 
         # -- Work-In-Progress Features --
 
-        say gentooize('1.6.A6FGHKE',{ lax => 1}) # <-- still death
+        say gentooize_version('1.6.A6FGHKE',{ lax => 1}) # <-- still death
 
-        say gentooize('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
+        say gentooize_version('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
 
-        say gentooize('1.9902-TRIAL')   #  <-- death, this is awful
+        say gentooize_version('1.9902-TRIAL')   #  <-- death, this is awful
 
-        say gentooize('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
+        say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
 
 METHODS
   gentooize_version

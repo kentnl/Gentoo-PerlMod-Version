@@ -3,7 +3,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version;
 BEGIN {
-  $Gentoo::PerlMod::Version::VERSION = '0.2.1';
+  $Gentoo::PerlMod::Version::VERSION = '0.2.2';
 }
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
@@ -20,24 +20,22 @@ sub gentooize_version {
   $config ||= {};
   $config->{lax} = 0 unless defined $config->{lax};
 
-  if ( not _has_bad_bits($perlver) ) {
+  if ( $perlver =~ /^v?[\d.]+$/ ) {
     return _lax_cleaning_0($perlver);
   }
 
-  if ( $perlver =~ /^v(.*$)/ ) {
-    if ( not _has_bad_bits($1) ) {
-      return _lax_cleaning_0($perlver);
+  if ( $perlver =~ /^v?[\d._]+(-TRIAL)?$/ ) {
+    if ( $config->{lax} > 0 ){
+        return _lax_cleaning_1($perlver);
     }
+    Carp::croak('Invalid version format (non-numeric data, either _ or -TRIAL ). Set { lax => 1 } for more permissive behaviour.');
   }
 
-  if ( $config->{lax} == 1 ) {
-    return _lax_cleaning_1($perlver);
-  }
   if ( $config->{lax} == 2 ) {
     return _lax_cleaning_2($perlver);
   }
 
-  Carp::croak('Invalid version format (non-numeric data). ( set { lax => } for more permissive behaviour )');
+  Carp::croak('Invalid version format (non-numeric/ASCII data). ( set { lax => 2 } for more permissive behaviour )');
 }
 
 ###
@@ -115,14 +113,6 @@ sub _ascii_to_int {
   return join q{.}, @output;
 }
 
-# if( _has_bad_bits( $string )  ){
-#   # do laxing?
-# }
-
-sub _has_bad_bits {
-  return ( (shift) =~ /[^\d.]/ );
-}
-
 #
 # Handler for gentooize_version( ... { lax => 0 } )
 #
@@ -181,7 +171,7 @@ sub _lax_cleaning_2 {
       push @out, $_;
       next;
     }
-    if ( not _has_bad_bits($_) ) {
+    if ( $_ =~ /^\d+/ ) {
       push @out, $_;
       next;
     }
@@ -233,7 +223,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.2.1
+version 0.2.2
 
 =head1 SYNOPSIS
 
@@ -244,17 +234,17 @@ version 0.2.1
 
     http://search.cpan.org/~pip/Math-BaseCnv-1.6.A6FGHKE/
 
-    say gentooize('1.6.A6FGHKE')   #  <-- death, this is awful
+    say gentooize_version('1.6.A6FGHKE')   #  <-- death, this is awful
 
     # -- Work-In-Progress Features --
 
-    say gentooize('1.6.A6FGHKE',{ lax => 1}) # <-- still death
+    say gentooize_version('1.6.A6FGHKE',{ lax => 1}) # <-- still death
 
-    say gentooize('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
+    say gentooize_version('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
 
-    say gentooize('1.9902-TRIAL')   #  <-- death, this is awful
+    say gentooize_version('1.9902-TRIAL')   #  <-- death, this is awful
 
-    say gentooize('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
+    say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
 
 =head1 METHODS
 

@@ -57,7 +57,7 @@
    "provides" : {
       "Gentoo::PerlMod::Version" : {
          "file" : "lib/Gentoo/PerlMod/Version.pm",
-         "version" : "v0.2.1"
+         "version" : "v0.2.2"
       }
    },
    "release_status" : "stable",
@@ -69,7 +69,7 @@
          "web" : "http://github.com/kentfredric/Gentoo-PerlMod-Version/tree"
       }
    },
-   "version" : "0.2.1",
+   "version" : "0.2.2",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.17",
@@ -77,8 +77,8 @@
          "Dist::Zilla::PluginBundle::KENTNL" : "1.000.000",
          "Dist::Zilla::PluginBundle::KENTNL::Lite" : "0.01000002",
          "File::Temp" : "0.22",
-         "List::MoreUtils" : "0.30",
-         "Module::Build" : "0.3603",
+         "List::MoreUtils" : "0.26",
+         "Module::Build" : "0.3607",
          "Sub::Exporter" : "0.982",
          "Test::Fatal" : "0.003",
          "Test::More" : "0.96",

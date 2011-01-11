@@ -1,11 +1,12 @@
 #!/usr/bin/env perl
 
+
 use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version::Tool;
 BEGIN {
-  $Gentoo::PerlMod::Version::Tool::VERSION = '0.2.1';
+  $Gentoo::PerlMod::Version::Tool::VERSION = '0.2.2';
 }
 
 # PODNAME: gentoo-perlmod-version.pl
@@ -66,7 +67,7 @@ gentoo-perlmod-version.pl - Command line utility for translating cpan versions t
 
 =head1 VERSION
 
-version 0.2.1
+version 0.2.2
 
 =head1 SYNOPSIS
 
@@ -77,6 +78,10 @@ version 0.2.1
     echo 1.4 | gentoo-perlmod-version.pl
     echo 1.4-5 | gentoo-perlmod-version.pl --lax=1
     echo 1.4.NOOOOO | gentoo-perlmod-version.pl --lax=2
+
+See perldoc for L<< C<Gentoo::PerlMod::Versions> documentation|Gentoo::PerlMod::Version >> for more information.
+
+    perldoc Gentoo::PerlMod::Version
 
 =head1 AUTHOR
 
