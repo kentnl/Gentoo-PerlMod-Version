@@ -2,6 +2,13 @@ Release history for Gentoo-PerlMod-Version
 
 {{$NEXT}}
 
+        Hack it so lax version doesn't influence the whole parse, instead,
+             laxing is only applied when its deemed the input isn't within a
+             defined format.
+    
+        Dropped _has_bad_bits in favour of individual targeted regex.
+
+
 0.2.1     2011-01-11 10:14:42 Pacific/Auckland
 
         Fix a minor issue where v-strings were rejected because 
