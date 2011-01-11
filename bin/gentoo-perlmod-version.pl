@@ -1,5 +1,6 @@
 #!/usr/bin/env perl
 
+
 use strict;
 use warnings;
 
@@ -22,6 +23,10 @@ my $lax = 0;
     echo 1.4 | gentoo-perlmod-version.pl
     echo 1.4-5 | gentoo-perlmod-version.pl --lax=1
     echo 1.4.NOOOOO | gentoo-perlmod-version.pl --lax=2
+
+See perldoc for L<Gentoo::PerlMod::Version> for more information.
+
+    perldoc Gentoo::PerlMod::Version
 
 =cut
 
