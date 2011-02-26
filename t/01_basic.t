@@ -11,13 +11,13 @@ sub b {
 }
 
 # 1..10
-b( 1,  '0',        '0' );
-b( 2,  '1',        '1' );
-b( 3,  '0.1',      '0.100' );
-b( 4,  '1.1',      '1.100' );
-b( 5,  '0.01',     '0.10' );
-b( 6,  '1.01',     '1.10' );
-b( 7,  '1.001',    '1.1' );
+b( 1,  '0',        '0.0.0' );
+b( 2,  '1',        '1.0.0' );
+b( 3,  '0.1',      '0.100.0' );
+b( 4,  '1.1',      '1.100.0' );
+b( 5,  '0.01',     '0.10.0' );
+b( 6,  '1.01',     '1.10.0' );
+b( 7,  '1.001',    '1.1.0' );
 b( 8,  '1.0001',   '1.0.100' );
 b( 9,  '1.00001',  '1.0.10' );
 b( 10, '1.000001', '1.0.1' );
@@ -70,10 +70,10 @@ is( $e = exception { gentooize_version( '1.6.A6FGHKE', { lax => 2 } ) }, undef, 
 is( $e = exception { gentooize_version( '1.6-TRIAL',   { lax => 2 } ) }, undef, '-TRIAL is ok with lax => 2' );               # 51
 is( $e = exception { gentooize_version( '1.6_0',       { lax => 2 } ) }, undef, 'x_y is ok with lax => 2 ' );                 # 52
 
-is( gentooize_version( '1.6-TRIAL',   { lax => 1 } ), '1.600_rc',     'x.y-TRIAL' );                                          # 53
-is( gentooize_version( '1.67-TRIAL',  { lax => 1 } ), '1.670_rc',     'x.yy-TRIAL' );                                         # 54
-is( gentooize_version( '1.675-TRIAL', { lax => 1 } ), '1.675_rc',     'x.yyy-TRIAL' );                                        # 55
-is( gentooize_version( '1.6_01',      { lax => 1 } ), '1.601_rc',     'x.y_z' );                                              # 56
+is( gentooize_version( '1.6-TRIAL',   { lax => 1 } ), '1.600.0_rc',     'x.y-TRIAL' );                                          # 53
+is( gentooize_version( '1.67-TRIAL',  { lax => 1 } ), '1.670.0_rc',     'x.yy-TRIAL' );                                         # 54
+is( gentooize_version( '1.675-TRIAL', { lax => 1 } ), '1.675.0_rc',     'x.yyy-TRIAL' );                                        # 55
+is( gentooize_version( '1.6_01',      { lax => 1 } ), '1.601.0_rc',     'x.y_z' );                                              # 56
 is( gentooize_version( '1.67_01',     { lax => 1 } ), '1.670.100_rc', 'x.yy_zz' );                                            # 57
 is( gentooize_version( '1.675_01',    { lax => 1 } ), '1.675.10_rc', 'x.yyy_zz' );                                           # 58
 

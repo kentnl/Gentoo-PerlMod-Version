@@ -22,7 +22,7 @@ my %module_build_args = (
     'Kent Fredric <kentnl@cpan.org>'
   ],
   'dist_name' => 'Gentoo-PerlMod-Version',
-  'dist_version' => '0.2.2',
+  'dist_version' => '0.3.0',
   'license' => 'perl',
   'module_name' => 'Gentoo::PerlMod::Version',
   'recommends' => {},

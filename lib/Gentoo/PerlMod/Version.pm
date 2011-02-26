@@ -3,7 +3,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version;
 BEGIN {
-  $Gentoo::PerlMod::Version::VERSION = '0.2.2';
+  $Gentoo::PerlMod::Version::VERSION = '0.3.0';
 }
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
@@ -198,7 +198,7 @@ sub _expand_numeric {
   my $ver = version->parse($perlver)->normal;
 
   $ver =~ s/^v//;             # strip leading v
-  $ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
+  #$ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
 
   my @tokens = split /[.]/, $ver;
   my @out;
@@ -223,7 +223,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.2.2
+version 0.3.0
 
 =head1 SYNOPSIS
 
@@ -256,27 +256,27 @@ gentooize_version tries hard to mangle a version that is part of a CPAN dist int
 for Gentoo, which can be used as the version number of the ebuild, while storing the original upstream version in the ebuild.
 
     CPAN: Foo-Bar-Baz 1.5
-    print gentooize_version('1.5');  # -> 1.500
-    -> dev-perl/Foo-Bar-Baz-1.500.ebuild
-    cat dev-perl/Foo-Bar-Baz-1.500.ebuild
+    print gentooize_version('1.5');  # -> 1.500.0
+    -> dev-perl/Foo-Bar-Baz-1.500.0.ebuild
+    cat dev-perl/Foo-Bar-Baz-1.500.0.ebuild
     # ...
     # MODULE_VERSION="1.5"
     # ...
 
 Normal behaviour accepts only sane non-testing versions, i.e.:
 
-    0.1         -> 0.001
-    0.001       -> 0.1
-    1.1         -> 1.001
+    0.1         -> 0.001.0
+    0.001       -> 0.1.0
+    1.1         -> 1.001.0
     1.123.13    -> 1.123.13
 
 Etc.
 
 This uses L<< C<version.pm>|version >> to read versions and to normalize them.
 
-    0.1    # 0.100
-    0.01   # 0.10
-    0.001  # 0.1
+    0.1    # 0.100.0
+    0.01   # 0.10.0
+    0.001  # 0.1.0
     0.0001 # 0.0.100
 
 So assuming Perl can handle your versions, they can be normalised.
@@ -289,9 +289,9 @@ B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may cha
 
 This adds one layer of laxativity, and permits parsing and processing of "Developer Release" builds.
 
-    1.10-TRIAL  # 1.100_rc
-    1.11-TRIAL  # 1.110_rc
-    1.1_1       # 1.110_rc
+    1.10-TRIAL  # 1.100.0_rc
+    1.11-TRIAL  # 1.110.0_rc
+    1.1_1       # 1.110.0_rc
 
 =head3 lax level 2
 
