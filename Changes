@@ -1,6 +1,11 @@
 Release history for Gentoo-PerlMod-Version
 
 {{$NEXT}}
+        Switch to @Author::KENTNL bundle.
+
+        Don't strip excess 0 groups. 
+        Use standard 'normalized' dotted-decimal versions (without leading 'v' and with at least 3 components)
+        ( Thanks to Torsten Veller )
 
 0.2.2     2011-01-12 03:20:34 Pacific/Auckland
 
