@@ -131,10 +131,11 @@ sub gentooize_version {
   }
 
   if ( $perlver =~ /^v?[\d._]+(-TRIAL)?$/ ) {
-    if ( $config->{lax} > 0 ){
-        return _lax_cleaning_1($perlver);
+    if ( $config->{lax} > 0 ) {
+      return _lax_cleaning_1($perlver);
     }
-    Carp::croak('Invalid version format (non-numeric data, either _ or -TRIAL ). Set { lax => 1 } for more permissive behaviour.');
+    Carp::croak(
+      'Invalid version format (non-numeric data, either _ or -TRIAL ). Set { lax => 1 } for more permissive behaviour.');
   }
 
   if ( $config->{lax} == 2 ) {
@@ -303,8 +304,8 @@ sub _expand_numeric {
 
   my $ver = version->parse($perlver)->normal;
 
-  $ver =~ s/^v//;             # strip leading v
-  #$ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
+  $ver =~ s/^v//;    # strip leading v
+                     #$ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
 
   my @tokens = split /[.]/, $ver;
   my @out;
