@@ -1,12 +1,14 @@
 #!/usr/bin/env perl
 
-
 use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version::Tool;
 BEGIN {
-  $Gentoo::PerlMod::Version::Tool::VERSION = '0.3.0';
+  $Gentoo::PerlMod::Version::Tool::AUTHORITY = 'cpan:KENTNL';
+}
+{
+  $Gentoo::PerlMod::Version::Tool::VERSION = '0.3.1';
 }
 
 # PODNAME: gentoo-perlmod-version.pl
@@ -61,13 +63,15 @@ else {
 __END__
 =pod
 
+=encoding utf-8
+
 =head1 NAME
 
 gentoo-perlmod-version.pl - Command line utility for translating cpan versions to gentoo equivalents.
 
 =head1 VERSION
 
-version 0.3.0
+version 0.3.1
 
 =head1 SYNOPSIS
 

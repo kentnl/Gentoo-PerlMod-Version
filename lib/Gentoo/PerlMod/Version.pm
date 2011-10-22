@@ -3,7 +3,10 @@ use warnings;
 
 package Gentoo::PerlMod::Version;
 BEGIN {
-  $Gentoo::PerlMod::Version::VERSION = '0.3.0';
+  $Gentoo::PerlMod::Version::AUTHORITY = 'cpan:KENTNL';
+}
+{
+  $Gentoo::PerlMod::Version::VERSION = '0.3.1';
 }
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
@@ -25,10 +28,11 @@ sub gentooize_version {
   }
 
   if ( $perlver =~ /^v?[\d._]+(-TRIAL)?$/ ) {
-    if ( $config->{lax} > 0 ){
-        return _lax_cleaning_1($perlver);
+    if ( $config->{lax} > 0 ) {
+      return _lax_cleaning_1($perlver);
     }
-    Carp::croak('Invalid version format (non-numeric data, either _ or -TRIAL ). Set { lax => 1 } for more permissive behaviour.');
+    Carp::croak(
+      'Invalid version format (non-numeric data, either _ or -TRIAL ). Set { lax => 1 } for more permissive behaviour.');
   }
 
   if ( $config->{lax} == 2 ) {
@@ -197,8 +201,8 @@ sub _expand_numeric {
 
   my $ver = version->parse($perlver)->normal;
 
-  $ver =~ s/^v//;             # strip leading v
-  #$ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
+  $ver =~ s/^v//;    # strip leading v
+                     #$ver =~ s/(?:[.]0+)*$//;    # strip excess .0 groups
 
   my @tokens = split /[.]/, $ver;
   my @out;
@@ -217,13 +221,15 @@ sub _expand_numeric {
 __END__
 =pod
 
+=encoding utf-8
+
 =head1 NAME
 
 Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
 
 =head1 VERSION
 
-version 0.3.0
+version 0.3.1
 
 =head1 SYNOPSIS
 
