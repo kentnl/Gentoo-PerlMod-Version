@@ -28,7 +28,7 @@ use version 0.77;
 
     say gentooize_version('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
 
-    say gentooize_version('1.9902-TRIAL')   #  <-- death, this is awful
+    say gentooize_version('1.9902-TRIAL')   #  <-- death, this is not so bad, but not a valid gentoo/stable version
 
     say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
 
@@ -72,7 +72,7 @@ So assuming Perl can handle your versions, they can be normalised.
 
 =head3 lax level 1
 
-    my $nomralized = gentooize_version( $werid_version, { lax => 1 } );
+    my $normalized = gentooize_version( $werid_version, { lax => 1 } );
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
@@ -84,7 +84,7 @@ This adds one layer of laxativity, and permits parsing and processing of "Develo
 
 =head3 lax level 2
 
-    my $nomralized = gentooize_version( $werid_version, { lax => 2 } );
+    my $normalized = gentooize_version( $werid_version, { lax => 2 } );
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
