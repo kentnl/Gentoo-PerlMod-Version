@@ -1,9 +1,8 @@
 #!/usr/bin/env perl
 
+package Gentoo::PerlMod::Version::Tool;
 use strict;
 use warnings;
-
-package Gentoo::PerlMod::Version::Tool;
 
 # PODNAME: gentoo-perlmod-version.pl
 # ABSTRACT: Command line utility for translating cpan versions to gentoo equivalents.
