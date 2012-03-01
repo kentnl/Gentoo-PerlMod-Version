@@ -6,7 +6,7 @@ BEGIN {
   $Gentoo::PerlMod::Version::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Gentoo::PerlMod::Version::VERSION = '0.3.1';
+  $Gentoo::PerlMod::Version::VERSION = '0.4.0';
 }
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
@@ -229,7 +229,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.3.1
+version 0.4.0
 
 =head1 SYNOPSIS
 
@@ -248,7 +248,7 @@ version 0.3.1
 
     say gentooize_version('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
 
-    say gentooize_version('1.9902-TRIAL')   #  <-- death, this is awful
+    say gentooize_version('1.9902-TRIAL')   #  <-- death, this is not so bad, but not a valid gentoo/stable version
 
     say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
 
@@ -289,7 +289,7 @@ So assuming Perl can handle your versions, they can be normalised.
 
 =head3 lax level 1
 
-    my $nomralized = gentooize_version( $werid_version, { lax => 1 } );
+    my $normalized = gentooize_version( $werid_version, { lax => 1 } );
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
@@ -301,7 +301,7 @@ This adds one layer of laxativity, and permits parsing and processing of "Develo
 
 =head3 lax level 2
 
-    my $nomralized = gentooize_version( $werid_version, { lax => 2 } );
+    my $normalized = gentooize_version( $werid_version, { lax => 2 } );
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
@@ -351,7 +351,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2012 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,4 +1,26 @@
-Release history for Gentoo-PerlMod-Version
+﻿Release history for Gentoo-PerlMod-Version
+
+0.4.0 2012-03-01T08:37:02Z
+ [00 IMPORTANT CHANGES]
+ - new 'oneshot' mode for validating/normalising a single version, for use
+   predominantly in other scripts like bash.
+ - usage: VALUE="$( gentoo_perlmod_version.pl --oneshot "$VERSION" )"
+
+ [Dependencies::Changed]
+ - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
+   1.0.0 -> 1.2.0
+
+ [Dependencies::New]
+ - runtime requires : perl 5.10.0
+
+ [Documentation]
+ - Fixed a few typos and clarified some minor things.
+
+ [Packaging]
+ - Update LICENSE ( Year, Indentation )
+
+ [Tests::New]
+ - minimum-version.t
 
 0.3.1 2011-10-22T14:35:08Z
  - Maintenance Release
