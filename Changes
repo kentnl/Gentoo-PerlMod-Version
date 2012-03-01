@@ -1,6 +1,8 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
 {{$NEXT}}
+
+0.4.0 2012-03-01T08:37:02Z
  [00 IMPORTANT CHANGES]
  - new 'oneshot' mode for validating/normalising a single version, for use
    predominantly in other scripts like bash.
