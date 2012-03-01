@@ -1,12 +1,17 @@
-Release history for Gentoo-PerlMod-Version
+﻿Release history for Gentoo-PerlMod-Version
 
 {{$NEXT}}
+ [00 IMPORTANT CHANGES]
+ - new 'oneshot' mode for validating/normalising a single version, for use
+   predominantly in other scripts like bash.
+ - usage: VALUE="$( gentoo_perlmod_version.pl --oneshot "$VERSION" )"
+
+ [Dependencies::Changed]
+ - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
+   1.0.0 -> 1.2.0
 
  [Dependencies::New]
  - runtime requires : perl 5.10.0
-
- [Dependencies::Changed]
- - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL 1.0.0 -> 1.2.0
 
  [Documentation]
  - Fixed a few typos and clarified some minor things.
