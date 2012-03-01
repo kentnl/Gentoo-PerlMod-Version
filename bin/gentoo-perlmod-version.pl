@@ -77,7 +77,7 @@ for ( 0 .. $#ARGV ) {
   last;
 }
 
-if( $oneshot ) {
+if ($oneshot) {
   die "Too many versions given to --oneshot mode" if $#ARGV > 0;
   my $v = gentooize_version( $ARGV[0], { lax => $lax } );
   print $v or die "Print Error $!";
