@@ -344,6 +344,49 @@ sub _expand_numeric {
   return join q{.}, @out;
 }
 
+=head1 ENVIRONMENT
+
+This module recognises the environment variable GENTOO_PERLMOD_VERSION_OPTS for a few features.
+
+These are mostly useful for system wide or userwide policies that may be applicable for using this module, depending on where it is used.
+
+This field is split by whitespace and each token has a meaning.
+
+=head2 always_lax
+
+  GENTOO_PERLMOD_VERSION_OPTS+=" always_lax=0 "
+  GENTOO_PERLMOD_VERSION_OPTS+=" always_lax=1 "
+  GENTOO_PERLMOD_VERSION_OPTS+=" always_lax=2 "
+  GENTOO_PERLMOD_VERSION_OPTS+=" always_lax   "# same as always_lax=1
+  GENTOO_PERLMOD_VERSION_OPTS+=" -always_lax  "# unset always_lax
+
+
+This environment setting, if specified, overrides any specification of "lax" in the code. If this specified more than once, the right-most one applies.
+
+Specifying C<-always_lax> will un-set the setting, making it behave as if it had not been previously specified.
+
+=head2 taint_safe
+
+  GENTOO_PERLMOD_VERSION_OPTS+=" taint_safe  " #on
+  GENTOO_PERLMOD_VERSION_OPTS+=" -taint_safe " #off
+
+As it stands, this module only emits messages via STDOUT/STDERR when an error occurs. For diagnosis, sometimes user provided data can appear in this output.
+
+Specifying this option will remove the information as specified by the user where possible, to eliminate this risk if this is a security issue for you.
+
+It is not a guarantee of safety, but merely a tool you might find useful, depending on circumstances.
+
+=head2 carp_debug
+
+  GENTOO_PERLMOD_VERSION_OPTS+=" carp_debug " #on
+  GENTOO_PERLMOD_VERSION_OPTS+=" -carp_debug " #off
+
+Lots of information is passed to our internal carp proxy that could aid in debugging a future problem.
+To see this information instead of the simple message that is usually sent to C<Carp>, enable this option.
+
+B<Note:> As values in the hashes that would be printed can come from users, C<carp_debug> is ignored if C<taint_safe> is on.
+
+=cut
 {
   my $state;
   my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
