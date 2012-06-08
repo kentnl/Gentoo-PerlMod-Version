@@ -318,6 +318,61 @@ sub _expand_numeric {
   return join q{.}, @out;
 }
 
+{
+  my $state;
+  my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
+
+sub _env_opts {
+  return $state if defined $state;
+  $state = {};
+  return $state if not defined $ENV{ $env_key } ;
+  my (@tokes) = split /\s+/, $ENV{ $env_key };
+  for my $token ( @tokes ) {
+    if ( $token =~ /^([^=]+)=(.+)$/ ) {
+      $state->{"$1"} = "$2";
+    } elsif ( $token =~ /^-(.+)$/ ) {
+      delete $state->{"$1"};
+    } else {
+      $state->{ $token } = 1;
+    }
+  }
+  return $state;
+}
+}
+sub _env_hasopt {
+  my ( $opt ) = @_;
+  return exists _env_opts()->{ $opt };
+}
+sub _env_getopt {
+  my ( $opt ) = @_ ;
+  return _env_opts()->{ $opt };
+}
+
+sub _format_error {
+  my ($conf) = @_ ;
+  if ( _env_hasopt('taint_safe') ) {
+    return $conf->{message};
+  }
+  if ( _env_hasopt('carp_debug') ) {
+    $conf->{env_config} = _env_opts;
+    require Data::Dumper;
+    local $Data::Dumper::Indent = 2;
+    local $Data::Dumper::Purity = 0;
+    local $Data::Dumper::Useqq = 1;
+    local $Data::Dumper::Terse = 1;
+    local $Data::Dumper::Quotekeys = 0;
+    return Data::Dumper::Dumper( $conf );
+  }
+  if ( exists $conf->{'message_extra_tainted'} ) {
+    return $conf->{message} . $conf->{'message_extra_tainted'};
+  }
+  return $conf->{message};
+}
+sub _fatal {
+  my ( $conf ) = @_;
+  require Carp;
+  return Carp::croak(_format_error( $conf ));
+}
 =head1 THANKS
 
 =over 4
