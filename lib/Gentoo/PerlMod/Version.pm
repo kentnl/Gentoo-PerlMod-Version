@@ -350,8 +350,13 @@ sub _env_getopt {
 
 sub _format_error {
   my ($conf) = @_ ;
+  my $message = $conf->{message};
+  if ( exists $conf->{want_lax} ){
+    my $lax = $conf->{want_lax};
+    $message.= qq{\n Set { lax => $lax } for more permissive behaviour. };
+  }
   if ( _env_hasopt('taint_safe') ) {
-    return $conf->{message};
+    return $message;
   }
   if ( _env_hasopt('carp_debug') ) {
     $conf->{env_config} = _env_opts;
@@ -364,9 +369,9 @@ sub _format_error {
     return Data::Dumper::Dumper( $conf );
   }
   if ( exists $conf->{'message_extra_tainted'} ) {
-    return $conf->{message} . $conf->{'message_extra_tainted'};
+    $message .=  $conf->{'message_extra_tainted'};
   }
-  return $conf->{message};
+  return $message;
 }
 sub _fatal {
   my ( $conf ) = @_;
