@@ -137,28 +137,32 @@ sub gentooize_version {
     if ( $config->{lax} > 0 ) {
       return _lax_cleaning_1($perlver);
     }
-    return _fatal({
-      code => 'matches_trial_regex_nonlax',
-      config => $config,
-      want_lax => 1,
-      message => 'Invalid version format (non-numeric data, either _ or -TRIAL ).',
-      message_extra_tainted => qq{ Version: >$perlver< },
-      version => $perlver,
-    });
+    return _fatal(
+      {
+        code                  => 'matches_trial_regex_nonlax',
+        config                => $config,
+        want_lax              => 1,
+        message               => 'Invalid version format (non-numeric data, either _ or -TRIAL ).',
+        message_extra_tainted => qq{ Version: >$perlver< },
+        version               => $perlver,
+      }
+    );
   }
 
   if ( $config->{lax} == 2 ) {
     return _lax_cleaning_2($perlver);
   }
 
-  return _fatal({
-      code => 'not_decimal_or_trial',
-      config => $config,
-      want_lax => 2,
-      message => 'Invalid version format (non-numeric/ASCII data).',
+  return _fatal(
+    {
+      code                  => 'not_decimal_or_trial',
+      config                => $config,
+      want_lax              => 2,
+      message               => 'Invalid version format (non-numeric/ASCII data).',
       message_extra_tainted => qq{ Version: >$perlver< },
-      version => $perlver,
-  });
+      version               => $perlver,
+    }
+  );
 }
 
 ###
@@ -193,11 +197,13 @@ sub _code_for {
   my $char = shift;
   if ( not exists $char_map->{$char} ) {
     my $char_ord = ord($char);
-    return _fatal({
-      code => 'bad_char',
-      message => 'A Character in the version is not in the ascii-to-int translation table.',
-      message_extra_tainted =>  qq{ Missing character: $char ( $char_ord )},
-    });
+    return _fatal(
+      {
+        code                  => 'bad_char',
+        message               => 'A Character in the version is not in the ascii-to-int translation table.',
+        message_extra_tainted => qq{ Missing character: $char ( $char_ord )},
+      }
+    );
   }
   return $char_map->{$char};
 }
@@ -265,12 +271,14 @@ sub _lax_cleaning_1 {
     $prereleasever = "$1";
     $isdev         = 1;
     if ( $prereleasever =~ /_/ ) {
-      return _fatal({
-        code => 'lax_multi_underscore',
-        message => q{More than one _ in a version is not permitted},
-        message_extra_tainted => qq{ Version: >$version< },
-        version => $version,
-      });
+      return _fatal(
+        {
+          code                  => 'lax_multi_underscore',
+          message               => q{More than one _ in a version is not permitted},
+          message_extra_tainted => qq{ Version: >$version< },
+          version               => $version,
+        }
+      );
     }
   }
   $version = _expand_numeric($version);
@@ -387,30 +395,34 @@ To see this information instead of the simple message that is usually sent to C<
 B<Note:> As values in the hashes that would be printed can come from users, C<carp_debug> is ignored if C<taint_safe> is on.
 
 =cut
+
 {
   my $state;
   my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
 
-#
-# my $hash = _env_opts();
-#
-sub _env_opts {
-  return $state if defined $state;
-  $state = {};
-  return $state if not defined $ENV{ $env_key } ;
-  my (@tokes) = split /\s+/, $ENV{ $env_key };
-  for my $token ( @tokes ) {
-    if ( $token =~ /^([^=]+)=(.+)$/ ) {
-      $state->{"$1"} = "$2";
-    } elsif ( $token =~ /^-(.+)$/ ) {
-      delete $state->{"$1"};
-    } else {
-      $state->{ $token } = 1;
+  #
+  # my $hash = _env_opts();
+  #
+  sub _env_opts {
+    return $state if defined $state;
+    $state = {};
+    return $state if not defined $ENV{$env_key};
+    my (@tokes) = split /\s+/, $ENV{$env_key};
+    for my $token (@tokes) {
+      if ( $token =~ /^([^=]+)=(.+)$/ ) {
+        $state->{"$1"} = "$2";
+      }
+      elsif ( $token =~ /^-(.+)$/ ) {
+        delete $state->{"$1"};
+      }
+      else {
+        $state->{$token} = 1;
+      }
     }
+    return $state;
   }
-  return $state;
 }
-}
+
 #
 # GENTOO_PERLMOD_VERSION=" foo=5 ";
 #
@@ -419,9 +431,10 @@ sub _env_opts {
 #
 
 sub _env_hasopt {
-  my ( $opt ) = @_;
-  return exists _env_opts()->{ $opt };
+  my ($opt) = @_;
+  return exists _env_opts()->{$opt};
 }
+
 #
 # GENTOO_PERLMOD_VERSION=" foo=5 ";
 #
@@ -429,9 +442,10 @@ sub _env_hasopt {
 # is( $value, 5 );
 #
 sub _env_getopt {
-  my ( $opt ) = @_ ;
-  return _env_opts()->{ $opt };
+  my ($opt) = @_;
+  return _env_opts()->{$opt};
 }
+
 #
 # _format_error({
 #   code => "some_string",
@@ -441,11 +455,11 @@ sub _env_getopt {
 # })
 #
 sub _format_error {
-  my ($conf) = @_ ;
+  my ($conf) = @_;
   my $message = $conf->{message};
-  if ( exists $conf->{want_lax} ){
+  if ( exists $conf->{want_lax} ) {
     my $lax = $conf->{want_lax};
-    $message.= qq{\n Set { lax => $lax } for more permissive behaviour. };
+    $message .= qq{\n Set { lax => $lax } for more permissive behaviour. };
   }
   if ( _env_hasopt('taint_safe') ) {
     return $message;
@@ -453,23 +467,25 @@ sub _format_error {
   if ( _env_hasopt('carp_debug') ) {
     $conf->{env_config} = _env_opts;
     require Data::Dumper;
-    local $Data::Dumper::Indent = 2;
-    local $Data::Dumper::Purity = 0;
-    local $Data::Dumper::Useqq = 1;
-    local $Data::Dumper::Terse = 1;
+    local $Data::Dumper::Indent    = 2;
+    local $Data::Dumper::Purity    = 0;
+    local $Data::Dumper::Useqq     = 1;
+    local $Data::Dumper::Terse     = 1;
     local $Data::Dumper::Quotekeys = 0;
-    return Data::Dumper::Dumper( $conf );
+    return Data::Dumper::Dumper($conf);
   }
   if ( exists $conf->{'message_extra_tainted'} ) {
-    $message .=  $conf->{'message_extra_tainted'};
+    $message .= $conf->{'message_extra_tainted'};
   }
   return $message;
 }
+
 sub _fatal {
-  my ( $conf ) = @_;
+  my ($conf) = @_;
   require Carp;
-  return Carp::croak(_format_error( $conf ));
+  return Carp::croak( _format_error($conf) );
 }
+
 =head1 THANKS
 
 =over 4
