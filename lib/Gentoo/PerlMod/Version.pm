@@ -6,8 +6,6 @@ package Gentoo::PerlMod::Version;
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
 
 use Sub::Exporter -setup => { exports => [qw( gentooize_version)] };
-use Carp;
-use List::MoreUtils qw( natatime );
 use version 0.77;
 
 =head1 SYNOPSIS
@@ -238,8 +236,9 @@ sub _ascii_to_int {
   my $string = shift;
   my @chars = split //, $string;
   my @output;
+  require List::MoreUtils;
 
-  my $iterator = natatime 2, @chars;
+  my $iterator = List::MoreUtils::natatime 2, @chars;
   while ( my @vals = $iterator->() ) {
     push @output, _enc_pair(@vals);
   }
