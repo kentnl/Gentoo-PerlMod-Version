@@ -134,15 +134,28 @@ sub gentooize_version {
     if ( $config->{lax} > 0 ) {
       return _lax_cleaning_1($perlver);
     }
-    Carp::croak(
-      'Invalid version format (non-numeric data, either _ or -TRIAL ). Set { lax => 1 } for more permissive behaviour.');
+    return _fatal({
+      code => 'matches_trial_regex_nonlax',
+      config => $config,
+      want_lax => 1,
+      message => 'Invalid version format (non-numeric data, either _ or -TRIAL ).',
+      message_extra_tainted => qq{ Version: >$perlver< },
+      version => $perlver,
+    });
   }
 
   if ( $config->{lax} == 2 ) {
     return _lax_cleaning_2($perlver);
   }
 
-  Carp::croak('Invalid version format (non-numeric/ASCII data). ( set { lax => 2 } for more permissive behaviour )');
+  return _fatal({
+      code => 'not_decimal_or_trial',
+      config => $config,
+      want_lax => 2,
+      message => 'Invalid version format (non-numeric/ASCII data).',
+      message_extra_tainted => qq{ Version: >$perlver< },
+      version => $perlver,
+  });
 }
 
 ###
@@ -175,8 +188,13 @@ sub _char_map {
 
 sub _code_for {
   my $char = shift;
-  if ( !exists $char_map->{$char} ) {
-    Carp::croak( 'Character ' . $char . q{ ( } . ord($char) . q{) is not in the ascii-to-int translation table} );
+  if ( not exists $char_map->{$char} ) {
+    my $char_ord = ord($char);
+    return _fatal({
+      code => 'bad_char',
+      message => 'A Character in the version is not in the ascii-to-int translation table.',
+      message_extra_tainted =>  qq{ Missing character: $char ( $char_ord )},
+    });
   }
   return $char_map->{$char};
 }
@@ -244,7 +262,12 @@ sub _lax_cleaning_1 {
     $prereleasever = "$1";
     $isdev         = 1;
     if ( $prereleasever =~ /_/ ) {
-      Carp::croak(q{More than one _ in a version is not permitted});
+      return _fatal({
+        code => 'lax_multi_underscore',
+        message => q{More than one _ in a version is not permitted},
+        message_extra_tainted => qq{ Version: >$version< },
+        version => $version,
+      });
     }
   }
   $version = _expand_numeric($version);
