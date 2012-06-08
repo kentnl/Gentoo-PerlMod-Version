@@ -238,7 +238,7 @@ sub _ascii_to_int {
   my @output;
   require List::MoreUtils;
 
-  my $iterator = List::MoreUtils::natatime 2, @chars;
+  my $iterator = List::MoreUtils::natatime(2, @chars);
   while ( my @vals = $iterator->() ) {
     push @output, _enc_pair(@vals);
   }
