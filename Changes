@@ -1,6 +1,27 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
 {{$NEXT}}
+ [00 IMPORTANT CHANGES]
+ - Errors that occur when a version fails to validate have changed in some
+   circumstances.
+ - Now reports the version token that failed to validate.
+ - laxness can be overridden globally via new
+   GENTOO_PERLMOD_VERSION_OPTS=" always_lax=$n "
+ - user provided data can now be stripped from error output by
+   GENTOO_PERLMOD_VERSION_OPTS=" taint_safe "
+ - carp messages can be more verbose about context/options by setting
+   GENTOO_PERLMOD_VERSION_OPTS=" carp_debug "
+
+ [Dependencies::Develop::Changed]
+ - recommends : Dist::Zilla::PluginBundle::Author::KENTNL::Lite
+   0.01009803 -> v1.3.0
+ - suggests : Dist::Zilla::PluginBundle::Author::KENTNL v1.2.0 -> v1.3.0
+
+ [Internals]
+ - Carp now loaded on-demand.
+ - List::MoreUtils now loaded on demand, which is good, because its only
+   used at lax = 2
+ - croak is proxied via _fatal() which takes lots more information.
 
 0.4.0 2012-03-01T08:37:02Z
  [00 IMPORTANT CHANGES]
