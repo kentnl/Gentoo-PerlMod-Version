@@ -196,7 +196,7 @@ sub _char_map {
 sub _code_for {
   my $char = shift;
   if ( not exists $char_map->{$char} ) {
-    my $char_ord = ord($char);
+    my $char_ord = ord $char;
     return _fatal(
       {
         code                  => 'bad_char',
@@ -356,9 +356,9 @@ sub _expand_numeric {
 
 This module recognises the environment variable GENTOO_PERLMOD_VERSION_OPTS for a few features.
 
-These are mostly useful for system wide or userwide policies that may be applicable for using this module, depending on where it is used.
+These are mostly useful for system wide or user-wide policies that may be applicable for using this module, depending on where it is used.
 
-This field is split by whitespace and each token has a meaning.
+This field is split by white-space and each token has a meaning.
 
 =head2 always_lax
 
@@ -371,7 +371,7 @@ This field is split by whitespace and each token has a meaning.
 
 This environment setting, if specified, overrides any specification of "lax" in the code. If this specified more than once, the right-most one applies.
 
-Specifying C<-always_lax> will un-set the setting, making it behave as if it had not been previously specified.
+Specifying C<-always_lax> will unset the setting, making it behave as if it had not been previously specified.
 
 =head2 taint_safe
 

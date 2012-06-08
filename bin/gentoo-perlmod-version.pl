@@ -1,8 +1,9 @@
 #!/usr/bin/env perl
-
+## no critic (TestingAndDebugging)
 package Gentoo::PerlMod::Version::Tool;
 use strict;
 use warnings;
+## use critic
 
 # PODNAME: gentoo-perlmod-version.pl
 # ABSTRACT: Command line utility for translating cpan versions to gentoo equivalents.
@@ -70,16 +71,16 @@ for ( 0 .. $#ARGV ) {
   last;
 }
 for ( 0 .. $#ARGV ) {
-  next unless $ARGV[$_] =~ /^--oneshot$/;
+  next unless $ARGV[$_] eq '--oneshot';
   $oneshot = 1;
   splice @ARGV, $_, 1, ();
   last;
 }
 
 if ($oneshot) {
-  die "Too many versions given to --oneshot mode" if $#ARGV > 0;
+  croak 'Too many versions given to --oneshot mode' if $#ARGV > 0;
   my $v = gentooize_version( $ARGV[0], { lax => $lax } );
-  print $v or die "Print Error $!";
+  print $v or croak "Print Error $!";
   exit 0;
 }
 
@@ -99,5 +100,6 @@ sub map_version {
   my ( $version, $laxness ) = @_;
   print "$version => " . gentooize_version( $version, { lax => $laxness } ) or croak "Print error $!";
   print "\n" or croak "Print error $!";
+  return;
 }
 
