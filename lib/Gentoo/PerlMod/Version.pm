@@ -125,6 +125,9 @@ sub gentooize_version {
   my ( $perlver, $config ) = @_;
   $config ||= {};
   $config->{lax} = 0 unless defined $config->{lax};
+  if ( _env_hasopt('always_lax') ) {
+    $config->{lax} = _env_getopt('always_lax');
+  }
 
   if ( $perlver =~ /^v?[\d.]+$/ ) {
     return _lax_cleaning_0($perlver);
