@@ -324,7 +324,8 @@ sub _lax_cleaning_2 {
 #
 # Expands dotted decimal to a float, and then chunks the float.
 #
-
+# my $clean = _expand_numeric( $dirty );
+#
 sub _expand_numeric {
   my $perlver = shift;
 
@@ -347,6 +348,9 @@ sub _expand_numeric {
   my $state;
   my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
 
+#
+# my $hash = _env_opts();
+#
 sub _env_opts {
   return $state if defined $state;
   $state = {};
@@ -364,15 +368,35 @@ sub _env_opts {
   return $state;
 }
 }
+#
+# GENTOO_PERLMOD_VERSION=" foo=5 ";
+#
+# my $value = _env_hasopt( 'foo' );
+# ok( $value );
+#
+
 sub _env_hasopt {
   my ( $opt ) = @_;
   return exists _env_opts()->{ $opt };
 }
+#
+# GENTOO_PERLMOD_VERSION=" foo=5 ";
+#
+# my $value = _env_getopt( 'foo' );
+# is( $value, 5 );
+#
 sub _env_getopt {
   my ( $opt ) = @_ ;
   return _env_opts()->{ $opt };
 }
-
+#
+# _format_error({
+#   code => "some_string",
+#   message => "Some message"
+#   message_extra_tainted => "And $tainted " # extra data for non-taint-safe envs.
+#   want_lax => n # optional
+# })
+#
 sub _format_error {
   my ($conf) = @_ ;
   my $message = $conf->{message};
