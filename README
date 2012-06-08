@@ -3,7 +3,7 @@ NAME
     normalised Gentoo versions.
 
 VERSION
-    version 0.4.0
+    version 0.5.0
 
 SYNOPSIS
         use Gentoo::PerlMod::Version qw( :all );
@@ -110,6 +110,55 @@ METHODS
         10 * 36 + 6 => 366
 
     As you can see, its really nasty, and hopefully its not needed.
+
+ENVIRONMENT
+    This module recognises the environment variable
+    GENTOO_PERLMOD_VERSION_OPTS for a few features.
+
+    These are mostly useful for system wide or user-wide policies that may
+    be applicable for using this module, depending on where it is used.
+
+    This field is split by white-space and each token has a meaning.
+
+  always_lax
+      GENTOO_PERLMOD_VERSION_OPTS+=" always_lax=0 "
+      GENTOO_PERLMOD_VERSION_OPTS+=" always_lax=1 "
+      GENTOO_PERLMOD_VERSION_OPTS+=" always_lax=2 "
+      GENTOO_PERLMOD_VERSION_OPTS+=" always_lax   "# same as always_lax=1
+      GENTOO_PERLMOD_VERSION_OPTS+=" -always_lax  "# unset always_lax
+
+    This environment setting, if specified, overrides any specification of
+    "lax" in the code. If this specified more than once, the right-most one
+    applies.
+
+    Specifying "-always_lax" will unset the setting, making it behave as if
+    it had not been previously specified.
+
+  taint_safe
+      GENTOO_PERLMOD_VERSION_OPTS+=" taint_safe  " #on
+      GENTOO_PERLMOD_VERSION_OPTS+=" -taint_safe " #off
+
+    As it stands, this module only emits messages via STDOUT/STDERR when an
+    error occurs. For diagnosis, sometimes user provided data can appear in
+    this output.
+
+    Specifying this option will remove the information as specified by the
+    user where possible, to eliminate this risk if this is a security issue
+    for you.
+
+    It is not a guarantee of safety, but merely a tool you might find
+    useful, depending on circumstances.
+
+  carp_debug
+      GENTOO_PERLMOD_VERSION_OPTS+=" carp_debug " #on
+      GENTOO_PERLMOD_VERSION_OPTS+=" -carp_debug " #off
+
+    Lots of information is passed to our internal carp proxy that could aid
+    in debugging a future problem. To see this information instead of the
+    simple message that is usually sent to "Carp", enable this option.
+
+    Note: As values in the hashes that would be printed can come from users,
+    "carp_debug" is ignored if "taint_safe" is on.
 
 THANKS
     Torsten Veller - Inspiration for this Module and all the work on Gentoo

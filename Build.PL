@@ -21,7 +21,7 @@ my %module_build_args = (
     "Kent Fredric <kentnl\@cpan.org>"
   ],
   "dist_name" => "Gentoo-PerlMod-Version",
-  "dist_version" => "0.4.0",
+  "dist_version" => "0.5.0",
   "license" => "perl",
   "module_name" => "Gentoo::PerlMod::Version",
   "recommends" => {},
@@ -31,7 +31,7 @@ my %module_build_args = (
     "Data::Dumper" => 0,
     "List::MoreUtils" => 0,
     "Sub::Exporter" => 0,
-    "perl" => "5.10.0",
+    "perl" => "v5.10.0",
     "strict" => 0,
     "version" => "0.77",
     "warnings" => 0
