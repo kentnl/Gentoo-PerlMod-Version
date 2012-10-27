@@ -3,7 +3,7 @@ NAME
     normalised Gentoo versions.
 
 VERSION
-    version 0.5.0
+    version 0.6.0
 
 SYNOPSIS
         use Gentoo::PerlMod::Version qw( :all );
@@ -25,7 +25,7 @@ SYNOPSIS
 
         say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
 
-METHODS
+FUNCTIONS
   gentooize_version
         my $normalized = gentooize_version( $weird_version )
 

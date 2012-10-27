@@ -9,19 +9,20 @@ my %module_build_args = (
   "build_requires" => {
     "File::Find" => 0,
     "File::Temp" => 0,
-    "Module::Build" => "0.3601",
+    "Module::Build" => "0.4003",
+    "Scalar::Util" => 0,
     "Test::Fatal" => 0,
-    "Test::More" => "0.96"
+    "Test::More" => "0.98"
   },
   "configure_requires" => {
-    "Module::Build" => "0.3601"
+    "Module::Build" => "0.4003"
   },
   "dist_abstract" => "Convert arbitrary Perl Modules' versions into normalised Gentoo versions.",
   "dist_author" => [
     "Kent Fredric <kentnl\@cpan.org>"
   ],
   "dist_name" => "Gentoo-PerlMod-Version",
-  "dist_version" => "0.5.0",
+  "dist_version" => "0.6.0",
   "license" => "perl",
   "module_name" => "Gentoo::PerlMod::Version",
   "recommends" => {},

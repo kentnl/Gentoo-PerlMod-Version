@@ -132,38 +132,45 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "GENTOO-PERLMOD-VERSION 1"
-.TH GENTOO-PERLMOD-VERSION 1 "2012-10-28" "perl v5.16.0" "User Contributed Perl Documentation"
+.IX Title "Gentoo::PerlMod::Version::Error 3"
+.TH Gentoo::PerlMod::Version::Error 3 "2012-10-28" "perl v5.16.0" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
 .nh
 .SH "NAME"
-gentoo\-perlmod\-version.pl \- Command line utility for translating cpan versions to gentoo equivalents.
+Gentoo::PerlMod::Version::Error \- Various error message and diagnostic bits.
 .SH "VERSION"
 .IX Header "VERSION"
 version 0.6.0
-.SH "SYNOPSIS"
-.IX Header "SYNOPSIS"
-.Vb 3
-\&    gentoo\-perlmod\-version.pl 1.4 1.5 1.6
-\&    gentoo\-perlmod\-version.pl \-\-lax=1 1.4_5 1.5_6
-\&    gentoo\-perlmod\-version.pl \-\-lax=2 1.4.DONTDOTHISPLEASE432
-\&
-\&    echo 1.4 | gentoo\-perlmod\-version.pl
-\&    echo 1.4\-5 | gentoo\-perlmod\-version.pl \-\-lax=1
-\&    echo 1.4.NOOOOO | gentoo\-perlmod\-version.pl \-\-lax=2
-\&
-\&    SOMEVAR="$(  gentoo\-perlmod\-version.pl \-\-oneshot 1.4 )"
-\&    SOMEVAR="$(  gentoo\-perlmod\-version.pl \-\-oneshot 1.4 1.5 )" # Invalid, dies
-\&    SOMEVAR="$(  gentoo\-perlmod\-version.pl \-\-oneshot 1.4_5 )" # Invalid, dies
-\&    SOMEVAR="$(  gentoo\-perlmod\-version.pl \-\-lax=1 \-\-oneshot 1.4_5 )" # Ok
+.SH "FUNCTIONS"
+.IX Header "FUNCTIONS"
+.SS "perlver_undefined"
+.IX Subsection "perlver_undefined"
+.Vb 1
+\&    return perlver_undefined( $config );
 .Ve
 .PP
-See perldoc for \f(CW\*(C`Gentoo::PerlMod::Versions\*(C'\fR documentation for more information.
-.PP
+Error condition thrown when \f(CW\*(C`gentooize_version\*(C'\fR is passed \f(CW\*(C`undef\*(C'\fR for the \f(CW$perlver\fR
+.SS "matches_trial_regex_nonlax"
+.IX Subsection "matches_trial_regex_nonlax"
 .Vb 1
-\&    perldoc Gentoo::PerlMod::Version
+\&    return matches_trial_regex_nonlax( $perlver, $config );
+.Ve
+.SS "not_decimal_or_trial"
+.IX Subsection "not_decimal_or_trial"
+.Vb 1
+\&    return not_decimal_or_trial( $perlver , $config )
+.Ve
+.SS "bad_char"
+.IX Subsection "bad_char"
+.Vb 1
+\&    return bad_char( $char, $char_ord );
+.Ve
+.SS "lax_multi_underscore"
+.IX Subsection "lax_multi_underscore"
+.Vb 1
+\&    return lax_multi_underscore( $version )
 .Ve
 .SH "AUTHOR"
 .IX Header "AUTHOR"

@@ -5,7 +5,7 @@ BEGIN {
   $Gentoo::PerlMod::Version::Tool::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Gentoo::PerlMod::Version::Tool::VERSION = '0.5.0';
+  $Gentoo::PerlMod::Version::Tool::VERSION = '0.6.0';
 }
 use strict;
 use warnings;
@@ -88,8 +88,8 @@ sub map_version {
   return;
 }
 
-
 __END__
+
 =pod
 
 =encoding utf-8
@@ -100,7 +100,7 @@ gentoo-perlmod-version.pl - Command line utility for translating cpan versions t
 
 =head1 VERSION
 
-version 0.5.0
+version 0.6.0
 
 =head1 SYNOPSIS
 
@@ -133,4 +133,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

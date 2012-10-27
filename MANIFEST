@@ -9,11 +9,15 @@ README
 bin/gentoo-perlmod-version.pl
 dist.ini
 lib/Gentoo/PerlMod/Version.pm
+lib/Gentoo/PerlMod/Version/Env.pm
+lib/Gentoo/PerlMod/Version/Error.pm
 perlcritic.rc
 t/00-compile.t
 t/000-report-versions-tiny.t
 t/01_basic.t
 t/02_vstrings.t
+t/03_env.t
+t/04_error.t
 weaver.ini
 xt/author/critic.t
 xt/release/cpan-changes.t
