@@ -15,7 +15,6 @@ my $state;
 my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
 
 
-
 sub opts {
   return $state if defined $state;
   $state = {};
