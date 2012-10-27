@@ -8,7 +8,6 @@ package Gentoo::PerlMod::Version::Env;
 my $state;
 my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
 
-
 =func opts
 
     my $hash = Gentoo::PerlMod::Version::Env::opts();
