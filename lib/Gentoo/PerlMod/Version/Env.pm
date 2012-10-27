@@ -41,7 +41,7 @@ sub hasopt {
   return exists opts()->{$opt};
 }
 
-    
+
 sub getopt {
   my ($opt) = @_;
   return opts()->{$opt};
