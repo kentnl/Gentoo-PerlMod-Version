@@ -235,7 +235,7 @@ BEGIN {
   for my $env ( qw( opts hasopt getopt ) ){
     my $code = sub {
       require Gentoo::PerlMod::Version::Env;
-      my $sub = Gentoo::PerlMod::Version::Env->can($err);
+      my $sub = Gentoo::PerlMod::Version::Env->can($env);
       goto $sub;
     };
     no strict 'refs';

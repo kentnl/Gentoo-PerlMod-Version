@@ -11,6 +11,18 @@ BEGIN {
 
 # ABSTRACT: Various error message and diagnostic bits.
 
+BEGIN {
+    for my $env (qw( opts hasopt getopt )) {
+        my $code = sub {
+            require Gentoo::PerlMod::Version::Env;
+            my $sub = Gentoo::PerlMod::Version::Env->can($env);
+            goto $sub;
+        };
+        no strict 'refs';
+        *{ __PACKAGE__ . '::_env_' . $env } = $code;
+    }
+
+}
 sub perlver_undefined {
     my ($config) = @_;
     return _fatal(
@@ -117,18 +129,7 @@ sub _fatal {
     return Carp::croak( _format_error($conf) );
 }
 
-BEGIN {
-    for my $env (qw( opts hasopt getopt )) {
-        my $code = sub {
-            require Gentoo::PerlMod::Version::Env;
-            my $sub = Gentoo::PerlMod::Version::Env->can($err);
-            goto $sub;
-        };
-        no strict 'refs';
-        *{ __PACKAGE__ . '::_env_' . $env } = \$code;
-    }
-
-}
+1;
 
 __END__
 

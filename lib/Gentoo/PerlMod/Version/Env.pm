@@ -59,6 +59,8 @@ sub getopt {
     return opts()->{$opt};
 }
 
+1;
+
 __END__
 
 =pod
