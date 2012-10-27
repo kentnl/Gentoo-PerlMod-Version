@@ -5,7 +5,7 @@ package Gentoo::PerlMod::Version;
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
 
-use Sub::Exporter -setup => { exports => [qw( gentooize_version)] };
+use Sub::Exporter -setup => { exports => [qw( gentooize_version )] };
 use version 0.77;
 
 =head1 SYNOPSIS
@@ -122,14 +122,8 @@ As you can see, its really nasty, and hopefully its not needed.
 sub gentooize_version {
   my ( $perlver, $config ) = @_;
   $config ||= {};
-  if ( not defined $perlver ){
-    return _fatal(
-      {
-        code => 'perlver_undefined',
-        config => $config,
-        message => 'Argument \'$perlver\' to gentooize_version was undefined',
-      }
-    );
+  if ( not defined $perlver ) {
+    return _err_perlver_undefined($config);
   }
   $config->{lax} = 0 unless defined $config->{lax};
   if ( _env_hasopt('always_lax') ) {
@@ -144,32 +138,13 @@ sub gentooize_version {
     if ( $config->{lax} > 0 ) {
       return _lax_cleaning_1($perlver);
     }
-    return _fatal(
-      {
-        code                  => 'matches_trial_regex_nonlax',
-        config                => $config,
-        want_lax              => 1,
-        message               => 'Invalid version format (non-numeric data, either _ or -TRIAL ).',
-        message_extra_tainted => qq{ Version: >$perlver< },
-        version               => $perlver,
-      }
-    );
+    return _err_matches_trial_regex_nonlax( $perlver, $config );
   }
 
   if ( $config->{lax} == 2 ) {
     return _lax_cleaning_2($perlver);
   }
-
-  return _fatal(
-    {
-      code                  => 'not_decimal_or_trial',
-      config                => $config,
-      want_lax              => 2,
-      message               => 'Invalid version format (non-numeric/ASCII data).',
-      message_extra_tainted => qq{ Version: >$perlver< },
-      version               => $perlver,
-    }
-  );
+  return _err_not_decimal_or_trial( $perlver, $config );
 }
 
 ###
@@ -204,13 +179,7 @@ sub _code_for {
   my $char = shift;
   if ( not exists $char_map->{$char} ) {
     my $char_ord = ord $char;
-    return _fatal(
-      {
-        code                  => 'bad_char',
-        message               => 'A Character in the version is not in the ascii-to-int translation table.',
-        message_extra_tainted => qq{ Missing character: $char ( $char_ord )},
-      }
-    );
+    return _err_bad_char( $char, $char_ord );
   }
   return $char_map->{$char};
 }
@@ -247,7 +216,7 @@ sub _ascii_to_int {
   my @output;
   require List::MoreUtils;
 
-  my $iterator = List::MoreUtils::natatime(2, @chars);
+  my $iterator = List::MoreUtils::natatime( 2, @chars );
   while ( my @vals = $iterator->() ) {
     push @output, _enc_pair(@vals);
   }
@@ -279,14 +248,7 @@ sub _lax_cleaning_1 {
     $prereleasever = "$1";
     $isdev         = 1;
     if ( $prereleasever =~ /_/ ) {
-      return _fatal(
-        {
-          code                  => 'lax_multi_underscore',
-          message               => q{More than one _ in a version is not permitted},
-          message_extra_tainted => qq{ Version: >$version< },
-          version               => $version,
-        }
-      );
+      return _err_lax_multi_underscore($version);
     }
   }
   $version = _expand_numeric($version);
@@ -404,94 +366,26 @@ B<Note:> As values in the hashes that would be printed can come from users, C<ca
 
 =cut
 
-{
-  my $state;
-  my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
-
-  #
-  # my $hash = _env_opts();
-  #
-  sub _env_opts {
-    return $state if defined $state;
-    $state = {};
-    return $state if not defined $ENV{$env_key};
-    my (@tokes) = split /\s+/, $ENV{$env_key};
-    for my $token (@tokes) {
-      if ( $token =~ /^([^=]+)=(.+)$/ ) {
-        $state->{"$1"} = "$2";
-      }
-      elsif ( $token =~ /^-(.+)$/ ) {
-        delete $state->{"$1"};
-      }
-      else {
-        $state->{$token} = 1;
-      }
-    }
-    return $state;
+BEGIN {
+  for my $err (qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore )) {
+    my $code = sub {
+      require Gentoo::PerlMod::Version::Error;
+      my $sub = Gentoo::PerlMod::Version::Error->can($err);
+      goto $sub;
+    };
+    no strict 'refs';
+    *{ __PACKAGE__ . '::_err_' . $err } = $code;
   }
-}
-
-#
-# GENTOO_PERLMOD_VERSION=" foo=5 ";
-#
-# my $value = _env_hasopt( 'foo' );
-# ok( $value );
-#
-
-sub _env_hasopt {
-  my ($opt) = @_;
-  return exists _env_opts()->{$opt};
-}
-
-#
-# GENTOO_PERLMOD_VERSION=" foo=5 ";
-#
-# my $value = _env_getopt( 'foo' );
-# is( $value, 5 );
-#
-sub _env_getopt {
-  my ($opt) = @_;
-  return _env_opts()->{$opt};
-}
-
-#
-# _format_error({
-#   code => "some_string",
-#   message => "Some message"
-#   message_extra_tainted => "And $tainted " # extra data for non-taint-safe envs.
-#   want_lax => n # optional
-# })
-#
-sub _format_error {
-  my ($conf) = @_;
-  my $message = $conf->{message};
-  if ( exists $conf->{want_lax} ) {
-    my $lax = $conf->{want_lax};
-    $message .= qq{\n Set { lax => $lax } for more permissive behaviour. };
+  for my $env (qw( opts hasopt getopt )) {
+    my $code = sub {
+      require Gentoo::PerlMod::Version::Env;
+      my $sub = Gentoo::PerlMod::Version::Env->can($env);
+      goto $sub;
+    };
+    no strict 'refs';
+    *{ __PACKAGE__ . '::_env_' . $env } = $code;
   }
-  if ( _env_hasopt('taint_safe') ) {
-    return $message;
-  }
-  if ( _env_hasopt('carp_debug') ) {
-    $conf->{env_config} = _env_opts;
-    require Data::Dumper;
-    local $Data::Dumper::Indent    = 2;
-    local $Data::Dumper::Purity    = 0;
-    local $Data::Dumper::Useqq     = 1;
-    local $Data::Dumper::Terse     = 1;
-    local $Data::Dumper::Quotekeys = 0;
-    return Data::Dumper::Dumper($conf);
-  }
-  if ( exists $conf->{'message_extra_tainted'} ) {
-    $message .= $conf->{'message_extra_tainted'};
-  }
-  return $message;
-}
 
-sub _fatal {
-  my ($conf) = @_;
-  require Carp;
-  return Carp::croak( _format_error($conf) );
 }
 
 =head1 THANKS
