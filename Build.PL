@@ -10,6 +10,7 @@ my %module_build_args = (
     "File::Find" => 0,
     "File::Temp" => 0,
     "Module::Build" => "0.4003",
+    "Scalar::Util" => 0,
     "Test::Fatal" => 0,
     "Test::More" => "0.98"
   },

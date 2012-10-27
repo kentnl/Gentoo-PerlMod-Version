@@ -6,6 +6,7 @@ build_requires:
   File::Find: 0
   File::Temp: 0
   Module::Build: 0.4003
+  Scalar::Util: 0
   Test::Fatal: 0
   Test::More: 0.98
 configure_requires:
@@ -50,6 +51,7 @@ x_BuiltWith:
     File::Temp: 0.22
     List::MoreUtils: 0.33
     Module::Build: 0.4003
+    Scalar::Util: 1.25
     Sub::Exporter: 0.984
     Test::Fatal: 0.010
     Test::More: 0.98
