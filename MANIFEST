@@ -9,6 +9,7 @@ README
 bin/gentoo-perlmod-version.pl
 dist.ini
 lib/Gentoo/PerlMod/Version.pm
+lib/Gentoo/PerlMod/Version/Env.pm
 lib/Gentoo/PerlMod/Version/Error.pm
 perlcritic.rc
 t/00-compile.t

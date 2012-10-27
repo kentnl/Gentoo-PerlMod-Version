@@ -117,6 +117,19 @@ sub _fatal {
     return Carp::croak( _format_error($conf) );
 }
 
+BEGIN {
+    for my $env (qw( opts hasopt getopt ) )
+      {
+          my $code = sub {
+              require Gentoo::PerlMod::Version::Env;
+              my $sub = Gentoo::PerlMod::Version::Env->can($err);
+              goto $sub;
+          };
+          *{ __PACKAGE__ . '::_env_' . $env } = $code;
+    }
+
+}
+
 __END__
 
 =pod

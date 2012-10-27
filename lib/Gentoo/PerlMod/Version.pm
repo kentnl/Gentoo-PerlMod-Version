@@ -22,7 +22,7 @@ sub gentooize_version {
   my ( $perlver, $config ) = @_;
   $config ||= {};
   if ( not defined $perlver ){
-    return err_perlver_undefined( $config );
+    return _err_perlver_undefined( $config );
   }
   $config->{lax} = 0 unless defined $config->{lax};
   if ( _env_hasopt('always_lax') ) {
@@ -37,13 +37,13 @@ sub gentooize_version {
     if ( $config->{lax} > 0 ) {
       return _lax_cleaning_1($perlver);
     }
-    return err_matches_trial_regex_nonlax( $perlver, $config );
+    return _err_matches_trial_regex_nonlax( $perlver, $config );
   }
 
   if ( $config->{lax} == 2 ) {
     return _lax_cleaning_2($perlver);
   }
-  return err_not_decimal_or_trial( $perlver, $config );
+  return _err_not_decimal_or_trial( $perlver, $config );
 }
 
 ###
@@ -78,7 +78,7 @@ sub _code_for {
   my $char = shift;
   if ( not exists $char_map->{$char} ) {
     my $char_ord = ord $char;
-    return err_bad_char( $char, $char_ord );
+    return _err_bad_char( $char, $char_ord );
   }
   return $char_map->{$char};
 }
@@ -147,7 +147,7 @@ sub _lax_cleaning_1 {
     $prereleasever = "$1";
     $isdev         = 1;
     if ( $prereleasever =~ /_/ ) {
-      return err_lax_multi_underscore( $version );
+      return _err_lax_multi_underscore( $version );
     }
   }
   $version = _expand_numeric($version);
@@ -222,56 +222,6 @@ sub _expand_numeric {
 }
 
 
-{
-  my $state;
-  my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
-
-  #
-  # my $hash = _env_opts();
-  #
-  sub _env_opts {
-    return $state if defined $state;
-    $state = {};
-    return $state if not defined $ENV{$env_key};
-    my (@tokes) = split /\s+/, $ENV{$env_key};
-    for my $token (@tokes) {
-      if ( $token =~ /^([^=]+)=(.+)$/ ) {
-        $state->{"$1"} = "$2";
-      }
-      elsif ( $token =~ /^-(.+)$/ ) {
-        delete $state->{"$1"};
-      }
-      else {
-        $state->{$token} = 1;
-      }
-    }
-    return $state;
-  }
-}
-
-#
-# GENTOO_PERLMOD_VERSION=" foo=5 ";
-#
-# my $value = _env_hasopt( 'foo' );
-# ok( $value );
-#
-
-sub _env_hasopt {
-  my ($opt) = @_;
-  return exists _env_opts()->{$opt};
-}
-
-#
-# GENTOO_PERLMOD_VERSION=" foo=5 ";
-#
-# my $value = _env_getopt( 'foo' );
-# is( $value, 5 );
-#
-sub _env_getopt {
-  my ($opt) = @_;
-  return _env_opts()->{$opt};
-}
-
 BEGIN {
   for my $err ( qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore ) ){
     my $code = sub {
@@ -279,8 +229,17 @@ BEGIN {
       my $sub = Gentoo::PerlMod::Version::Error->can($err);
       goto $sub;
     };
-    *{ __PACKAGE__ . '::err_' . $err } = $code;
+    *{ __PACKAGE__ . '::_err_' . $err } = $code;
   }
+  for my $env ( qw( opts hasopt getopt ) ){
+    my $code = sub {
+      require Gentoo::PerlMod::Version::Env;
+      my $sub = Gentoo::PerlMod::Version::Env->can($err);
+      goto $sub;
+    };
+    *{ __PACKAGE__ . '::_env_' . $env } = $code;
+  }
+
 }
 
 
