@@ -12,20 +12,25 @@ BEGIN {
 # ABSTRACT: Various error message and diagnostic bits.
 
 BEGIN {
+
   for my $env (qw( opts hasopt getopt )) {
     my $code = sub {
       require Gentoo::PerlMod::Version::Env;
       my $sub = Gentoo::PerlMod::Version::Env->can($env);
       goto $sub;
     };
+    ## no critic ( ProhibitNoStrict )
+
     no strict 'refs';
     *{ __PACKAGE__ . '::_env_' . $env } = $code;
   }
 
 }
 
+
 sub perlver_undefined {
   my ($config) = @_;
+  ## no critic ( RequireInterpolationOfMetachars )
   return _fatal(
     {
       code    => 'perlver_undefined',
@@ -34,6 +39,7 @@ sub perlver_undefined {
     }
   );
 }
+
 
 sub matches_trial_regex_nonlax {
   my ( $perlver, $config, ) = @_;
@@ -49,6 +55,7 @@ sub matches_trial_regex_nonlax {
   );
 }
 
+
 sub not_decimal_or_trial {
   my ( $perlver, $config ) = @_;
   return _fatal(
@@ -63,6 +70,7 @@ sub not_decimal_or_trial {
   );
 }
 
+
 sub bad_char {
   my ( $char, $char_ord ) = @_;
   return _fatal(
@@ -73,6 +81,7 @@ sub bad_char {
     }
   );
 }
+
 
 sub lax_multi_underscore {
   my ($version) = @_;
@@ -141,6 +150,30 @@ Gentoo::PerlMod::Version::Error - Various error message and diagnostic bits.
 =head1 VERSION
 
 version 0.5.1
+
+=head1 FUNCTIONS
+
+=head2 perlver_undefined
+
+    return perlver_undefined( $config );
+
+Error condition thrown when L<< C<gentooize_version>|Gentoo::PerlMod::Version::gentooize_version >> is passed C<undef> for the C<$perlver>
+
+=head2 matches_trial_regex_nonlax
+
+    return matches_trial_regex_nonlax( $perlver, $config );
+
+=head2 not_decimal_or_trial
+
+    return not_decimal_or_trial( $perlver , $config )
+
+=head2 bad_char
+
+    return bad_char( $char, $char_ord );
+
+=head2 lax_multi_underscore
+
+    return lax_multi_underscore( $version )
 
 =head1 AUTHOR
 

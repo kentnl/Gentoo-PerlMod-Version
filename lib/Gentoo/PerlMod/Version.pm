@@ -283,7 +283,7 @@ version 0.5.1
 
     say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
 
-=head1 METHODS
+=head1 FUNCTIONS
 
 =head2 gentooize_version
 
