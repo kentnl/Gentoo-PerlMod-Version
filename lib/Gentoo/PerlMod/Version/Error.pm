@@ -124,7 +124,7 @@ BEGIN {
             my $sub = Gentoo::PerlMod::Version::Env->can($err);
             goto $sub;
         };
-        \&{ __PACKAGE__ . '::_env_' . $env } = $code;
+        *{ __PACKAGE__ . '::_env_' . $env } = \$code;
     }
 
 }
