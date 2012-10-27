@@ -1,6 +1,6 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
-0.6.0 2012-10-27T12:22:37Z
+0.6.0 2012-10-27T12:27:17Z
  [00 IMPORTANT CHANGES]
  - $perlver being undef now is an error.
  - All error code is now refactored into the ::Error class, which
@@ -21,6 +21,9 @@
 
  [Dependencies::Test::Changed]
  - requires : Test::More 0.96 -> 0.98
+
+ [Dependencies::Test::New]
+ - requires : Scalar::Util
 
  [Documentation]
  - Miscelaneous improvements, s/method/func/, and more general coverage of
