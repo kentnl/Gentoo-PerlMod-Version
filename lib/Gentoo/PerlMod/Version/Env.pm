@@ -8,9 +8,13 @@ package Gentoo::PerlMod::Version::Env;
 my $state;
 my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
 
-#
-# my $hash = Gentoo::PerlMod::Version::Env::opts();
-#
+
+=func opts
+
+    my $hash = Gentoo::PerlMod::Version::Env::opts();
+
+=cut
+
 sub opts {
   return $state if defined $state;
   $state = {};
@@ -30,24 +34,31 @@ sub opts {
   return $state;
 }
 
-#
-# GENTOO_PERLMOD_VERSION=" foo=5 ";
-#
-# my $value = _env_hasopt( 'foo' );
-# ok( $value );
-#
+=func hasopt
+
+    GENTOO_PERLMOD_VERSION=" foo=5 ";
+
+    if ( Gentoo::PerlMod::Version::Env::hasopt('foo') ) {
+        pass('has opt foo');
+    }
+
+=cut
 
 sub hasopt {
   my ($opt) = @_;
   return exists opts()->{$opt};
 }
 
-#
-# GENTOO_PERLMOD_VERSION=" foo=5 ";
-#
-# my $value = _env_getopt( 'foo' );
-# is( $value, 5 );
-#
+=func getopt
+
+    GENTOO_PERLMOD_VERSION=" foo=5 ";
+
+    if ( Gentoo::PerlMod::Version::Env::hasopt('foo') ) {
+        is( Gentoo::PerlMod::Version::Env::getopt('foo'), 5 , ' foo == 5' );
+    }
+
+=cut
+
 sub getopt {
   my ($opt) = @_;
   return opts()->{$opt};

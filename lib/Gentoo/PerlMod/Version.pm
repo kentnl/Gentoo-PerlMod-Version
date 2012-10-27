@@ -34,7 +34,7 @@ use version 0.77;
 
 =cut
 
-=method gentooize_version
+=func gentooize_version
 
     my $normalized = gentooize_version( $weird_version )
 
@@ -373,6 +373,7 @@ BEGIN {
       my $sub = Gentoo::PerlMod::Version::Error->can($err);
       goto $sub;
     };
+    ## no critic ( ProhibitNoStrict )
     no strict 'refs';
     *{ __PACKAGE__ . '::_err_' . $err } = $code;
   }
@@ -382,6 +383,8 @@ BEGIN {
       my $sub = Gentoo::PerlMod::Version::Env->can($env);
       goto $sub;
     };
+    ## no critic ( ProhibitNoStrict )
+
     no strict 'refs';
     *{ __PACKAGE__ . '::_env_' . $env } = $code;
   }
