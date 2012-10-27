@@ -22,6 +22,9 @@
  [Dependencies::Test::Changed]
  - requires : Test::More 0.96 -> 0.98
 
+ [Dependencies::Test::New]
+ - requires : Scalar::Util
+
  [Documentation]
  - Miscelaneous improvements, s/method/func/, and more general coverage of
    some error functions.
