@@ -18,22 +18,22 @@ my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
 # my $hash = Gentoo::PerlMod::Version::Env::opts();
 #
 sub opts {
-    return $state if defined $state;
-    $state = {};
-    return $state if not defined $ENV{$env_key};
-    my (@tokes) = split /\s+/, $ENV{$env_key};
-    for my $token (@tokes) {
-        if ( $token =~ /^([^=]+)=(.+)$/ ) {
-            $state->{"$1"} = "$2";
-        }
-        elsif ( $token =~ /^-(.+)$/ ) {
-            delete $state->{"$1"};
-        }
-        else {
-            $state->{$token} = 1;
-        }
+  return $state if defined $state;
+  $state = {};
+  return $state if not defined $ENV{$env_key};
+  my (@tokes) = split /\s+/, $ENV{$env_key};
+  for my $token (@tokes) {
+    if ( $token =~ /^([^=]+)=(.+)$/ ) {
+      $state->{"$1"} = "$2";
     }
-    return $state;
+    elsif ( $token =~ /^-(.+)$/ ) {
+      delete $state->{"$1"};
+    }
+    else {
+      $state->{$token} = 1;
+    }
+  }
+  return $state;
 }
 
 #
@@ -44,8 +44,8 @@ sub opts {
 #
 
 sub hasopt {
-    my ($opt) = @_;
-    return exists opts()->{$opt};
+  my ($opt) = @_;
+  return exists opts()->{$opt};
 }
 
 #
@@ -55,8 +55,8 @@ sub hasopt {
 # is( $value, 5 );
 #
 sub getopt {
-    my ($opt) = @_;
-    return opts()->{$opt};
+  my ($opt) = @_;
+  return opts()->{$opt};
 }
 
 1;

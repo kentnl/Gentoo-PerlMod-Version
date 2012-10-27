@@ -14,15 +14,13 @@ BEGIN {
 use Sub::Exporter -setup => { exports => [qw( gentooize_version )] };
 use version 0.77;
 
-use Gentoo::PerlMod::Version::Error;
-
 
 
 sub gentooize_version {
   my ( $perlver, $config ) = @_;
   $config ||= {};
-  if ( not defined $perlver ){
-    return _err_perlver_undefined( $config );
+  if ( not defined $perlver ) {
+    return _err_perlver_undefined($config);
   }
   $config->{lax} = 0 unless defined $config->{lax};
   if ( _env_hasopt('always_lax') ) {
@@ -115,7 +113,7 @@ sub _ascii_to_int {
   my @output;
   require List::MoreUtils;
 
-  my $iterator = List::MoreUtils::natatime(2, @chars);
+  my $iterator = List::MoreUtils::natatime( 2, @chars );
   while ( my @vals = $iterator->() ) {
     push @output, _enc_pair(@vals);
   }
@@ -147,7 +145,7 @@ sub _lax_cleaning_1 {
     $prereleasever = "$1";
     $isdev         = 1;
     if ( $prereleasever =~ /_/ ) {
-      return _err_lax_multi_underscore( $version );
+      return _err_lax_multi_underscore($version);
     }
   }
   $version = _expand_numeric($version);
@@ -223,7 +221,7 @@ sub _expand_numeric {
 
 
 BEGIN {
-  for my $err ( qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore ) ){
+  for my $err (qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore )) {
     my $code = sub {
       require Gentoo::PerlMod::Version::Error;
       my $sub = Gentoo::PerlMod::Version::Error->can($err);
@@ -232,7 +230,7 @@ BEGIN {
     no strict 'refs';
     *{ __PACKAGE__ . '::_err_' . $err } = $code;
   }
-  for my $env ( qw( opts hasopt getopt ) ){
+  for my $env (qw( opts hasopt getopt )) {
     my $code = sub {
       require Gentoo::PerlMod::Version::Env;
       my $sub = Gentoo::PerlMod::Version::Env->can($env);
@@ -243,7 +241,6 @@ BEGIN {
   }
 
 }
-
 
 
 1;
