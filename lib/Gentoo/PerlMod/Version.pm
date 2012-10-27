@@ -229,6 +229,7 @@ BEGIN {
       my $sub = Gentoo::PerlMod::Version::Error->can($err);
       goto $sub;
     };
+    no strict 'refs';
     *{ __PACKAGE__ . '::_err_' . $err } = $code;
   }
   for my $env ( qw( opts hasopt getopt ) ){
@@ -237,6 +238,7 @@ BEGIN {
       my $sub = Gentoo::PerlMod::Version::Env->can($err);
       goto $sub;
     };
+    no strict 'refs';
     *{ __PACKAGE__ . '::_env_' . $env } = $code;
   }
 
