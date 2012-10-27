@@ -6,7 +6,7 @@ BEGIN {
   $Gentoo::PerlMod::Version::Error::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Gentoo::PerlMod::Version::Error::VERSION = '0.5.1';
+  $Gentoo::PerlMod::Version::Error::VERSION = '0.6.0';
 }
 
 # ABSTRACT: Various error message and diagnostic bits.
@@ -149,7 +149,7 @@ Gentoo::PerlMod::Version::Error - Various error message and diagnostic bits.
 
 =head1 VERSION
 
-version 0.5.1
+version 0.6.0
 
 =head1 FUNCTIONS
 

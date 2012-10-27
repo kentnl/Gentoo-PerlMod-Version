@@ -5,7 +5,7 @@ BEGIN {
   $Gentoo::PerlMod::Version::Tool::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Gentoo::PerlMod::Version::Tool::VERSION = '0.5.1';
+  $Gentoo::PerlMod::Version::Tool::VERSION = '0.6.0';
 }
 use strict;
 use warnings;
@@ -100,7 +100,7 @@ gentoo-perlmod-version.pl - Command line utility for translating cpan versions t
 
 =head1 VERSION
 
-version 0.5.1
+version 0.6.0
 
 =head1 SYNOPSIS
 

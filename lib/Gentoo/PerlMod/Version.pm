@@ -6,7 +6,7 @@ BEGIN {
   $Gentoo::PerlMod::Version::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Gentoo::PerlMod::Version::VERSION = '0.5.1';
+  $Gentoo::PerlMod::Version::VERSION = '0.6.0';
 }
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
@@ -260,7 +260,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.5.1
+version 0.6.0
 
 =head1 SYNOPSIS
 
