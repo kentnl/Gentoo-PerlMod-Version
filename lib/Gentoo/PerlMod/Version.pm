@@ -122,6 +122,15 @@ As you can see, its really nasty, and hopefully its not needed.
 sub gentooize_version {
   my ( $perlver, $config ) = @_;
   $config ||= {};
+  if ( not defined $perlver ){
+    return _fatal(
+      {
+        code => 'perlver_undefined',
+        config => $config,
+        message => 'Argument \'$perlver\' to gentooize_version was undefined',
+      }
+    );
+  }
   $config->{lax} = 0 unless defined $config->{lax};
   if ( _env_hasopt('always_lax') ) {
     $config->{lax} = _env_getopt('always_lax');
