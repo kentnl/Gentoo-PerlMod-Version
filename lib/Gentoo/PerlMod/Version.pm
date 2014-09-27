@@ -124,6 +124,8 @@ use version 0.77;
 
 
 
+
+
 sub gentooize_version {
   my ( $perlver, $config ) = @_;
   $config ||= {};
@@ -371,6 +373,10 @@ sub _expand_numeric {
 
 
 
+
+
+
+
 BEGIN {
   for my $err (qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore )) {
     my $code = sub {
@@ -452,7 +458,8 @@ version 0.7.0
     my $normalized = gentooize_version( $weird_version )
 
 gentooize_version tries hard to mangle a version that is part of a CPAN dist into a normalized form
-for Gentoo, which can be used as the version number of the C<ebuild>, while storing the original upstream version in the C<ebuild>.
+for Gentoo, which can be used as the version number of the C<ebuild>, while storing the original upstream version in the
+C<ebuild>.
 
     CPAN: Foo-Bar-Baz 1.5
     print gentooize_version('1.5');  # -> 1.500.0
@@ -498,7 +505,8 @@ This adds one layer of laxativity, and permits parsing and processing of "Develo
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
-This adds another layer of laxativity, and permits parsing and processing of packages with versions not officially supported by Perl.
+This adds another layer of laxativity, and permits parsing and processing of packages with versions not officially supported by
+Perl.
 
 This means versions such as
 
@@ -532,7 +540,8 @@ As you can see, its really nasty, and hopefully its not needed.
 
 This module recognizes the environment variable GENTOO_PERLMOD_VERSION_OPTS for a few features.
 
-These are mostly useful for system wide or user-wide policies that may be applicable for using this module, depending on where it is used.
+These are mostly useful for system wide or user-wide policies that may be applicable for using this module, depending on where
+it is used.
 
 This field is split by white-space and each token has a meaning.
 
@@ -544,7 +553,8 @@ This field is split by white-space and each token has a meaning.
   GENTOO_PERLMOD_VERSION_OPTS+=" always_lax   "# same as always_lax=1
   GENTOO_PERLMOD_VERSION_OPTS+=" -always_lax  "# unset always_lax
 
-This environment setting, if specified, overrides any specification of "lax" in the code. If this specified more than once, the right-most one applies.
+This environment setting, if specified, overrides any specification of "lax" in the code. If this specified more than once,
+the right-most one applies.
 
 Specifying C<-always_lax> will unset the setting, making it behave as if it had not been previously specified.
 
@@ -553,9 +563,11 @@ Specifying C<-always_lax> will unset the setting, making it behave as if it had 
   GENTOO_PERLMOD_VERSION_OPTS+=" taint_safe  " #on
   GENTOO_PERLMOD_VERSION_OPTS+=" -taint_safe " #off
 
-As it stands, this module only emits messages via STDOUT/STDERR when an error occurs. For diagnosis, sometimes user provided data can appear in this output.
+As it stands, this module only emits messages via STDOUT/STDERR when an error occurs. For diagnosis, sometimes user provided
+data can appear in this output.
 
-Specifying this option will remove the information as specified by the user where possible, to eliminate this risk if this is a security issue for you.
+Specifying this option will remove the information as specified by the user where possible, to eliminate this risk if this
+is a security issue for you.
 
 It is not a guarantee of safety, but merely a tool you might find useful, depending on circumstances.
 

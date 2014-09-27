@@ -126,7 +126,7 @@ allow_includes = 1
 
 [Documentation::PodSpelling]
 spell_command = aspell list --lang en_US
-stop_words = Gentoo CPAN Torsten Veller gentoo perlmod
+stop_words = Gentoo CPAN Torsten Veller gentoo perlmod laxativity
 
 [Documentation::ProhibitAdjacentLinks]
 
