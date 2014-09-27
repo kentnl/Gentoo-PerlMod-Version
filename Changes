@@ -5,7 +5,7 @@
  - Dependencies changed since 0.6.0, see misc/*.deps* for details
  - build: ↑1
  - configure: ↑1
- - develop: +51 -1 (recommends: -1, suggests: +1 -1)
+ - develop: +50 -1 (recommends: -1, suggests: +1 ↑1)
  - runtime: ↓1
  - test: +2 ↑1 -2 (recommends: +1)
 
