@@ -14,6 +14,7 @@ toolkit           = eumm
 toolkit_hardness  = soft
 copyfiles         = LICENSE
 srcreadme         = mkdn
+twitter_extra_hash_tags = #gentoo
 
 ;version_major     = 0
 ;version_minor     = 1
@@ -23,7 +24,6 @@ srcreadme         = mkdn
 ;version_rel_day   = 9
 ;version_rel_hour  = 22
 ;version_rel_time_zone = Pacific/Auckland
-twitter_hash_tags = #perl #cpan
 
 [Prereqs]
 
