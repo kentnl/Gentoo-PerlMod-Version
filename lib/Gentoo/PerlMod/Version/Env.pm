@@ -21,12 +21,12 @@ sub opts {
   return $state if defined $state;
   $state = {};
   return $state if not defined $ENV{$env_key};
-  my (@tokes) = split /\s+/, $ENV{$env_key};
+  my (@tokes) = split /\s+/msx, $ENV{$env_key};
   for my $token (@tokes) {
-    if ( $token =~ /^([^=]+)=(.+)$/ ) {
+    if ( $token =~ /\A([^=]+)=(.+)\z/msx ) {
       $state->{"$1"} = "$2";
     }
-    elsif ( $token =~ /^-(.+)$/ ) {
+    elsif ( $token =~ /\A-(.+)\z/msx ) {
       delete $state->{"$1"};
     }
     else {

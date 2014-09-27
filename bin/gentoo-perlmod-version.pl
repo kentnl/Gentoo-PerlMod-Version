@@ -37,7 +37,7 @@ See perldoc for L<< C<Gentoo::PerlMod::Versions> documentation|Gentoo::PerlMod::
 =cut
 
 for (@ARGV) {
-  if (/^--?h/) {
+  if (/\A--?h/msx) {
     die <<"EOF";
 
     gentoo-perlmod-version.pl 1.4 1.5 1.6
@@ -67,7 +67,7 @@ my $lax     = 0;
 my $oneshot = 0;
 
 for ( 0 .. $#ARGV ) {
-  next unless $ARGV[$_] =~ /^--lax=(\d+)$/;
+  next unless $ARGV[$_] =~ /\A--lax=(\d+)\z/msx;
   $lax = 0 + $1;
   splice @ARGV, $_, 1, ();
   last;

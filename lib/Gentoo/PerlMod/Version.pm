@@ -133,11 +133,11 @@ sub gentooize_version {
     $config->{lax} = _env_getopt('always_lax');
   }
 
-  if ( $perlver =~ /^v?[\d.]+$/ ) {
+  if ( $perlver =~ /\Av?[\d.]+\z/msx ) {
     return _lax_cleaning_0($perlver);
   }
 
-  if ( $perlver =~ /^v?[\d._]+(-TRIAL)?$/ ) {
+  if ( $perlver =~ /\Av?[\d._]+(-TRIAL)?\z/msx ) {
     if ( $config->{lax} > 0 ) {
       return _lax_cleaning_1($perlver);
     }
@@ -215,7 +215,7 @@ sub _enc_pair {
 ###
 sub _ascii_to_int {
   my $string = shift;
-  my @chars = split //, $string;
+  my @chars = split //msx, $string;
   my @output;
   require List::MoreUtils;
 
@@ -244,13 +244,13 @@ sub _lax_cleaning_1 {
   my $isdev         = 0;
   my $prereleasever = undef;
 
-  if ( $version =~ s/-TRIAL$// ) {
+  if ( $version =~ s/-TRIAL\z//msx ) {
     $isdev = 1;
   }
-  if ( $version =~ s/_(.*)$/$1/ ) {
+  if ( $version =~ s/_(.*)\z/$1/msx ) {
     $prereleasever = "$1";
     $isdev         = 1;
-    if ( $prereleasever =~ /_/ ) {
+    if ( $prereleasever =~ /_/msx ) {
       return _err_lax_multi_underscore($version);
     }
   }
@@ -271,21 +271,21 @@ sub _lax_cleaning_2 {
 
   my $has_v = 0;
 
-  if ( $version =~ s/-TRIAL$// ) {
+  if ( $version =~ s/-TRIAL\z//msx ) {
     $istrial = 1;
   }
-  if ( $version =~ s/^v// ) {
+  if ( $version =~ s/\Av//msx ) {
     $has_v = 1;
   }
 
-  my @parts = split /([._])/, $version;
+  my @parts = split /([._])/msx, $version;
   my @out;
   for (@parts) {
-    if (/^[_.]$/) {
+    if (/\A[_.]\z/msx) {
       push @out, $_;
       next;
     }
-    if (/^\d+/) {
+    if (/\A\d\z/msx) {
       push @out, $_;
       next;
     }
@@ -312,13 +312,13 @@ sub _expand_numeric {
 
   my $ver = version->parse($perlver)->normal;
 
-  $ver =~ s/^v//;    # strip leading v
+  $ver =~ s/\Av//msx;    # strip leading v
 
-  my @tokens = split /[.]/, $ver;
+  my @tokens = split /[.]/msx, $ver;
   my @out;
 
   for (@tokens) {
-    s/^0+([1-9])/$1/;    # strip leading 0's
+    s/\A0+([1-9])/$1/msx;    # strip leading 0's
     push @out, $_;
   }
 
