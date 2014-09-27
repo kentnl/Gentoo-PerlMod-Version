@@ -11,7 +11,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: '0'
 dynamic_config: '0'
-generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060'
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142690'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -44,14 +44,14 @@ resources:
 version: 0.7.0
 x_BuiltWith:
   modules:
-    CPAN::Meta: '2.142060'
+    CPAN::Meta: '2.142690'
     Carp: '1.34'
     Data::Dumper: '2.154'
     Dist::Zilla::App::Command::bakeini: '0.001002'
-    Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes: '0.003004'
+    Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes: '0.003006'
     Dist::Zilla::Plugin::Authority: '1.006'
     Dist::Zilla::Plugin::AutoPrereqs: '5.020'
-    Dist::Zilla::Plugin::BumpVersionAfterRelease: '0.002'
+    Dist::Zilla::Plugin::BumpVersionAfterRelease: '0.003'
     Dist::Zilla::Plugin::ConfirmRelease: '5.020'
     Dist::Zilla::Plugin::CopyFilesFromBuild: '0.103510'
     Dist::Zilla::Plugin::EOLTests: '0.02'
@@ -387,7 +387,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes
       name: '@Author::KENTNL/Author::KENTNL::RecommendFixes'
-      version: '0.003004'
+      version: '0.003006'
     -
       class: Dist::Zilla::Plugin::ReadmeFromPod
       name: '@Author::KENTNL/ReadmeFromPod'
@@ -468,7 +468,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::BumpVersionAfterRelease
       name: '@Author::KENTNL/BumpVersionAfterRelease'
-      version: '0.002'
+      version: '0.003'
     -
       class: Dist::Zilla::Plugin::Git::Commit
       config:
