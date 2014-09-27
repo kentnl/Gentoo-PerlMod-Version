@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version;
-$Gentoo::PerlMod::Version::VERSION = '0.006001';
+$Gentoo::PerlMod::Version::VERSION = '0.6.1';
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
 
 use Sub::Exporter -setup => { exports => [qw( gentooize_version )] };
@@ -417,7 +417,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.006001
+version 0.6.1
 
 =head1 SYNOPSIS
 
