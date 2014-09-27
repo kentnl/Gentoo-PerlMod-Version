@@ -170,7 +170,7 @@ sub _fatal {
   require Carp;
   $conf->{stack} = [
     map { [ $_->[0], $_->[1], $_->[2], ] }
-    map { [ caller $_ ] } 0 .. 10
+    map { [ caller $_, ] } 0 .. 10
   ];
   return Carp::croak( bless $conf, __PACKAGE__ );
 }
