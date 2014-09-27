@@ -14,7 +14,7 @@ our $VERSION = '0.7.0';
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 ## no critic (ProhibitPunctuationVar)
-use Gentoo::PerlMod::Version qw( :all );
+use Gentoo::PerlMod::Version qw( gentooize_version );
 use Carp qw( croak );
 
 
