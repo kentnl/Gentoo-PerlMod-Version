@@ -1,6 +1,6 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
-0.6.1 2014-09-27T05:01:56Z
+0.7.0 2014-09-27T05:01:56Z
  [Dependencies::Stats]
  - Dependencies changed since 0.6.0, see misc/*.deps* for details
  - build: ↑1

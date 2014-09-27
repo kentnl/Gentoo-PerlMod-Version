@@ -172,7 +172,7 @@ Gentoo::PerlMod::Version::Error - Various error message and diagnostic bits.
 
 =head1 VERSION
 
-version 0.6.1
+version 0.7.0
 
 =head1 FUNCTIONS
 

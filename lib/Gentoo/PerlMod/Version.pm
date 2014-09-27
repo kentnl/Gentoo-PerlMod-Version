@@ -419,7 +419,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.6.1
+version 0.7.0
 
 =head1 SYNOPSIS
 

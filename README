@@ -3,7 +3,7 @@ NAME
     normalised Gentoo versions.
 
 VERSION
-    version 0.6.1
+    version 0.7.0
 
 SYNOPSIS
         use Gentoo::PerlMod::Version qw( :all );
