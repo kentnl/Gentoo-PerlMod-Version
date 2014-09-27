@@ -13,119 +13,6 @@ our $VERSION = '0.7.0';
 use Sub::Exporter -setup => { exports => [qw( gentooize_version )] };
 use version 0.77;
 
-=head1 SYNOPSIS
-
-
-    use Gentoo::PerlMod::Version qw( :all );
-
-    # http://search.cpan.org/~gmpassos/XML-Smart-1.6.9/
-    say gentooize_version( '1.6.9' )  # 1.6.9
-
-    http://search.cpan.org/~pip/Math-BaseCnv-1.6.A6FGHKE/
-
-    say gentooize_version('1.6.A6FGHKE')   #  <-- death, this is awful
-
-    # -- Work-In-Progress Features --
-
-    say gentooize_version('1.6.A6FGHKE',{ lax => 1}) # <-- still death
-
-    say gentooize_version('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
-
-    say gentooize_version('1.9902-TRIAL')   #  <-- death, this is not so bad, but not a valid gentoo/stable version
-
-    say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
-
-
-
-=cut
-
-=func gentooize_version
-
-    my $normalized = gentooize_version( $weird_version )
-
-gentooize_version tries hard to mangle a version that is part of a CPAN dist into a normalized form
-for Gentoo, which can be used as the version number of the C<ebuild>, while storing the original upstream version in the
-C<ebuild>.
-
-    CPAN: Foo-Bar-Baz 1.5
-    print gentooize_version('1.5');  # -> 1.500.0
-    -> dev-perl/Foo-Bar-Baz-1.500.0.ebuild
-    cat dev-perl/Foo-Bar-Baz-1.500.0.ebuild
-    # ...
-    # MODULE_VERSION="1.5"
-    # ...
-
-
-Normal behavior accepts only sane non-testing versions, i.e.:
-
-    0.1         -> 0.001.0
-    0.001       -> 0.1.0
-    1.1         -> 1.001.0
-    1.123.13    -> 1.123.13
-
-Etc.
-
-This uses L<< C<version.pm>|version >> to read versions and to normalize them.
-
-    0.1    # 0.100.0
-    0.01   # 0.10.0
-    0.001  # 0.1.0
-    0.0001 # 0.0.100
-
-So assuming Perl can handle your versions, they can be normalized.
-
-=head3 lax level 1
-
-    my $normalized = gentooize_version( $werid_version, { lax => 1 } );
-
-B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
-
-This adds one layer of laxativity, and permits parsing and processing of "Developer Release" builds.
-
-    1.10-TRIAL  # 1.100.0_rc
-    1.11-TRIAL  # 1.110.0_rc
-    1.1_1       # 1.110.0_rc
-
-=head3 lax level 2
-
-    my $normalized = gentooize_version( $werid_version, { lax => 2 } );
-
-B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
-
-This adds another layer of laxativity, and permits parsing and processing of packages with versions not officially supported by
-Perl.
-
-This means versions such as
-
-    1.6.A       # 1.6.10
-    1.6.AA      # 1.6.370
-    1.6.AAA      # 1.6.370.10
-    1.6.AAAA      # 1.6.370.370
-
-    1.6.A6FGHKE # 1.6.366.556.632.14
-
-This is performed by some really nasty tricks, and treats the ASCII portion like a set of pairs.
-
-    1.6.A6.FG.HK.E
-
-And each ASCII pair is treated like a Base36 number.
-
-    0 -> 0
-    ....
-    9 -> 9
-    A -> 10
-    ...
-    Z -> 35
-
-A6 is thus
-
-    10 * 36 + 6 => 366
-
-As you can see, its really nasty, and hopefully its not needed.
-
-
-=cut
-
 sub gentooize_version {
   my ( $perlver, $config ) = @_;
   $config ||= {};
@@ -329,6 +216,138 @@ sub _expand_numeric {
   return join q{.}, @out;
 }
 
+BEGIN {
+  for my $err (qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore )) {
+    my $code = sub {
+      require Gentoo::PerlMod::Version::Error;
+      my $sub = Gentoo::PerlMod::Version::Error->can($err);
+      goto $sub;
+    };
+    ## no critic ( ProhibitNoStrict )
+    no strict 'refs';
+    *{ __PACKAGE__ . '::_err_' . $err } = $code;
+  }
+  for my $env (qw( opts hasopt getopt )) {
+    my $code = sub {
+      require Gentoo::PerlMod::Version::Env;
+      my $sub = Gentoo::PerlMod::Version::Env->can($env);
+      goto $sub;
+    };
+    ## no critic ( ProhibitNoStrict )
+
+    no strict 'refs';
+    *{ __PACKAGE__ . '::_env_' . $env } = $code;
+  }
+
+}
+
+1;
+
+=head1 SYNOPSIS
+
+    use Gentoo::PerlMod::Version qw( :all );
+
+    # http://search.cpan.org/~gmpassos/XML-Smart-1.6.9/
+    say gentooize_version( '1.6.9' )  # 1.6.9
+
+    http://search.cpan.org/~pip/Math-BaseCnv-1.6.A6FGHKE/
+
+    say gentooize_version('1.6.A6FGHKE')   #  <-- death, this is awful
+
+    # -- Work-In-Progress Features --
+
+    say gentooize_version('1.6.A6FGHKE',{ lax => 1}) # <-- still death
+
+    say gentooize_version('1.6.A6FGHKE',{ lax => 2}) # 1.6.366.556.632.14  # <-- the best we can do.
+
+    say gentooize_version('1.9902-TRIAL')   #  <-- death, this is not so bad, but not a valid gentoo/stable version
+
+    say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
+
+=func gentooize_version
+
+    my $normalized = gentooize_version( $weird_version )
+
+gentooize_version tries hard to mangle a version that is part of a CPAN dist into a normalized form
+for Gentoo, which can be used as the version number of the C<ebuild>, while storing the original upstream version in the
+C<ebuild>.
+
+    CPAN: Foo-Bar-Baz 1.5
+    print gentooize_version('1.5');  # -> 1.500.0
+    -> dev-perl/Foo-Bar-Baz-1.500.0.ebuild
+    cat dev-perl/Foo-Bar-Baz-1.500.0.ebuild
+    # ...
+    # MODULE_VERSION="1.5"
+    # ...
+
+
+Normal behavior accepts only sane non-testing versions, i.e.:
+
+    0.1         -> 0.001.0
+    0.001       -> 0.1.0
+    1.1         -> 1.001.0
+    1.123.13    -> 1.123.13
+
+Etc.
+
+This uses L<< C<version.pm>|version >> to read versions and to normalize them.
+
+    0.1    # 0.100.0
+    0.01   # 0.10.0
+    0.001  # 0.1.0
+    0.0001 # 0.0.100
+
+So assuming Perl can handle your versions, they can be normalized.
+
+=head3 lax level 1
+
+    my $normalized = gentooize_version( $werid_version, { lax => 1 } );
+
+B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
+
+This adds one layer of laxativity, and permits parsing and processing of "Developer Release" builds.
+
+    1.10-TRIAL  # 1.100.0_rc
+    1.11-TRIAL  # 1.110.0_rc
+    1.1_1       # 1.110.0_rc
+
+=head3 lax level 2
+
+    my $normalized = gentooize_version( $werid_version, { lax => 2 } );
+
+B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
+
+This adds another layer of laxativity, and permits parsing and processing of packages with versions not officially supported by
+Perl.
+
+This means versions such as
+
+    1.6.A       # 1.6.10
+    1.6.AA      # 1.6.370
+    1.6.AAA      # 1.6.370.10
+    1.6.AAAA      # 1.6.370.370
+
+    1.6.A6FGHKE # 1.6.366.556.632.14
+
+This is performed by some really nasty tricks, and treats the ASCII portion like a set of pairs.
+
+    1.6.A6.FG.HK.E
+
+And each ASCII pair is treated like a Base36 number.
+
+    0 -> 0
+    ....
+    9 -> 9
+    A -> 10
+    ...
+    Z -> 35
+
+A6 is thus
+
+    10 * 36 + 6 => 366
+
+As you can see, its really nasty, and hopefully its not needed.
+
 =head1 ENVIRONMENT
 
 This module recognizes the environment variable GENTOO_PERLMOD_VERSION_OPTS for a few features.
@@ -375,33 +394,6 @@ To see this information instead of the simple message that is usually sent to C<
 
 B<Note:> As values in the hashes that would be printed can come from users, C<carp_debug> is ignored if C<taint_safe> is on.
 
-=cut
-
-BEGIN {
-  for my $err (qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore )) {
-    my $code = sub {
-      require Gentoo::PerlMod::Version::Error;
-      my $sub = Gentoo::PerlMod::Version::Error->can($err);
-      goto $sub;
-    };
-    ## no critic ( ProhibitNoStrict )
-    no strict 'refs';
-    *{ __PACKAGE__ . '::_err_' . $err } = $code;
-  }
-  for my $env (qw( opts hasopt getopt )) {
-    my $code = sub {
-      require Gentoo::PerlMod::Version::Env;
-      my $sub = Gentoo::PerlMod::Version::Env->can($env);
-      goto $sub;
-    };
-    ## no critic ( ProhibitNoStrict )
-
-    no strict 'refs';
-    *{ __PACKAGE__ . '::_env_' . $env } = $code;
-  }
-
-}
-
 =head1 THANKS
 
 =over 4
@@ -413,5 +405,3 @@ BEGIN {
 =back
 
 =cut
-
-1;

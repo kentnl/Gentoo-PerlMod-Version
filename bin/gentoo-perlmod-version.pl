@@ -17,28 +17,6 @@ our $VERSION = '0.7.0';
 use Gentoo::PerlMod::Version qw( gentooize_version );
 use Carp qw( croak );
 
-=head1 SYNOPSIS
-
-    gentoo-perlmod-version.pl 1.4 1.5 1.6
-    gentoo-perlmod-version.pl --lax=1 1.4_5 1.5_6
-    gentoo-perlmod-version.pl --lax=2 1.4.DONTDOTHISPLEASE432
-
-    echo 1.4 | gentoo-perlmod-version.pl
-    echo 1.4-5 | gentoo-perlmod-version.pl --lax=1
-    echo 1.4.NOOOOO | gentoo-perlmod-version.pl --lax=2
-
-    SOMEVAR="$(  gentoo-perlmod-version.pl --oneshot 1.4 )"
-    SOMEVAR="$(  gentoo-perlmod-version.pl --oneshot 1.4 1.5 )" # Invalid, dies
-    SOMEVAR="$(  gentoo-perlmod-version.pl --oneshot 1.4_5 )" # Invalid, dies
-    SOMEVAR="$(  gentoo-perlmod-version.pl --lax=1 --oneshot 1.4_5 )" # Ok
-
-
-See C<perldoc> for L<< C<Gentoo::PerlMod::Versions> documentation|Gentoo::PerlMod::Version >> for more information.
-
-    perldoc Gentoo::PerlMod::Version
-
-=cut
-
 for (@ARGV) {
   if (/\A--?h/msx) {
     die <<"EOF";
@@ -108,3 +86,26 @@ sub map_version {
   return;
 }
 
+1;
+
+=head1 SYNOPSIS
+
+    gentoo-perlmod-version.pl 1.4 1.5 1.6
+    gentoo-perlmod-version.pl --lax=1 1.4_5 1.5_6
+    gentoo-perlmod-version.pl --lax=2 1.4.DONTDOTHISPLEASE432
+
+    echo 1.4 | gentoo-perlmod-version.pl
+    echo 1.4-5 | gentoo-perlmod-version.pl --lax=1
+    echo 1.4.NOOOOO | gentoo-perlmod-version.pl --lax=2
+
+    SOMEVAR="$(  gentoo-perlmod-version.pl --oneshot 1.4 )"
+    SOMEVAR="$(  gentoo-perlmod-version.pl --oneshot 1.4 1.5 )" # Invalid, dies
+    SOMEVAR="$(  gentoo-perlmod-version.pl --oneshot 1.4_5 )" # Invalid, dies
+    SOMEVAR="$(  gentoo-perlmod-version.pl --lax=1 --oneshot 1.4_5 )" # Ok
+
+
+See C<perldoc> for L<< C<Gentoo::PerlMod::Versions> documentation|Gentoo::PerlMod::Version >> for more information.
+
+    perldoc Gentoo::PerlMod::Version
+
+=cut
