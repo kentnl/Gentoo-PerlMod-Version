@@ -37,7 +37,7 @@ See perldoc for L<< C<Gentoo::PerlMod::Versions> documentation|Gentoo::PerlMod::
 =cut
 
 for (@ARGV) {
-  if ( $_ =~ /^--?h/ ) {
+  if (/^--?h/) {
     die <<"EOF";
 
     gentoo-perlmod-version.pl 1.4 1.5 1.6
