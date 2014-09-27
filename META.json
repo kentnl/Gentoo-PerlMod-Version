@@ -86,6 +86,7 @@
             "Data::Dumper" : "0",
             "List::MoreUtils" : "0",
             "Sub::Exporter::Progressive" : "0",
+            "overload" : "0",
             "perl" : "5.006",
             "strict" : "0",
             "version" : "0.77",
@@ -198,6 +199,7 @@
          "Test::More" : "1.001006",
          "Test::Pod" : "1.48",
          "Test::Pod::Coverage" : "1.10",
+         "overload" : "1.22",
          "strict" : "1.08",
          "version" : "0.9909",
          "warnings" : "1.26"

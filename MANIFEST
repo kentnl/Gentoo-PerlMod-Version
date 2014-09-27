@@ -32,6 +32,7 @@ t/01_basic.t
 t/02_vstrings.t
 t/03_env.t
 t/04_error.t
+t/05_throwerror.t
 weaver.ini
 xt/author/critic.t
 xt/release/cpan-changes.t

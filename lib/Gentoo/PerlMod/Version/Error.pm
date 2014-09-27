@@ -155,10 +155,12 @@ sub _format_error {
   return $message;
 }
 
+use overload q[""] => \&_format_error;
+
 sub _fatal {
   my ($conf) = @_;
   require Carp;
-  return Carp::croak( _format_error($conf) );
+  return Carp::croak( bless $conf, __PACKAGE__ );
 }
 
 1;
