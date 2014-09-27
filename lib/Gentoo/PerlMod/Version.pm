@@ -54,18 +54,6 @@ my $char_map = {
   ( map { chr( $_ + 97 ) => $_ + 10 } 0 .. 25 ),    # a-z
 };
 
-#
-# _char_map() -> string of charmap dump
-#
-sub _char_map {
-  require Data::Dumper;
-  local $Data::Dumper::Sortkeys = 1;
-  local $Data::Dumper::Terse    = 1;
-  local $Data::Dumper::Indent   = 0;
-  return Data::Dumper::Dumper($char_map);
-}
-
-#
 # _code_for('z') -> $number
 #
 
