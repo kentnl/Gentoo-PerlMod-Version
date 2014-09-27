@@ -312,13 +312,13 @@ sub _expand_numeric {
 
   my $ver = version->parse($perlver)->normal;
 
-  $ver =~ s/^v//;    # strip leading v
+  $ver =~ s/\Av//msx;    # strip leading v
 
-  my @tokens = split /[.]/, $ver;
+  my @tokens = split /[.]/msx, $ver;
   my @out;
 
   for (@tokens) {
-    s/^0+([1-9])/$1/;    # strip leading 0's
+    s/\A0+([1-9])/$1/msx;    # strip leading 0's
     push @out, $_;
   }
 
