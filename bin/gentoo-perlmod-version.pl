@@ -1,12 +1,11 @@
 #!/usr/bin/env perl
-## no critic (TestingAndDebugging)
+use 5.006;
+use strict;
+use warnings;
+
 package Gentoo::PerlMod::Version::Tool;
 
 our $VERSION = '0.7.0';
-
-use strict;
-use warnings;
-## use critic
 
 # PODNAME: gentoo-perlmod-version.pl
 # ABSTRACT: Command line utility for translating cpan versions to gentoo equivalents.

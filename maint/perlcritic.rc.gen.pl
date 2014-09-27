@@ -31,7 +31,7 @@ for my $wordlist (@stopwords) {
 
 $bundle->remove_policy('ErrorHandling::RequireUseOfExceptions');
 $bundle->remove_policy('CodeLayout::RequireUseUTF8');
-
+$bundle->remove_policy('ValuesAndExpressions::RequireNumericVersion');
 #$bundle->remove_policy('ErrorHandling::RequireCarping');
 $bundle->remove_policy('NamingConventions::Capitalization');
 
