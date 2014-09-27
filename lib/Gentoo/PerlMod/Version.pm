@@ -10,7 +10,7 @@ our $VERSION = '0.7.0';
 
 # AUTHORITY
 
-use Sub::Exporter -setup => { exports => [qw( gentooize_version )] };
+use Sub::Exporter::Progressive -setup => { exports => [qw( gentooize_version )] };
 use version 0.77;
 
 sub gentooize_version {
