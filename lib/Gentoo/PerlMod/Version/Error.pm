@@ -154,8 +154,8 @@ sub _format_error {
   }
   if ( exists $conf->{'stack'} ) {
     for ( @{ $conf->{stack} } ) {
-      if ( $_->[0] !~ /\AGentoo::PerlMod::Version(|::Error|::Env)\z/ ) {
-        $message .= sprintf qq[\n - From %s in %s at line %s\n], $_->[0] || '', $_->[1] || '', $_->[2] || '';
+      if ( $_->[0] !~ /\AGentoo::PerlMod::Version(?:|::Error|::Env)\z/msx ) {
+        $message .= sprintf qq[\n - From %s in %s at line %s\n], $_->[0] || q[], $_->[1] || q[], $_->[2] || q[];
         last;
       }
     }
@@ -168,7 +168,10 @@ use overload q[""] => \&_format_error;
 sub _fatal {
   my ($conf) = @_;
   require Carp;
-  $conf->{stack} = [ map { my @c = caller($_); [ $c[0], $c[1], $c[2] ] } 0 .. 10 ];
+  $conf->{stack} = [
+    map { [ $_->[0], $_->[1], $_->[2] ] }
+    map { [ caller $_ ] } 0 .. 10
+  ];
   return Carp::croak( bless $conf, __PACKAGE__ );
 }
 
