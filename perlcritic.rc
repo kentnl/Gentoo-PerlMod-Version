@@ -7,9 +7,9 @@ verbose = 9
 
 [Bangs::ProhibitBitwiseOperators]
 
-[Bangs::ProhibitCommentedOutCode]
+[-Bangs::ProhibitCommentedOutCode]
 
-[Bangs::ProhibitDebuggingModules]
+[-Bangs::ProhibitDebuggingModules]
 
 [-Bangs::ProhibitFlagComments]
 
@@ -310,7 +310,7 @@ allowed_pragmata = diagnostics feature perlversion strict warnings utf8
 
 [Subroutines::ProhibitBuiltinHomonyms]
 
-[Subroutines::ProhibitCallsToUndeclaredSubs]
+[-Subroutines::ProhibitCallsToUndeclaredSubs]
 
 [Subroutines::ProhibitCallsToUnexportedSubs]
 
