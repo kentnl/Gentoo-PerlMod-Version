@@ -6,7 +6,7 @@ package Gentoo::PerlMod::Version;
 
 our $VERSION = '0.7.0';
 
-# ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
+# ABSTRACT: Convert arbitrary Perl Modules' versions into normalized Gentoo versions.
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
@@ -418,7 +418,7 @@ __END__
 
 =head1 NAME
 
-Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
+Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normalized Gentoo versions.
 
 =head1 VERSION
 
@@ -452,7 +452,7 @@ version 0.7.0
     my $normalized = gentooize_version( $weird_version )
 
 gentooize_version tries hard to mangle a version that is part of a CPAN dist into a normalized form
-for Gentoo, which can be used as the version number of the ebuild, while storing the original upstream version in the ebuild.
+for Gentoo, which can be used as the version number of the C<ebuild>, while storing the original upstream version in the C<ebuild>.
 
     CPAN: Foo-Bar-Baz 1.5
     print gentooize_version('1.5');  # -> 1.500.0
@@ -462,7 +462,7 @@ for Gentoo, which can be used as the version number of the ebuild, while storing
     # MODULE_VERSION="1.5"
     # ...
 
-Normal behaviour accepts only sane non-testing versions, i.e.:
+Normal behavior accepts only sane non-testing versions, i.e.:
 
     0.1         -> 0.001.0
     0.001       -> 0.1.0
@@ -478,7 +478,7 @@ This uses L<< C<version.pm>|version >> to read versions and to normalize them.
     0.001  # 0.1.0
     0.0001 # 0.0.100
 
-So assuming Perl can handle your versions, they can be normalised.
+So assuming Perl can handle your versions, they can be normalized.
 
 =head3 lax level 1
 
@@ -513,7 +513,7 @@ This is performed by some really nasty tricks, and treats the ASCII portion like
 
     1.6.A6.FG.HK.E
 
-And each ascii pair is treated like a Base36 number.
+And each ASCII pair is treated like a Base36 number.
 
     0 -> 0
     ....
@@ -530,7 +530,7 @@ As you can see, its really nasty, and hopefully its not needed.
 
 =head1 ENVIRONMENT
 
-This module recognises the environment variable GENTOO_PERLMOD_VERSION_OPTS for a few features.
+This module recognizes the environment variable GENTOO_PERLMOD_VERSION_OPTS for a few features.
 
 These are mostly useful for system wide or user-wide policies that may be applicable for using this module, depending on where it is used.
 

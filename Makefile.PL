@@ -10,7 +10,7 @@ use ExtUtils::MakeMaker ;
 
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Convert arbitrary Perl Modules' versions into normalised Gentoo versions.",
+  "ABSTRACT" => "Convert arbitrary Perl Modules' versions into normalized Gentoo versions.",
   "AUTHOR" => "Kent Fredric <kentnl\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0

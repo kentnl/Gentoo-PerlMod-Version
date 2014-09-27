@@ -86,11 +86,11 @@ version 0.7.0
 
 =head1 FUNCTIONS
 
-=head2 opts
+=head2 C<opts>
 
     my $hash = Gentoo::PerlMod::Version::Env::opts();
 
-=head2 hasopt
+=head2 C<hasopt>
 
     GENTOO_PERLMOD_VERSION=" foo=5 ";
 
@@ -98,7 +98,7 @@ version 0.7.0
         pass('has opt foo');
     }
 
-=head2 getopt
+=head2 C<getopt>
 
     GENTOO_PERLMOD_VERSION=" foo=5 ";
 

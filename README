@@ -1,6 +1,6 @@
 NAME
     Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into
-    normalised Gentoo versions.
+    normalized Gentoo versions.
 
 VERSION
     version 0.7.0
@@ -31,8 +31,8 @@ FUNCTIONS
 
     gentooize_version tries hard to mangle a version that is part of a CPAN
     dist into a normalized form for Gentoo, which can be used as the version
-    number of the ebuild, while storing the original upstream version in the
-    ebuild.
+    number of the "ebuild", while storing the original upstream version in
+    the "ebuild".
 
         CPAN: Foo-Bar-Baz 1.5
         print gentooize_version('1.5');  # -> 1.500.0
@@ -42,7 +42,7 @@ FUNCTIONS
         # MODULE_VERSION="1.5"
         # ...
 
-    Normal behaviour accepts only sane non-testing versions, i.e.:
+    Normal behavior accepts only sane non-testing versions, i.e.:
 
         0.1         -> 0.001.0
         0.001       -> 0.1.0
@@ -58,7 +58,7 @@ FUNCTIONS
         0.001  # 0.1.0
         0.0001 # 0.0.100
 
-    So assuming Perl can handle your versions, they can be normalised.
+    So assuming Perl can handle your versions, they can be normalized.
 
    lax level 1
         my $normalized = gentooize_version( $werid_version, { lax => 1 } );
@@ -96,7 +96,7 @@ FUNCTIONS
 
         1.6.A6.FG.HK.E
 
-    And each ascii pair is treated like a Base36 number.
+    And each ASCII pair is treated like a Base36 number.
 
         0 -> 0
         ....
@@ -112,7 +112,7 @@ FUNCTIONS
     As you can see, its really nasty, and hopefully its not needed.
 
 ENVIRONMENT
-    This module recognises the environment variable
+    This module recognizes the environment variable
     GENTOO_PERLMOD_VERSION_OPTS for a few features.
 
     These are mostly useful for system wide or user-wide policies that may

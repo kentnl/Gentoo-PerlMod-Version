@@ -1,5 +1,5 @@
 {
-   "abstract" : "Convert arbitrary Perl Modules' versions into normalised Gentoo versions.",
+   "abstract" : "Convert arbitrary Perl Modules' versions into normalized Gentoo versions.",
    "author" : [
       "Kent Fredric <kentnl@cpan.org>"
    ],
