@@ -42,7 +42,7 @@ sub perlver_undefined {
       code    => 'perlver_undefined',
       config  => $config,
       message => 'Argument \'$perlver\' to gentooize_version was undefined',
-    }
+    },
   );
 }
 
@@ -62,7 +62,7 @@ sub matches_trial_regex_nonlax {
       message               => 'Invalid version format (non-numeric data, either _ or -TRIAL ).',
       message_extra_tainted => qq{ Version: >$perlver< },
       version               => $perlver,
-    }
+    },
   );
 }
 
@@ -82,7 +82,7 @@ sub not_decimal_or_trial {
       message               => 'Invalid version format (non-numeric/ASCII data).',
       message_extra_tainted => qq{ Version: >$perlver< },
       version               => $perlver,
-    }
+    },
   );
 }
 
@@ -99,7 +99,7 @@ sub bad_char {
       code                  => 'bad_char',
       message               => 'A Character in the version is not in the ascii-to-int translation table.',
       message_extra_tainted => qq{ Missing character: $char ( $char_ord )},
-    }
+    },
   );
 }
 
@@ -117,7 +117,7 @@ sub lax_multi_underscore {
       message               => q{More than one _ in a version is not permitted},
       message_extra_tainted => qq{ Version: >$version< },
       version               => $version,
-    }
+    },
   );
 }
 #

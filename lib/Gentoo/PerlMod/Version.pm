@@ -162,7 +162,7 @@ sub gentooize_version {
 my $char_map = {
   ( map { $_ => $_ } 0 .. 9 ),    # 0..9
   ( map { chr( $_ + 65 ) => $_ + 10 } 0 .. 25 ),    # A-Z
-  ( map { chr( $_ + 97 ) => $_ + 10 } 0 .. 25 )     # a-z
+  ( map { chr( $_ + 97 ) => $_ + 10 } 0 .. 25 ),    # a-z
 };
 
 #
