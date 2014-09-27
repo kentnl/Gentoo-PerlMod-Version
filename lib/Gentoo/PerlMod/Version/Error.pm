@@ -1,15 +1,14 @@
+use 5.006;
 use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version::Error;
-BEGIN {
-  $Gentoo::PerlMod::Version::Error::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $Gentoo::PerlMod::Version::Error::VERSION = '0.6.0';
-}
+
+our $VERSION = '0.7.0';
 
 # ABSTRACT: Various error message and diagnostic bits.
+
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 BEGIN {
 
@@ -28,6 +27,13 @@ BEGIN {
 }
 
 
+
+
+
+
+
+
+
 sub perlver_undefined {
   my ($config) = @_;
   ## no critic ( RequireInterpolationOfMetachars )
@@ -36,9 +42,14 @@ sub perlver_undefined {
       code    => 'perlver_undefined',
       config  => $config,
       message => 'Argument \'$perlver\' to gentooize_version was undefined',
-    }
+    },
   );
 }
+
+
+
+
+
 
 
 sub matches_trial_regex_nonlax {
@@ -51,9 +62,14 @@ sub matches_trial_regex_nonlax {
       message               => 'Invalid version format (non-numeric data, either _ or -TRIAL ).',
       message_extra_tainted => qq{ Version: >$perlver< },
       version               => $perlver,
-    }
+    },
   );
 }
+
+
+
+
+
 
 
 sub not_decimal_or_trial {
@@ -66,9 +82,14 @@ sub not_decimal_or_trial {
       message               => 'Invalid version format (non-numeric/ASCII data).',
       message_extra_tainted => qq{ Version: >$perlver< },
       version               => $perlver,
-    }
+    },
   );
 }
+
+
+
+
+
 
 
 sub bad_char {
@@ -78,9 +99,14 @@ sub bad_char {
       code                  => 'bad_char',
       message               => 'A Character in the version is not in the ascii-to-int translation table.',
       message_extra_tainted => qq{ Missing character: $char ( $char_ord )},
-    }
+    },
   );
 }
+
+
+
+
+
 
 
 sub lax_multi_underscore {
@@ -91,7 +117,7 @@ sub lax_multi_underscore {
       message               => q{More than one _ in a version is not permitted},
       message_extra_tainted => qq{ Version: >$version< },
       version               => $version,
-    }
+    },
   );
 }
 #
@@ -126,13 +152,27 @@ sub _format_error {
   if ( exists $conf->{'message_extra_tainted'} ) {
     $message .= $conf->{'message_extra_tainted'};
   }
+  if ( exists $conf->{'stack'} ) {
+    for ( @{ $conf->{stack} } ) {
+      if ( $_->[0] !~ /\AGentoo::PerlMod::Version(?:|::Error|::Env)\z/msx ) {
+        $message .= sprintf qq[\n - From %s in %s at line %s\n], $_->[0] || q[], $_->[1] || q[], $_->[2] || q[];
+        last;
+      }
+    }
+  }
   return $message;
 }
+
+use overload q[""] => \&_format_error;
 
 sub _fatal {
   my ($conf) = @_;
   require Carp;
-  return Carp::croak( _format_error($conf) );
+  $conf->{stack} = [
+    map { [ $_->[0], $_->[1], $_->[2], ] }
+    map { [ caller $_, ] } 0 .. 10,
+  ];
+  return Carp::croak( bless $conf, __PACKAGE__ );
 }
 
 1;
@@ -141,7 +181,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -149,7 +189,7 @@ Gentoo::PerlMod::Version::Error - Various error message and diagnostic bits.
 
 =head1 VERSION
 
-version 0.6.0
+version 0.7.0
 
 =head1 FUNCTIONS
 
@@ -181,7 +221,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,69 +1,75 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
+0.7.0 2014-09-27T07:40:21Z
+ [00 Important - Installing Toolkit Change]
+ - This may affect hand operated downstreams
+ - Code is migrated from using Module::Build to using ExtUtils::MakeMaker as an install tool.
+ - https://questhub.io/realm/perl/quest/5388cc12bbd0be5b2500011f
+
+ [01 Migrated to Sub::Exporter::Progressive]
+ - No fancy stuff is really required internally, so a lighter weight Sub::Exporter::Progressive is now in use.
+
+ [Dependencies::Stats]
+ - Dependencies changed since 0.6.0, see misc/*.deps* for details
+ - build: -1
+ - configure: +1 -1 (recommends: +1)
+ - develop: +50 -1 (recommends: -1, suggests: +1 ↑1)
+ - runtime: +2 ↓1 -1
+ - test: +2 ↓1 -2 (recommends: +3)
+
+ [Internals]
+ - Fatal Exceptions don't lose their context as soon as they're thrown.
+ - However, backtraces are subsequently slightly impeded.
+ - Use Devel::Cover for full backtraces.
+
+ [Metadata]
+ - recognize 1x contributor
+ - migrate to kentnl org
+
 0.6.0 2012-10-27T12:27:17Z
  [00 IMPORTANT CHANGES]
  - $perlver being undef now is an error.
- - All error code is now refactored into the ::Error class, which
-   ultimately grants more flexibility and better code organisation.
- - %ENV interaction is now handled vis a few utility functions in the ::Env
-   class.
- - Functions in ::Env and ::Error are proxied into the ::Version class via
-   some lazy-load functions.
+ - All error code is now refactored into the ::Error class, which ultimately grants more flexibility and better code
+   organisation.
+ - %ENV interaction is now handled vis a few utility functions in the ::Env class.
+ - Functions in ::Env and ::Error are proxied into the ::Version class via some lazy-load functions.
 
- [Dependencies::Build::Changed]
- - requires : Module::Build 0.3601 -> 0.4003
-
- [Dependencies::Configure::Changed]
- - requires : Module::Build 0.3601 -> 0.4003
-
- [Dependencies::Develop::Changed]
- - suggests : Dist::Zilla::PluginBundle::Author::KENTNL v1.3.0 -> v1.5.0
-
- [Dependencies::Test::Changed]
- - requires : Test::More 0.96 -> 0.98
-
- [Dependencies::Test::New]
- - requires : Scalar::Util
+ [Dependencies::Stats]
+ - Dependencies changed since 0.5.0, see misc/*.deps* for details
+ - build: ↑1
+ - configure: ↑1
+ - develop: (suggests: ↑1)
+ - test: +1 ↑1
 
  [Documentation]
- - Miscelaneous improvements, s/method/func/, and more general coverage of
-   some error functions.
+ - Miscelaneous improvements, s/method/func/, and more general coverage of some error functions.
 
 0.5.0 2012-06-08T12:08:07Z
  [00 IMPORTANT CHANGES]
- - Errors that occur when a version fails to validate have changed in some
-   circumstances.
+ - Errors that occur when a version fails to validate have changed in some circumstances.
  - Now reports the version token that failed to validate.
- - laxness can be overridden globally via new
-   GENTOO_PERLMOD_VERSION_OPTS=" always_lax=$n "
- - user provided data can now be stripped from error output by
-   GENTOO_PERLMOD_VERSION_OPTS=" taint_safe "
- - carp messages can be more verbose about context/options by setting
-   GENTOO_PERLMOD_VERSION_OPTS=" carp_debug "
+ - laxness can be overridden globally via new GENTOO_PERLMOD_VERSION_OPTS=" always_lax=$n "
+ - user provided data can now be stripped from error output by GENTOO_PERLMOD_VERSION_OPTS=" taint_safe "
+ - carp messages can be more verbose about context/options by setting GENTOO_PERLMOD_VERSION_OPTS=" carp_debug "
 
- [Dependencies::Develop::Changed]
- - recommends : Dist::Zilla::PluginBundle::Author::KENTNL::Lite
-   0.01009803 -> v1.3.0
- - suggests : Dist::Zilla::PluginBundle::Author::KENTNL v1.2.0 -> v1.3.0
+ [Dependencies::Stats]
+ - Dependencies changed since 0.4.0, see misc/*.deps* for details
+ - develop: (recommends: ↑1, suggests: ↑1)
 
  [Internals]
  - Carp now loaded on-demand.
- - List::MoreUtils now loaded on demand, which is good, because its only
-   used at lax = 2
+ - List::MoreUtils now loaded on demand, which is good, because its only used at lax = 2
  - croak is proxied via _fatal() which takes lots more information.
 
 0.4.0 2012-03-01T08:37:02Z
  [00 IMPORTANT CHANGES]
- - new 'oneshot' mode for validating/normalising a single version, for use
-   predominantly in other scripts like bash.
+ - new 'oneshot' mode for validating/normalising a single version, for use predominantly in other scripts like bash.
  - usage: VALUE="$( gentoo_perlmod_version.pl --oneshot "$VERSION" )"
 
- [Dependencies::Changed]
- - develop suggests : Dist::Zilla::PluginBundle::Author::KENTNL
-   1.0.0 -> 1.2.0
-
- [Dependencies::New]
- - runtime requires : perl 5.10.0
+ [Dependencies::Stats]
+ - Dependencies changed since 0.3.1, see misc/*.deps* for details
+ - develop: (suggests: ↑1)
+ - runtime: +1
 
  [Documentation]
  - Fixed a few typos and clarified some minor things.
@@ -77,12 +83,10 @@
 0.3.1 2011-10-22T14:35:08Z
  - Maintenance Release
 
- [Dependencies::New::Runtime]
- - strict
- - warnings
-
- [Dependencies::Removed::Test]
- - English
+ [Dependencies::Stats]
+ - Dependencies changed since 0.3.0, see misc/*.deps* for details
+ - runtime: +2
+ - test: -1
 
  [Internals]
  - VERSION no longer declared in BEGIN
@@ -98,26 +102,31 @@
 0.3.0 2011-02-26T02:08:13Z
  - Switch to @Author::KENTNL bundle.
  - Don't strip excess 0 groups.
- - Use standard 'normalized' dotted-decimal versions ( without leading 'v'
-   and with at least 3 components ) ( Thanks to Torsten Veller )
+ - Use standard 'normalized' dotted-decimal versions ( without leading 'v' and with at least 3 components ) ( Thanks to
+   Torsten Veller )
+
+ [Dependencies::Stats]
+ - Dependencies changed since 0.2.2, see misc/*.deps* for details
+ - develop: +1 -1 (recommends: +1 -1, suggests: +1 -1)
 
 0.2.2 2011-01-11T14:20:34Z
  - Added POD to the script to be helpful.
  - Removed a few errors from the POD.
- - Hack it so lax version doesn't influence the whole parse, instead,
-   laxing is only applied when its deemed the input isn't within a defined
-   format.
+ - Hack it so lax version doesn't influence the whole parse, instead, laxing is only applied when its deemed the input
+   isn't within a defined format.
  - Dropped _has_bad_bits in favour of individual targeted regex.
 
 0.2.1 2011-01-10T21:14:42Z
- - Fix a minor issue where v-strings were rejected because we thought they
-   were ascii. Thanks to Torsten Veller for reporting.
+ - Fix a minor issue where v-strings were rejected because we thought they were ascii. Thanks to Torsten Veller for
+   reporting.
 
 0.2.0 2011-01-09T22:26:45Z
- - Managed to accidentally sneak the last one out without the dep on
-   version.pm.
- - Redid the whole version split->lint-tidyup chain w/ Vincent Pits code.
-   ( Thanks VPIT )
+ - Managed to accidentally sneak the last one out without the dep on version.pm.
+ - Redid the whole version split->lint-tidyup chain w/ Vincent Pits code. ( Thanks VPIT )
+
+ [Dependencies::Stats]
+ - Dependencies changed since 0.001.000, see misc/*.deps* for details
+ - runtime: +1
 
 0.001.000 2011-01-09T19:24:56Z
  - First version, released on an unsuspecting world.

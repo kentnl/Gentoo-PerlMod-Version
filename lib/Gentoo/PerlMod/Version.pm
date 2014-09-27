@@ -1,20 +1,17 @@
+use 5.006;
 use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version;
-BEGIN {
-  $Gentoo::PerlMod::Version::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $Gentoo::PerlMod::Version::VERSION = '0.6.0';
-}
 
-# ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
+our $VERSION = '0.7.0';
 
-use Sub::Exporter -setup => { exports => [qw( gentooize_version )] };
+# ABSTRACT: Convert arbitrary Perl Modules' versions into normalized Gentoo versions.
+
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
+
+use Sub::Exporter::Progressive -setup => { exports => [qw( gentooize_version )] };
 use version 0.77;
-
-
 
 sub gentooize_version {
   my ( $perlver, $config ) = @_;
@@ -27,18 +24,18 @@ sub gentooize_version {
     $config->{lax} = _env_getopt('always_lax');
   }
 
-  if ( $perlver =~ /^v?[\d.]+$/ ) {
+  if ( $perlver =~ /\Av?[\d.]+\z/msx ) {
     return _lax_cleaning_0($perlver);
   }
 
-  if ( $perlver =~ /^v?[\d._]+(-TRIAL)?$/ ) {
+  if ( $perlver =~ /\Av?[\d._]+(-TRIAL)?\z/msx ) {
     if ( $config->{lax} > 0 ) {
       return _lax_cleaning_1($perlver);
     }
     return _err_matches_trial_regex_nonlax( $perlver, $config );
   }
 
-  if ( $config->{lax} == 2 ) {
+  if ( 2 == $config->{lax} ) {
     return _lax_cleaning_2($perlver);
   }
   return _err_not_decimal_or_trial( $perlver, $config );
@@ -54,21 +51,9 @@ sub gentooize_version {
 my $char_map = {
   ( map { $_ => $_ } 0 .. 9 ),    # 0..9
   ( map { chr( $_ + 65 ) => $_ + 10 } 0 .. 25 ),    # A-Z
-  ( map { chr( $_ + 97 ) => $_ + 10 } 0 .. 25 )     # a-z
+  ( map { chr( $_ + 97 ) => $_ + 10 } 0 .. 25 ),    # a-z
 };
 
-#
-# _char_map() -> string of charmap dump
-#
-sub _char_map {
-  require Data::Dumper;
-  local $Data::Dumper::Sortkeys = 1;
-  local $Data::Dumper::Terse    = 1;
-  local $Data::Dumper::Indent   = 0;
-  return Data::Dumper::Dumper($char_map);
-}
-
-#
 # _code_for('z') -> $number
 #
 
@@ -109,7 +94,7 @@ sub _enc_pair {
 ###
 sub _ascii_to_int {
   my $string = shift;
-  my @chars = split //, $string;
+  my @chars = split //msx, $string;
   my @output;
   require List::MoreUtils;
 
@@ -138,13 +123,13 @@ sub _lax_cleaning_1 {
   my $isdev         = 0;
   my $prereleasever = undef;
 
-  if ( $version =~ s/-TRIAL$// ) {
+  if ( $version =~ s/-TRIAL\z//msx ) {
     $isdev = 1;
   }
-  if ( $version =~ s/_(.*)$/$1/ ) {
+  if ( $version =~ s/_(.*)\z/$1/msx ) {
     $prereleasever = "$1";
     $isdev         = 1;
-    if ( $prereleasever =~ /_/ ) {
+    if ( $prereleasever =~ /_/msx ) {
       return _err_lax_multi_underscore($version);
     }
   }
@@ -165,21 +150,21 @@ sub _lax_cleaning_2 {
 
   my $has_v = 0;
 
-  if ( $version =~ s/-TRIAL$// ) {
+  if ( $version =~ s/-TRIAL\z//msx ) {
     $istrial = 1;
   }
-  if ( $version =~ s/^v// ) {
+  if ( $version =~ s/\Av//msx ) {
     $has_v = 1;
   }
 
-  my @parts = split /([._])/, $version;
+  my @parts = split /([._])/msx, $version;
   my @out;
   for (@parts) {
-    if ( $_ =~ /^[_.]$/ ) {
+    if (/\A[_.]\z/msx) {
       push @out, $_;
       next;
     }
-    if ( $_ =~ /^\d+/ ) {
+    if (/\A\d\z/msx) {
       push @out, $_;
       next;
     }
@@ -206,19 +191,18 @@ sub _expand_numeric {
 
   my $ver = version->parse($perlver)->normal;
 
-  $ver =~ s/^v//;    # strip leading v
+  $ver =~ s/\Av//msx;    # strip leading v
 
-  my @tokens = split /[.]/, $ver;
+  my @tokens = split /[.]/msx, $ver;
   my @out;
 
   for (@tokens) {
-    $_ =~ s/^0+([1-9])/$1/;    # strip leading 0's
+    s/\A0+([1-9])/$1/msx;    # strip leading 0's
     push @out, $_;
   }
 
   return join q{.}, @out;
 }
-
 
 BEGIN {
   for my $err (qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore )) {
@@ -245,22 +229,21 @@ BEGIN {
 
 }
 
-
 1;
 
 __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
-Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
+Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normalized Gentoo versions.
 
 =head1 VERSION
 
-version 0.6.0
+version 0.7.0
 
 =head1 SYNOPSIS
 
@@ -290,7 +273,8 @@ version 0.6.0
     my $normalized = gentooize_version( $weird_version )
 
 gentooize_version tries hard to mangle a version that is part of a CPAN dist into a normalized form
-for Gentoo, which can be used as the version number of the ebuild, while storing the original upstream version in the ebuild.
+for Gentoo, which can be used as the version number of the C<ebuild>, while storing the original upstream version in the
+C<ebuild>.
 
     CPAN: Foo-Bar-Baz 1.5
     print gentooize_version('1.5');  # -> 1.500.0
@@ -300,7 +284,7 @@ for Gentoo, which can be used as the version number of the ebuild, while storing
     # MODULE_VERSION="1.5"
     # ...
 
-Normal behaviour accepts only sane non-testing versions, i.e.:
+Normal behavior accepts only sane non-testing versions, i.e.:
 
     0.1         -> 0.001.0
     0.001       -> 0.1.0
@@ -316,7 +300,7 @@ This uses L<< C<version.pm>|version >> to read versions and to normalize them.
     0.001  # 0.1.0
     0.0001 # 0.0.100
 
-So assuming Perl can handle your versions, they can be normalised.
+So assuming Perl can handle your versions, they can be normalized.
 
 =head3 lax level 1
 
@@ -336,7 +320,8 @@ This adds one layer of laxativity, and permits parsing and processing of "Develo
 
 B<EXPERIMENTAL:> This feature is still in flux, and the emitted versions may change.
 
-This adds another layer of laxativity, and permits parsing and processing of packages with versions not officially supported by Perl.
+This adds another layer of laxativity, and permits parsing and processing of packages with versions not officially supported by
+Perl.
 
 This means versions such as
 
@@ -351,7 +336,7 @@ This is performed by some really nasty tricks, and treats the ASCII portion like
 
     1.6.A6.FG.HK.E
 
-And each ascii pair is treated like a Base36 number.
+And each ASCII pair is treated like a Base36 number.
 
     0 -> 0
     ....
@@ -368,9 +353,10 @@ As you can see, its really nasty, and hopefully its not needed.
 
 =head1 ENVIRONMENT
 
-This module recognises the environment variable GENTOO_PERLMOD_VERSION_OPTS for a few features.
+This module recognizes the environment variable GENTOO_PERLMOD_VERSION_OPTS for a few features.
 
-These are mostly useful for system wide or user-wide policies that may be applicable for using this module, depending on where it is used.
+These are mostly useful for system wide or user-wide policies that may be applicable for using this module, depending on where
+it is used.
 
 This field is split by white-space and each token has a meaning.
 
@@ -382,7 +368,8 @@ This field is split by white-space and each token has a meaning.
   GENTOO_PERLMOD_VERSION_OPTS+=" always_lax   "# same as always_lax=1
   GENTOO_PERLMOD_VERSION_OPTS+=" -always_lax  "# unset always_lax
 
-This environment setting, if specified, overrides any specification of "lax" in the code. If this specified more than once, the right-most one applies.
+This environment setting, if specified, overrides any specification of "lax" in the code. If this specified more than once,
+the right-most one applies.
 
 Specifying C<-always_lax> will unset the setting, making it behave as if it had not been previously specified.
 
@@ -391,9 +378,11 @@ Specifying C<-always_lax> will unset the setting, making it behave as if it had 
   GENTOO_PERLMOD_VERSION_OPTS+=" taint_safe  " #on
   GENTOO_PERLMOD_VERSION_OPTS+=" -taint_safe " #off
 
-As it stands, this module only emits messages via STDOUT/STDERR when an error occurs. For diagnosis, sometimes user provided data can appear in this output.
+As it stands, this module only emits messages via STDOUT/STDERR when an error occurs. For diagnosis, sometimes user provided
+data can appear in this output.
 
-Specifying this option will remove the information as specified by the user where possible, to eliminate this risk if this is a security issue for you.
+Specifying this option will remove the information as specified by the user where possible, to eliminate this risk if this
+is a security issue for you.
 
 It is not a guarantee of safety, but merely a tool you might find useful, depending on circumstances.
 
@@ -423,7 +412,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

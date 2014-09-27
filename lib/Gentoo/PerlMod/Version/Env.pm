@@ -1,30 +1,34 @@
+use 5.006;
 use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version::Env;
-BEGIN {
-  $Gentoo::PerlMod::Version::Env::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $Gentoo::PerlMod::Version::Env::VERSION = '0.6.0';
-}
+
+our $VERSION = '0.7.0';
 
 # ABSTRACT: Get/parse settings from %ENV
 
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
+
 my $state;
 my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
+
+
+
+
+
 
 
 sub opts {
   return $state if defined $state;
   $state = {};
   return $state if not defined $ENV{$env_key};
-  my (@tokes) = split /\s+/, $ENV{$env_key};
+  my (@tokes) = split /\s+/msx, $ENV{$env_key};
   for my $token (@tokes) {
-    if ( $token =~ /^([^=]+)=(.+)$/ ) {
+    if ( $token =~ /\A([^=]+)=(.+)\z/msx ) {
       $state->{"$1"} = "$2";
     }
-    elsif ( $token =~ /^-(.+)$/ ) {
+    elsif ( $token =~ /\A-(.+)\z/msx ) {
       delete $state->{"$1"};
     }
     else {
@@ -35,10 +39,28 @@ sub opts {
 }
 
 
+
+
+
+
+
+
+
+
+
 sub hasopt {
   my ($opt) = @_;
   return exists opts()->{$opt};
 }
+
+
+
+
+
+
+
+
+
 
 
 sub getopt {
@@ -52,7 +74,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -60,15 +82,15 @@ Gentoo::PerlMod::Version::Env - Get/parse settings from %ENV
 
 =head1 VERSION
 
-version 0.6.0
+version 0.7.0
 
 =head1 FUNCTIONS
 
-=head2 opts
+=head2 C<opts>
 
     my $hash = Gentoo::PerlMod::Version::Env::opts();
 
-=head2 hasopt
+=head2 C<hasopt>
 
     GENTOO_PERLMOD_VERSION=" foo=5 ";
 
@@ -76,7 +98,7 @@ version 0.6.0
         pass('has opt foo');
     }
 
-=head2 getopt
+=head2 C<getopt>
 
     GENTOO_PERLMOD_VERSION=" foo=5 ";
 
@@ -90,7 +112,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
