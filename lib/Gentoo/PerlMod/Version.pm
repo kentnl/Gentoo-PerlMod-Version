@@ -2,17 +2,120 @@ use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version;
-BEGIN {
-  $Gentoo::PerlMod::Version::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $Gentoo::PerlMod::Version::VERSION = '0.6.0';
-}
-
+$Gentoo::PerlMod::Version::VERSION = '0.006001';
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
 
 use Sub::Exporter -setup => { exports => [qw( gentooize_version )] };
 use version 0.77;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -220,6 +323,49 @@ sub _expand_numeric {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 BEGIN {
   for my $err (qw( perlver_undefined matches_trial_regex_nonlax not_decimal_or_trial bad_char lax_multi_underscore )) {
     my $code = sub {
@@ -246,13 +392,24 @@ BEGIN {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
 1;
 
 __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -260,7 +417,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.6.0
+version 0.006001
 
 =head1 SYNOPSIS
 
@@ -423,7 +580,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

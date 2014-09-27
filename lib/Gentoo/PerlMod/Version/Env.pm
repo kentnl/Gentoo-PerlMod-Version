@@ -2,17 +2,16 @@ use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version::Env;
-BEGIN {
-  $Gentoo::PerlMod::Version::Env::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $Gentoo::PerlMod::Version::Env::VERSION = '0.6.0';
-}
-
+$Gentoo::PerlMod::Version::Env::VERSION = '0.006001';
 # ABSTRACT: Get/parse settings from %ENV
 
 my $state;
 my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
+
+
+
+
+
 
 
 sub opts {
@@ -35,10 +34,28 @@ sub opts {
 }
 
 
+
+
+
+
+
+
+
+
+
 sub hasopt {
   my ($opt) = @_;
   return exists opts()->{$opt};
 }
+
+
+
+
+
+
+
+
+
 
 
 sub getopt {
@@ -52,7 +69,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -60,7 +77,7 @@ Gentoo::PerlMod::Version::Env - Get/parse settings from %ENV
 
 =head1 VERSION
 
-version 0.6.0
+version 0.006001
 
 =head1 FUNCTIONS
 
@@ -90,7 +107,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,12 +1,7 @@
 #!/usr/bin/env perl
 ## no critic (TestingAndDebugging)
 package Gentoo::PerlMod::Version::Tool;
-BEGIN {
-  $Gentoo::PerlMod::Version::Tool::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $Gentoo::PerlMod::Version::Tool::VERSION = '0.6.0';
-}
+$Gentoo::PerlMod::Version::Tool::VERSION = '0.006001';
 use strict;
 use warnings;
 ## use critic
@@ -17,6 +12,27 @@ use warnings;
 ## no critic (ProhibitPunctuationVar)
 use Gentoo::PerlMod::Version qw( :all );
 use Carp qw( croak );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 for (@ARGV) {
@@ -92,7 +108,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -100,7 +116,7 @@ gentoo-perlmod-version.pl - Command line utility for translating cpan versions t
 
 =head1 VERSION
 
-version 0.6.0
+version 0.006001
 
 =head1 SYNOPSIS
 
@@ -127,7 +143,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
