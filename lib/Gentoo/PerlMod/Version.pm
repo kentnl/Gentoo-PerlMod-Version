@@ -133,11 +133,11 @@ sub gentooize_version {
     $config->{lax} = _env_getopt('always_lax');
   }
 
-  if ( $perlver =~ /^v?[\d.]+$/ ) {
+  if ( $perlver =~ /\Av?[\d.]+\z/msx ) {
     return _lax_cleaning_0($perlver);
   }
 
-  if ( $perlver =~ /^v?[\d._]+(-TRIAL)?$/ ) {
+  if ( $perlver =~ /\Av?[\d._]+(-TRIAL)?\z/msx ) {
     if ( $config->{lax} > 0 ) {
       return _lax_cleaning_1($perlver);
     }
