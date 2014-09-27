@@ -2,7 +2,9 @@ use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version::Error;
-$Gentoo::PerlMod::Version::Error::VERSION = '0.6.1';
+
+our $VERSION = '0.7.0';
+
 # ABSTRACT: Various error message and diagnostic bits.
 
 BEGIN {

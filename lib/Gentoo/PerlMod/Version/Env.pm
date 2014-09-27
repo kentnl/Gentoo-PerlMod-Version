@@ -2,7 +2,9 @@ use strict;
 use warnings;
 
 package Gentoo::PerlMod::Version::Env;
-$Gentoo::PerlMod::Version::Env::VERSION = '0.6.1';
+
+our $VERSION = '0.7.0';
+
 # ABSTRACT: Get/parse settings from %ENV
 
 my $state;
