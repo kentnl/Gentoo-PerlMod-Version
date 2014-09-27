@@ -8,6 +8,8 @@ our $VERSION = '0.7.0';
 
 # ABSTRACT: Various error message and diagnostic bits.
 
+# AUTHORITY
+
 BEGIN {
 
   for my $env (qw( opts hasopt getopt )) {
