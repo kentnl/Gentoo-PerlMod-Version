@@ -64,6 +64,7 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
 
  [Added / runtime requires]
  - Sub::Exporter::Progressive
+ - overload
 
  [Added / test recommends]
  - CPAN::Meta 2.120900

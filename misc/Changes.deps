@@ -6,6 +6,7 @@ This file contains changes in REQUIRED dependencies for standard CPAN phases (co
 
  [Added / runtime requires]
  - Sub::Exporter::Progressive
+ - overload
 
  [Added / test requires]
  - ExtUtils::MakeMaker
