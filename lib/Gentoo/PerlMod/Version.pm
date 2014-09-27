@@ -144,7 +144,7 @@ sub gentooize_version {
     return _err_matches_trial_regex_nonlax( $perlver, $config );
   }
 
-  if ( $config->{lax} == 2 ) {
+  if ( 2 == $config->{lax} ) {
     return _lax_cleaning_2($perlver);
   }
   return _err_not_decimal_or_trial( $perlver, $config );

@@ -73,7 +73,7 @@ for ( 0 .. $#ARGV ) {
   last;
 }
 for ( 0 .. $#ARGV ) {
-  next unless $ARGV[$_] eq '--oneshot';
+  next unless '--oneshot' eq $ARGV[$_];
   $oneshot = 1;
   splice @ARGV, $_, 1, ();
   last;
