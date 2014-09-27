@@ -14,12 +14,10 @@ dist.ini.meta
 lib/Gentoo/PerlMod/Version.pm
 lib/Gentoo/PerlMod/Version/Env.pm
 lib/Gentoo/PerlMod/Version/Error.pm
-maint/perlcritic.rc.gen.pl
 misc/Changes.deps
 misc/Changes.deps.all
 misc/Changes.deps.dev
 misc/Changes.deps.opt
-misc/perlcritic.deps
 perlcritic.rc
 t/00-compile/lib_Gentoo_PerlMod_Version_Env_pm.t
 t/00-compile/lib_Gentoo_PerlMod_Version_Error_pm.t
