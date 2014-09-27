@@ -281,11 +281,11 @@ sub _lax_cleaning_2 {
   my @parts = split /([._])/, $version;
   my @out;
   for (@parts) {
-    if ( $_ =~ /^[_.]$/ ) {
+    if (/^[_.]$/) {
       push @out, $_;
       next;
     }
-    if ( $_ =~ /^\d+/ ) {
+    if (/^\d+/) {
       push @out, $_;
       next;
     }
@@ -318,7 +318,7 @@ sub _expand_numeric {
   my @out;
 
   for (@tokens) {
-    $_ =~ s/^0+([1-9])/$1/;    # strip leading 0's
+    s/^0+([1-9])/$1/;    # strip leading 0's
     push @out, $_;
   }
 

@@ -37,7 +37,7 @@ use Carp qw( croak );
 
 
 for (@ARGV) {
-  if ( $_ =~ /^--?h/ ) {
+  if (/^--?h/) {
     die <<"EOF";
 
     gentoo-perlmod-version.pl 1.4 1.5 1.6
