@@ -271,21 +271,21 @@ sub _lax_cleaning_2 {
 
   my $has_v = 0;
 
-  if ( $version =~ s/-TRIAL$// ) {
+  if ( $version =~ s/-TRIAL\z//msx ) {
     $istrial = 1;
   }
-  if ( $version =~ s/^v// ) {
+  if ( $version =~ s/\Av//msx ) {
     $has_v = 1;
   }
 
-  my @parts = split /([._])/, $version;
+  my @parts = split /([._])/msx, $version;
   my @out;
   for (@parts) {
-    if (/^[_.]$/) {
+    if (/\A[_.]\z/msx) {
       push @out, $_;
       next;
     }
-    if (/^\d+/) {
+    if (/\A\d\z/msx) {
       push @out, $_;
       next;
     }
