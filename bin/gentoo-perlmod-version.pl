@@ -9,7 +9,7 @@ our $VERSION = '0.7.0';
 
 # PODNAME: gentoo-perlmod-version.pl
 
-# ABSTRACT: Command line utility for translating cpan versions to gentoo equivalents.
+# ABSTRACT: Command line utility for translating CPAN versions to Gentoo equivalents.
 
 # AUTHORITY
 
@@ -33,7 +33,7 @@ use Carp qw( croak );
     SOMEVAR="$(  gentoo-perlmod-version.pl --lax=1 --oneshot 1.4_5 )" # Ok
 
 
-See perldoc for L<< C<Gentoo::PerlMod::Versions> documentation|Gentoo::PerlMod::Version >> for more information.
+See C<perldoc> for L<< C<Gentoo::PerlMod::Versions> documentation|Gentoo::PerlMod::Version >> for more information.
 
     perldoc Gentoo::PerlMod::Version
 

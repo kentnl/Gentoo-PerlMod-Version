@@ -13,7 +13,7 @@ our $VERSION = '0.7.0';
 my $state;
 my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
 
-=func opts
+=func C<opts>
 
     my $hash = Gentoo::PerlMod::Version::Env::opts();
 
@@ -38,7 +38,7 @@ sub opts {
   return $state;
 }
 
-=func hasopt
+=func C<hasopt>
 
     GENTOO_PERLMOD_VERSION=" foo=5 ";
 
@@ -53,7 +53,7 @@ sub hasopt {
   return exists opts()->{$opt};
 }
 
-=func getopt
+=func C<getopt>
 
     GENTOO_PERLMOD_VERSION=" foo=5 ";
 
