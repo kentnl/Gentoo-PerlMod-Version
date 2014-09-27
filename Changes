@@ -1,6 +1,6 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
-0.7.0 2014-09-27T06:42:25Z
+0.7.0 2014-09-27T06:44:59Z
  [00 Important - Installing Toolkit Change]
  - This may affect hand operated downstreams
  - Code is migrated from using Module::Build to using ExtUtils::MakeMaker as an install tool.
@@ -24,6 +24,7 @@
 
  [Metadata]
  - recognize 1x contributor
+ - migrate to kentnl org
 
 0.6.0 2012-10-27T12:27:17Z
  [00 IMPORTANT CHANGES]
