@@ -17,28 +17,6 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 use Gentoo::PerlMod::Version qw( gentooize_version );
 use Carp qw( croak );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 for (@ARGV) {
   if (/\A--?h/msx) {
     die <<"EOF";
@@ -107,6 +85,8 @@ sub map_version {
   print "\n" or croak "Print error $!";
   return;
 }
+
+1;
 
 __END__
 
