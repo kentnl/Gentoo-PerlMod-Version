@@ -30,8 +30,7 @@ for my $wordlist (@stopwords) {
 #  'Subroutines::ProhibitCallsToUndeclaredSubs' => ( 'exempt_subs' => 'String::Formatter::str_rf' ), );
 
 $bundle->remove_policy('ErrorHandling::RequireUseOfExceptions');
-
-#$bundle->remove_policy('CodeLayout::RequireUseUTF8');
+$bundle->remove_policy('CodeLayout::RequireUseUTF8');
 
 #$bundle->remove_policy('ErrorHandling::RequireCarping');
 $bundle->remove_policy('NamingConventions::Capitalization');
