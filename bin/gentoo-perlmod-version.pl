@@ -1,6 +1,9 @@
 #!/usr/bin/env perl
 ## no critic (TestingAndDebugging)
 package Gentoo::PerlMod::Version::Tool;
+
+our $VERSION = '0.7.0';
+
 use strict;
 use warnings;
 ## use critic
