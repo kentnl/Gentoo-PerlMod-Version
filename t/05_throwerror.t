@@ -16,6 +16,7 @@ subtest perlver_undefined => sub {
   is( $result->{code}, 'perlver_undefined', 'right code' );
   ok( defined $result->{message}, 'has a message' );
   is( refaddr $config , refaddr $result->{config}, 'config passthrough' );
+  note("$result");
 };
 
 subtest bad_char => sub {
@@ -23,6 +24,7 @@ subtest bad_char => sub {
   isnt( $result, undef, 'Exception Get' );
   is( $result->{code}, 'bad_char', 'right code' );
   ok( defined $result->{message}, 'has a message' );
+  note("$result");
 };
 
 done_testing;

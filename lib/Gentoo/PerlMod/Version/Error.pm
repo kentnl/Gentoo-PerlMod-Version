@@ -152,6 +152,14 @@ sub _format_error {
   if ( exists $conf->{'message_extra_tainted'} ) {
     $message .= $conf->{'message_extra_tainted'};
   }
+  if ( exists $conf->{'stack'} ) {
+    for ( @{ $conf->{stack} } ) {
+      if ( $_->[0] !~ /\AGentoo::PerlMod::Version(|::Error|::Env)\z/ ) {
+        $message .= sprintf qq[\n - From %s in %s at line %s\n], $_->[0] || '', $_->[1] || '', $_->[2] || '';
+        last;
+      }
+    }
+  }
   return $message;
 }
 
@@ -160,6 +168,7 @@ use overload q[""] => \&_format_error;
 sub _fatal {
   my ($conf) = @_;
   require Carp;
+  $conf->{stack} = [ map { my @c = caller($_); [ $c[0], $c[1], $c[2] ] } 0 .. 10 ];
   return Carp::croak( bless $conf, __PACKAGE__ );
 }
 
