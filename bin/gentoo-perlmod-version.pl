@@ -8,7 +8,10 @@ package Gentoo::PerlMod::Version::Tool;
 our $VERSION = '0.7.0';
 
 # PODNAME: gentoo-perlmod-version.pl
+
 # ABSTRACT: Command line utility for translating cpan versions to gentoo equivalents.
+
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 ## no critic (ProhibitPunctuationVar)
 use Gentoo::PerlMod::Version qw( :all );

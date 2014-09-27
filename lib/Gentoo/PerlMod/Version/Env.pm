@@ -8,6 +8,8 @@ our $VERSION = '0.7.0';
 
 # ABSTRACT: Get/parse settings from %ENV
 
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
+
 my $state;
 my $env_key = 'GENTOO_PERLMOD_VERSION_OPTS';
 

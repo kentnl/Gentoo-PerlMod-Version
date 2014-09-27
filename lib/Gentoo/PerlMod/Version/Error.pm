@@ -8,6 +8,8 @@ our $VERSION = '0.7.0';
 
 # ABSTRACT: Various error message and diagnostic bits.
 
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
+
 BEGIN {
 
   for my $env (qw( opts hasopt getopt )) {

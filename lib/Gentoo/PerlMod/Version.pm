@@ -8,6 +8,8 @@ our $VERSION = '0.7.0';
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalised Gentoo versions.
 
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
+
 use Sub::Exporter -setup => { exports => [qw( gentooize_version )] };
 use version 0.77;
 
