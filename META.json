@@ -125,13 +125,13 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/kentfredric/Gentoo-PerlMod-Version/issues"
+         "web" : "https://github.com/kentnl/Gentoo-PerlMod-Version/issues"
       },
-      "homepage" : "https://github.com/kentfredric/Gentoo-PerlMod-Version",
+      "homepage" : "https://github.com/kentnl/Gentoo-PerlMod-Version",
       "repository" : {
          "type" : "git",
-         "url" : "https://github.com/kentfredric/Gentoo-PerlMod-Version.git",
-         "web" : "https://github.com/kentfredric/Gentoo-PerlMod-Version"
+         "url" : "https://github.com/kentnl/Gentoo-PerlMod-Version.git",
+         "web" : "https://github.com/kentnl/Gentoo-PerlMod-Version"
       }
    },
    "version" : "0.7.0",

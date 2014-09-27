@@ -38,9 +38,9 @@ requires:
   version: '0.77'
   warnings: '0'
 resources:
-  bugtracker: https://github.com/kentfredric/Gentoo-PerlMod-Version/issues
-  homepage: https://github.com/kentfredric/Gentoo-PerlMod-Version
-  repository: https://github.com/kentfredric/Gentoo-PerlMod-Version.git
+  bugtracker: https://github.com/kentnl/Gentoo-PerlMod-Version/issues
+  homepage: https://github.com/kentnl/Gentoo-PerlMod-Version
+  repository: https://github.com/kentnl/Gentoo-PerlMod-Version.git
 version: 0.7.0
 x_BuiltWith:
   modules:
