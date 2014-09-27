@@ -215,7 +215,7 @@ sub _enc_pair {
 ###
 sub _ascii_to_int {
   my $string = shift;
-  my @chars = split //, $string;
+  my @chars = split //msx, $string;
   my @output;
   require List::MoreUtils;
 
@@ -244,13 +244,13 @@ sub _lax_cleaning_1 {
   my $isdev         = 0;
   my $prereleasever = undef;
 
-  if ( $version =~ s/-TRIAL$// ) {
+  if ( $version =~ s/-TRIAL\z//msx ) {
     $isdev = 1;
   }
-  if ( $version =~ s/_(.*)$/$1/ ) {
+  if ( $version =~ s/_(.*)\z/$1/msx ) {
     $prereleasever = "$1";
     $isdev         = 1;
-    if ( $prereleasever =~ /_/ ) {
+    if ( $prereleasever =~ /_/msx ) {
       return _err_lax_multi_underscore($version);
     }
   }
