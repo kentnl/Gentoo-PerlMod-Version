@@ -1,11 +1,11 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
-0.7.1 2015-06-23T03:04:57Z f3f184f
+0.7.1 2015-06-23T03:06:21Z 21e5eda
  [Dependencies::Stats]
  - Dependencies changed since 0.7.0, see misc/*.deps* for details
  - configure: +1 (recommends: ↑1)
- - develop: +2 (recommends: +1, suggests: ↑2)
- - test: +1 (recommends: ↑2)
+ - develop: +10 ↑3 -3 (recommends: +1, suggests: ↑2)
+ - test: +1 (recommends: ↑1 ↓1)
 
 0.7.0 2014-09-27T07:40:21Z
  [00 Important - Installing Toolkit Change]
