@@ -7,6 +7,9 @@ This file contains changes in REQUIRED dependencies for standard CPAN phases (co
  [Added / test requires]
  - perl 5.006
 
+ [Removed / runtime requires]
+ - List::MoreUtils
+
 0.7.0 2014-09-27T07:40:21Z
  [Added / configure requires]
  - ExtUtils::MakeMaker
