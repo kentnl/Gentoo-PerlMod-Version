@@ -43,6 +43,9 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - Dist::Zilla::Plugin::MetaYAML
  - Dist::Zilla::Plugin::ReadmeFromPod
 
+ [Removed / runtime requires]
+ - List::MoreUtils
+
 0.7.0 2014-09-27T07:40:21Z
  [Added / configure recommends]
  - ExtUtils::MakeMaker 6.98
