@@ -56,7 +56,6 @@
       "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.024002",
       "ExtUtils::MakeMaker" : "7.04_01",
       "File::Spec" : "3.56",
-      "List::MoreUtils" : "0.413",
       "Pod::Coverage::TrustPod" : "0.100003",
       "Scalar::Util" : "1.42",
       "Sub::Exporter::Progressive" : "0.001011",

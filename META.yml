@@ -32,7 +32,6 @@ provides:
 requires:
   Carp: '0'
   Data::Dumper: '0'
-  List::MoreUtils: '0'
   Sub::Exporter::Progressive: '0'
   overload: '0'
   perl: '5.006'

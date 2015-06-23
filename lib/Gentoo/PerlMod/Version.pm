@@ -96,11 +96,9 @@ sub _ascii_to_int {
   my $string = shift;
   my @chars = split //msx, $string;
   my @output;
-  require List::MoreUtils;
 
-  my $iterator = List::MoreUtils::natatime( 2, @chars );
-  while ( my @vals = $iterator->() ) {
-    push @output, _enc_pair(@vals);
+  while (@chars) {
+    push @output, _enc_pair( splice @chars, 0, 2, () );
   }
 
   return join q{.}, @output;
