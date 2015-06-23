@@ -2,15 +2,33 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
 
 0.7.1
  [Added / develop recommends]
- - Test::More 1.001014
+ - Test::More 0.99
 
  [Added / develop requires]
+ - Dist::Zilla 5
+ - Dist::Zilla::Plugin::Author::KENTNL::TravisCI 0.001002
+ - Dist::Zilla::Plugin::ExecDir
+ - Dist::Zilla::Plugin::MetaYAML::Minimal
+ - Dist::Zilla::Plugin::Prereqs::AuthorDeps
+ - Dist::Zilla::Plugin::Prereqs::Upgrade
+ - Dist::Zilla::Plugin::Readme::Brief
+ - Dist::Zilla::Plugin::Test::EOL
  - Test::EOL
  - Test::More 0.88
+
+ [Changed / develop requires]
+ - Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes 0.001001 → 0.004002
+ - Dist::Zilla::Plugin::Git::NextRelease 0 → 0.004000
+ - Dist::Zilla::Plugin::MetaData::BuiltWith 0 → 1.004000
 
  [Changed / develop suggests]
  - Dist::Zilla::App::Command::bakeini 0.001002 → 0.002005
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.020003 → 2.024002
+
+ [Removed / develop requires]
+ - Dist::Zilla::Plugin::EOLTests
+ - Dist::Zilla::Plugin::MetaYAML
+ - Dist::Zilla::Plugin::ReadmeFromPod
 
 0.7.0 2014-09-27T07:40:21Z
  [Added / develop requires]
