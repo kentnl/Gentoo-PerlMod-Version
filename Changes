@@ -1,8 +1,9 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
-0.7.1 2015-06-23T03:13:11Z d4a05c7
+0.7.1 2015-06-23T03:16:18Z 4e763a6
  [00 Minor]
  - Avoid using an XS dep to simply iterate an array pairwise.
+ - This effectively halves our total runtime dependencies.
 
  [Dependencies::Stats]
  - Dependencies changed since 0.7.0, see misc/*.deps* for details
