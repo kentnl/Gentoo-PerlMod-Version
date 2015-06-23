@@ -9,6 +9,7 @@ MANIFEST
 META.json
 META.yml
 Makefile.PL
+README
 bin/gentoo-perlmod-version.pl
 dist.ini
 dist.ini.meta
@@ -20,6 +21,7 @@ misc/Changes.deps
 misc/Changes.deps.all
 misc/Changes.deps.dev
 misc/Changes.deps.opt
+misc/built_with.json
 misc/perlcritic.deps
 perlcritic.rc
 t/00-compile/lib_Gentoo_PerlMod_Version_Env_pm.t
@@ -34,9 +36,9 @@ t/04_error.t
 t/05_throwerror.t
 weaver.ini
 xt/author/critic.t
+xt/author/eol.t
 xt/release/cpan-changes.t
 xt/release/distmeta.t
-xt/release/eol.t
 xt/release/kwalitee.t
 xt/release/minimum-version.t
 xt/release/pod-coverage.t
