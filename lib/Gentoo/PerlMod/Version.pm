@@ -277,9 +277,10 @@ That is, C<1.001> is B<NOT> the same as C<1.01> and C<1.1>
 However, Gentoo's version scheme sees C<1.001> similar to C<1.001.000> which is similar to C<1.1.0> and thus,
 similar to C<1.1>.
 
-Obviously this will not do, because when somebody says they need C<< >=1.05 (g:1.5) >> expecting C<< 1.06 (g:1.6) >>, but instead get C<< 1.009 (g:1.9) >>, things will break.
+Obviously this will not do, because when somebody says they need C<< >=1.05 (g:1.5) >> expecting C<< 1.06 (g:1.6) >>, but instead
+get C<< 1.009 (g:1.9) >>, things will break.
 
-Hence, detection of these cases and normalising them is essential:
+Hence, detection of these cases and normalizing them is essential:
 
   1.001 -> 1.1.0
   1.01  -> 1.10.0

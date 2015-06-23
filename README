@@ -17,7 +17,7 @@ Obviously this will not do, because when somebody says they need ">=1.05
 (g:1.5)" expecting "1.06 (g:1.6)", but instead get "1.009 (g:1.9)",
 things will break.
 
-Hence, detection of these cases and normalising them is essential:
+Hence, detection of these cases and normalizing them is essential:
 
   1.001 -> 1.1.0
   1.01  -> 1.10.0
