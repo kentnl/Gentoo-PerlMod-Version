@@ -4,7 +4,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version;
 
-our $VERSION = '0.7.0';
+our $VERSION = '0.7.1';
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalized Gentoo versions.
 
@@ -96,11 +96,9 @@ sub _ascii_to_int {
   my $string = shift;
   my @chars = split //msx, $string;
   my @output;
-  require List::MoreUtils;
 
-  my $iterator = List::MoreUtils::natatime( 2, @chars );
-  while ( my @vals = $iterator->() ) {
-    push @output, _enc_pair(@vals);
+  while (@chars) {
+    push @output, _enc_pair( splice @chars, 0, 2, () );
   }
 
   return join q{.}, @output;
@@ -243,7 +241,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.7.0
+version 0.7.1
 
 =head1 SYNOPSIS
 
@@ -265,6 +263,37 @@ version 0.7.0
     say gentooize_version('1.9902-TRIAL')   #  <-- death, this is not so bad, but not a valid gentoo/stable version
 
     say gentooize_version('1.9902-TRIAL', { lax => 1 })   #  1.990.200_rc # <-- -TRIAL gets nuked, 'rc' is added.
+
+=head1 DESCRIPTION
+
+This module acts as a reference implementation of how Gentoo maps CPAN and Perl versions, and transforms
+them into derived versions that are suitable for Gentoo dependency tracking.
+
+Perl has several primary formats of versions, the most notable one being C<float> style versions, in the form
+C<x.yyyyyyyyyyy> where the number of C<y>'s are arbitrary, and are interpreted as a floating point value.
+
+That is, C<1.001> is B<NOT> the same as C<1.01> and C<1.1>
+
+However, Gentoo's version scheme sees C<1.001> similar to C<1.001.000> which is similar to C<1.1.0> and thus,
+similar to C<1.1>.
+
+Obviously this will not do, because when somebody says they need C<< >=1.05 (g:1.5) >> expecting C<< 1.06 (g:1.6) >>, but instead
+get C<< 1.009 (g:1.9) >>, things will break.
+
+Hence, detection of these cases and normalizing them is essential:
+
+  1.001 -> 1.1.0
+  1.01  -> 1.10.0
+  1.1   -> 1.100.0
+  1.05  -> 1.50.0
+  1.06  -> 1.60.0
+  1.009 -> 1.9.0
+
+  1.9.0 < 1.50.0 < 1.60.0
+
+The simplest use of this library is with the shipped tool, C<gentoo-perlmod-version.pl>
+
+  gentoo-perlmod-version.pl --oneshot 1.06  # 1.6.0
 
 =head1 FUNCTIONS
 
@@ -412,7 +441,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2015 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
