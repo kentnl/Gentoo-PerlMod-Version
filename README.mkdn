@@ -4,7 +4,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 # VERSION
 
-version 0.7.1
+version 0.7.2
 
 # SYNOPSIS
 
