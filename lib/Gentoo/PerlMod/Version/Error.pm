@@ -4,7 +4,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version::Error;
 
-our $VERSION = '0.7.1';
+our $VERSION = '0.7.2';
 
 # ABSTRACT: Various error message and diagnostic bits.
 
@@ -189,7 +189,7 @@ Gentoo::PerlMod::Version::Error - Various error message and diagnostic bits.
 
 =head1 VERSION
 
-version 0.7.1
+version 0.7.2
 
 =head1 FUNCTIONS
 
