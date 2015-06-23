@@ -390,4 +390,34 @@ B<Note:> As values in the hashes that would be printed can come from users, C<ca
 
 =back
 
-=cut
+=head1 DESCRIPTION
+
+This module acts as a reference implementation of how Gentoo maps CPAN and Perl versions, and transforms
+them into derived versions that are suitable for Gentoo dependency tracking.
+
+Perl has several primary formats of versions, the most notable one being C<float> style versions, in the form
+C<x.yyyyyyyyyyy> where the number of C<y>'s are arbitrary, and are interpreted as a floating point value.
+
+That is, C<1.001> is B<NOT> the same as C<1.01> and C<1.1>
+
+However, Gentoo's version scheme sees C<1.001> similar to C<1.001.000> which is similar to C<1.1.0> and thus,
+similar to C<1.1>.
+
+Obviously this will not do, because when somebody says they need C<< >=1.05 (g:1.5) >> expecting C<< 1.06 (g:1.6) >>, but instead
+get C<< 1.009 (g:1.9) >>, things will break.
+
+
+Hence, detection of these cases and normalizing them is essential:
+
+  1.001 -> 1.1.0
+  1.01  -> 1.10.0
+  1.1   -> 1.100.0
+  1.05  -> 1.50.0
+  1.06  -> 1.60.0
+  1.009 -> 1.9.0
+
+  1.9.0 < 1.50.0 < 1.60.0
+
+The simplest use of this library is with the shipped tool, C<gentoo-perlmod-version.pl>
+
+  gentoo-perlmod-version.pl --oneshot 1.06  # 1.6.0
