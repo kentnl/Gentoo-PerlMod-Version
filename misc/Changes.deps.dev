@@ -8,6 +8,9 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  [Changed / develop suggests]
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.024002 → 2.025001
 
+ [Removed / develop requires]
+ - Dist::Zilla::Plugin::Test::MinimumVersion
+
 0.7.1 2015-06-23T03:30:53Z
  [Added / develop recommends]
  - Test::More 0.99
