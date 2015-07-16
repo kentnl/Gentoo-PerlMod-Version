@@ -67,7 +67,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version::Tool;
 
-our $VERSION = '0.8.0';
+our $VERSION = '0.8.1';
 
 # PODNAME: gentoo-perlmod-version.pl
 
@@ -162,7 +162,7 @@ gentoo-perlmod-version.pl - Command line utility for translating CPAN versions t
 
 =head1 VERSION
 
-version 0.8.0
+version 0.8.1
 
 =head1 SYNOPSIS
 
