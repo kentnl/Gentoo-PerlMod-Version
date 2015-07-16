@@ -10,9 +10,6 @@ This file contains changes in REQUIRED dependencies for standard CPAN phases (co
  [Changed / test requires]
  - perl 5.006 → 5.008
 
- [Removed / runtime requires]
- - Sub::Exporter::Progressive
-
 0.7.1 2015-06-23T03:30:53Z
  [Added / configure requires]
  - perl 5.006

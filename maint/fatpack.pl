@@ -72,6 +72,6 @@ my (@dirs) = map { $_->absolute->stringify } $fatlib, $thinlib;
 my %files;
 $packer->collect_files( $_, \%files ) for @dirs;
 
-my $content = join "\n", $shebang, $packer->fatpack_code( \%files ), $script;
+my $content = join "\n", $shebang, "## no critic", $packer->fatpack_code( \%files ), "## use critic", $script;
 
 $target->spew_raw($content);
