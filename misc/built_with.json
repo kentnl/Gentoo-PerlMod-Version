@@ -5,7 +5,7 @@
       "Data::Dumper" : "2.158",
       "Dist::Zilla" : "5.037",
       "Dist::Zilla::App::Command::bakeini" : "0.002005",
-      "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.004003",
+      "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.005001",
       "Dist::Zilla::Plugin::Author::KENTNL::TravisCI" : "0.001002",
       "Dist::Zilla::Plugin::Authority" : "1.009",
       "Dist::Zilla::Plugin::AutoPrereqs" : "5.037",
@@ -53,12 +53,11 @@
       "Dist::Zilla::Plugin::TestRelease" : "5.037",
       "Dist::Zilla::Plugin::Twitter" : "0.026",
       "Dist::Zilla::Plugin::UploadToCPAN" : "5.037",
-      "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.024002",
+      "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.025001",
       "ExtUtils::MakeMaker" : "7.04_01",
       "File::Spec" : "3.56",
       "Pod::Coverage::TrustPod" : "0.100003",
-      "Scalar::Util" : "1.42",
-      "Sub::Exporter::Progressive" : "0.001011",
+      "Scalar::Util" : "1.42_002",
       "Test::CPAN::Changes" : "0.400002",
       "Test::CPAN::Meta" : "0.25",
       "Test::EOL" : "1.5",
@@ -87,5 +86,5 @@
       "osname" : "linux"
    },
    "platform" : "linux",
-   "uname" : "Linux 4.0.0-gentoo x86_64 GenuineIntel GNU/Linux"
+   "uname" : "Linux 4.1.0-gentoo-r1 x86_64 GenuineIntel GNU/Linux"
 }
