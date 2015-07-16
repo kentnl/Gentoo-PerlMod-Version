@@ -8,10 +8,10 @@ build_requires:
   Scalar::Util: '0'
   Test::Fatal: '0'
   Test::More: '0.96'
-  perl: '5.008'
+  perl: '5.006'
 configure_requires:
   ExtUtils::MakeMaker: '0'
-  perl: '5.008'
+  perl: '5.006'
 dynamic_config: 0
 generated_by: 'Dist::Zilla version 5.037, CPAN::Meta::Converter version 2.150005'
 license: perl
@@ -32,8 +32,9 @@ provides:
 requires:
   Carp: '0'
   Data::Dumper: '0'
+  Sub::Exporter::Progressive: '0'
   overload: '0'
-  perl: '5.008'
+  perl: '5.006'
   strict: '0'
   version: '0.77'
   warnings: '0'

@@ -58,6 +58,7 @@
       "File::Spec" : "3.56",
       "Pod::Coverage::TrustPod" : "0.100003",
       "Scalar::Util" : "1.42_002",
+      "Sub::Exporter::Progressive" : "0.001011",
       "Test::CPAN::Changes" : "0.400002",
       "Test::CPAN::Meta" : "0.25",
       "Test::EOL" : "1.5",

@@ -5,7 +5,7 @@ do { my $x = {
                                         },
                         'requires' => {
                                         'ExtUtils::MakeMaker' => '0',
-                                        'perl' => '5.008'
+                                        'perl' => '5.006'
                                       }
                       },
        'develop' => {
@@ -80,8 +80,9 @@ do { my $x = {
                       'requires' => {
                                       'Carp' => '0',
                                       'Data::Dumper' => '0',
+                                      'Sub::Exporter::Progressive' => '0',
                                       'overload' => '0',
-                                      'perl' => '5.008',
+                                      'perl' => '5.006',
                                       'strict' => '0',
                                       'version' => '0.77',
                                       'warnings' => '0'
@@ -99,7 +100,7 @@ do { my $x = {
                                    'Scalar::Util' => '0',
                                    'Test::Fatal' => '0',
                                    'Test::More' => '0.96',
-                                   'perl' => '5.008'
+                                   'perl' => '5.006'
                                  }
                  }
      };

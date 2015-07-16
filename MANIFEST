@@ -16,8 +16,6 @@ dist.ini.meta
 lib/Gentoo/PerlMod/Version.pm
 lib/Gentoo/PerlMod/Version/Env.pm
 lib/Gentoo/PerlMod/Version/Error.pm
-maint/fatpack.pl
-maint/gentoo-perlmod-version.pl
 maint/perlcritic.rc.gen.pl
 misc/Changes.deps
 misc/Changes.deps.all
