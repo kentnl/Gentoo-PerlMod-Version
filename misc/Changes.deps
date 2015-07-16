@@ -1,14 +1,6 @@
 This file contains changes in REQUIRED dependencies for standard CPAN phases (configure/build/runtime/test)
 
 0.7.2
- [Changed / configure requires]
- - perl 5.006 → 5.008
-
- [Changed / runtime requires]
- - perl 5.006 → 5.008
-
- [Changed / test requires]
- - perl 5.006 → 5.008
 
 0.7.1 2015-06-23T03:30:53Z
  [Added / configure requires]
