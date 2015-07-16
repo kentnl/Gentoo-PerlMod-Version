@@ -1,12 +1,15 @@
 This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and OPTIONAL )
 
-0.7.2
+0.8.0
  [Added / develop requires]
  - Dist::Zilla::Plugin::Author::KENTNL::CONTRIBUTING 0.001003
  - Dist::Zilla::Plugin::RemovePrereqs::Provided
 
  [Changed / develop suggests]
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.024002 → 2.025001
+
+ [Removed / develop requires]
+ - Dist::Zilla::Plugin::Test::MinimumVersion
 
 0.7.1 2015-06-23T03:30:53Z
  [Added / develop recommends]
