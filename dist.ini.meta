@@ -13,7 +13,6 @@ bumpversions      = 1
 normal_form       = normal_3
 toolkit           = eumm
 toolkit_hardness  = soft
-copyfiles         = LICENSE
 srcreadme         = mkdn
 twitter_extra_hash_tags = #gentoo
 
