@@ -49,7 +49,6 @@
       "Dist::Zilla::Plugin::Test::Compile::PerFile" : "0.003000",
       "Dist::Zilla::Plugin::Test::EOL" : "0.18",
       "Dist::Zilla::Plugin::Test::Kwalitee" : "2.11",
-      "Dist::Zilla::Plugin::Test::MinimumVersion" : "2.000006",
       "Dist::Zilla::Plugin::Test::Perl::Critic" : "3.000",
       "Dist::Zilla::Plugin::Test::ReportPrereqs" : "0.021",
       "Dist::Zilla::Plugin::TestRelease" : "5.037",

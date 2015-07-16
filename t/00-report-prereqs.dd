@@ -58,7 +58,6 @@ do { my $x = {
                                       'Dist::Zilla::Plugin::Test::Compile::PerFile' => '0',
                                       'Dist::Zilla::Plugin::Test::EOL' => '0',
                                       'Dist::Zilla::Plugin::Test::Kwalitee' => '0',
-                                      'Dist::Zilla::Plugin::Test::MinimumVersion' => '0',
                                       'Dist::Zilla::Plugin::Test::Perl::Critic' => '0',
                                       'Dist::Zilla::Plugin::Test::ReportPrereqs' => '0',
                                       'Dist::Zilla::Plugin::TestRelease' => '0',
