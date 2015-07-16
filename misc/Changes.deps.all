@@ -1,8 +1,20 @@
 This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL dependencies for all phases (configure/build/runtime/test/develop)
 
 0.7.2
+ [Changed / configure requires]
+ - perl 5.006 → 5.008
+
  [Changed / develop suggests]
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.024002 → 2.025001
+
+ [Changed / runtime requires]
+ - perl 5.006 → 5.008
+
+ [Changed / test requires]
+ - perl 5.006 → 5.008
+
+ [Removed / runtime requires]
+ - Sub::Exporter::Progressive
 
 0.7.1 2015-06-23T03:30:53Z
  [Added / configure requires]

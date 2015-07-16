@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.006;
+use 5.008;
 
 use ExtUtils::MakeMaker;
 
@@ -17,12 +17,11 @@ my %WriteMakefileArgs = (
     "bin/gentoo-perlmod-version.pl"
   ],
   "LICENSE" => "perl",
-  "MIN_PERL_VERSION" => "5.006",
+  "MIN_PERL_VERSION" => "5.008",
   "NAME" => "Gentoo::PerlMod::Version",
   "PREREQ_PM" => {
     "Carp" => 0,
     "Data::Dumper" => 0,
-    "Sub::Exporter::Progressive" => 0,
     "overload" => 0,
     "strict" => 0,
     "version" => "0.77",
@@ -48,7 +47,6 @@ my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
   "Scalar::Util" => 0,
-  "Sub::Exporter::Progressive" => 0,
   "Test::Fatal" => 0,
   "Test::More" => "0.96",
   "overload" => 0,

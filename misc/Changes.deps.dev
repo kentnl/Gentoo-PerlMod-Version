@@ -3,6 +3,10 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
 0.7.2
  [Changed / develop suggests]
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.024002 → 2.025001
+ - Dist::Zilla::Plugin::RemovePrereqs::Provided
+
+ [Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.024002 → 2.025001
 
 0.7.1 2015-06-23T03:30:53Z
  [Added / develop recommends]
