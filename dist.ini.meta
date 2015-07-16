@@ -15,6 +15,7 @@ toolkit           = eumm
 toolkit_hardness  = soft
 srcreadme         = mkdn
 twitter_extra_hash_tags = #gentoo
+AutoPrereqs.finder = :InstallModules
 
 ;version_major     = 0
 ;version_minor     = 1

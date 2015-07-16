@@ -4,7 +4,7 @@
  [Dependencies::Stats]
  - Dependencies changed since 0.7.1, see misc/*.deps* for details
  - configure: ↑1
- - develop: (suggests: ↑1)
+ - develop: +2 (suggests: ↑1)
  - runtime: ↑1 -1
  - test: ↑1
 
