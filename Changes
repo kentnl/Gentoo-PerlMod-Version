@@ -1,5 +1,14 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
+0.8.0 2015-07-16T23:24:29Z 301fe54
+ [00 Major / Features]
+ - gentoo-perlmod-version.pl is now fatpacked.
+ - This means the code should run better in mixed environments as well as between perl upgrades
+
+ [Dependencies::Stats]
+ - Dependencies changed since 0.7.1, see misc/*.deps* for details
+ - develop: +2 -1 (suggests: ↑1)
+
 0.7.1 2015-06-23T03:30:53Z 8b35638
  [00 Minor]
  - Avoid using an XS dep to simply iterate an array pairwise.

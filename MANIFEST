@@ -4,6 +4,7 @@
 .perltidyrc
 .travis.yml
 Changes
+INSTALL.SKIP
 LICENSE
 MANIFEST
 META.json
@@ -16,6 +17,8 @@ dist.ini.meta
 lib/Gentoo/PerlMod/Version.pm
 lib/Gentoo/PerlMod/Version/Env.pm
 lib/Gentoo/PerlMod/Version/Error.pm
+maint/fatpack.pl
+maint/gentoo-perlmod-version.pl
 maint/perlcritic.rc.gen.pl
 misc/Changes.deps
 misc/Changes.deps.all
@@ -40,6 +43,5 @@ xt/author/eol.t
 xt/release/cpan-changes.t
 xt/release/distmeta.t
 xt/release/kwalitee.t
-xt/release/minimum-version.t
 xt/release/pod-coverage.t
 xt/release/pod-syntax.t

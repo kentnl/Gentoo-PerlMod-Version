@@ -217,7 +217,7 @@ allowed_pragmata = diagnostics feature perlversion strict warnings utf8
 
 [Miscellanea::ProhibitTies]
 
-[Miscellanea::ProhibitUnrestrictedNoCritic]
+[-Miscellanea::ProhibitUnrestrictedNoCritic]
 
 [-Miscellanea::ProhibitUselessNoCritic]
 

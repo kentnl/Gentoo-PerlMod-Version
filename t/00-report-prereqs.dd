@@ -14,6 +14,7 @@ do { my $x = {
                                       },
                       'requires' => {
                                       'Dist::Zilla' => '5',
+                                      'Dist::Zilla::Plugin::Author::KENTNL::CONTRIBUTING' => '0.001003',
                                       'Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes' => '0.004002',
                                       'Dist::Zilla::Plugin::Author::KENTNL::TravisCI' => '0.001002',
                                       'Dist::Zilla::Plugin::Authority' => '1.006',
@@ -50,13 +51,13 @@ do { my $x = {
                                       'Dist::Zilla::Plugin::Prereqs::Upgrade' => '0',
                                       'Dist::Zilla::Plugin::Readme::Brief' => '0',
                                       'Dist::Zilla::Plugin::ReadmeAnyFromPod' => '0',
+                                      'Dist::Zilla::Plugin::RemovePrereqs::Provided' => '0',
                                       'Dist::Zilla::Plugin::RewriteVersion::Sanitized' => '0',
                                       'Dist::Zilla::Plugin::RunExtraTests' => '0',
                                       'Dist::Zilla::Plugin::Test::CPAN::Changes' => '0',
                                       'Dist::Zilla::Plugin::Test::Compile::PerFile' => '0',
                                       'Dist::Zilla::Plugin::Test::EOL' => '0',
                                       'Dist::Zilla::Plugin::Test::Kwalitee' => '0',
-                                      'Dist::Zilla::Plugin::Test::MinimumVersion' => '0',
                                       'Dist::Zilla::Plugin::Test::Perl::Critic' => '0',
                                       'Dist::Zilla::Plugin::Test::ReportPrereqs' => '0',
                                       'Dist::Zilla::Plugin::TestRelease' => '0',
@@ -73,7 +74,7 @@ do { my $x = {
                                     },
                       'suggests' => {
                                       'Dist::Zilla::App::Command::bakeini' => '0.002005',
-                                      'Dist::Zilla::PluginBundle::Author::KENTNL' => '2.024002'
+                                      'Dist::Zilla::PluginBundle::Author::KENTNL' => '2.025001'
                                     }
                     },
        'runtime' => {

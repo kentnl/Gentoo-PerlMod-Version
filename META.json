@@ -29,6 +29,7 @@
          },
          "requires" : {
             "Dist::Zilla" : "5",
+            "Dist::Zilla::Plugin::Author::KENTNL::CONTRIBUTING" : "0.001003",
             "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.004002",
             "Dist::Zilla::Plugin::Author::KENTNL::TravisCI" : "0.001002",
             "Dist::Zilla::Plugin::Authority" : "1.006",
@@ -65,13 +66,13 @@
             "Dist::Zilla::Plugin::Prereqs::Upgrade" : "0",
             "Dist::Zilla::Plugin::Readme::Brief" : "0",
             "Dist::Zilla::Plugin::ReadmeAnyFromPod" : "0",
+            "Dist::Zilla::Plugin::RemovePrereqs::Provided" : "0",
             "Dist::Zilla::Plugin::RewriteVersion::Sanitized" : "0",
             "Dist::Zilla::Plugin::RunExtraTests" : "0",
             "Dist::Zilla::Plugin::Test::CPAN::Changes" : "0",
             "Dist::Zilla::Plugin::Test::Compile::PerFile" : "0",
             "Dist::Zilla::Plugin::Test::EOL" : "0",
             "Dist::Zilla::Plugin::Test::Kwalitee" : "0",
-            "Dist::Zilla::Plugin::Test::MinimumVersion" : "0",
             "Dist::Zilla::Plugin::Test::Perl::Critic" : "0",
             "Dist::Zilla::Plugin::Test::ReportPrereqs" : "0",
             "Dist::Zilla::Plugin::TestRelease" : "0",
@@ -88,7 +89,7 @@
          },
          "suggests" : {
             "Dist::Zilla::App::Command::bakeini" : "0.002005",
-            "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.024002"
+            "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.025001"
          }
       },
       "runtime" : {
@@ -122,15 +123,15 @@
    "provides" : {
       "Gentoo::PerlMod::Version" : {
          "file" : "lib/Gentoo/PerlMod/Version.pm",
-         "version" : "v0.7.1"
+         "version" : "v0.8.0"
       },
       "Gentoo::PerlMod::Version::Env" : {
          "file" : "lib/Gentoo/PerlMod/Version/Env.pm",
-         "version" : "v0.7.1"
+         "version" : "v0.8.0"
       },
       "Gentoo::PerlMod::Version::Error" : {
          "file" : "lib/Gentoo/PerlMod/Version/Error.pm",
-         "version" : "v0.7.1"
+         "version" : "v0.8.0"
       }
    },
    "release_status" : "stable",
@@ -145,7 +146,7 @@
          "web" : "https://github.com/kentnl/Gentoo-PerlMod-Version"
       }
    },
-   "version" : "0.7.1",
+   "version" : "0.8.0",
    "x_BuiltWith" : {
       "external_file" : "misc/built_with.json"
    },
@@ -230,7 +231,9 @@
                      "README",
                      "README.mkdn",
                      "README.pod",
-                     "LICENSE"
+                     "CONTRIBUTING.pod",
+                     "LICENSE",
+                     "Makefile.PL"
                   ],
                   "exclude_match" : [],
                   "follow_symlinks" : "0",
@@ -276,6 +279,24 @@
             "class" : "Dist::Zilla::Plugin::Author::KENTNL::TravisCI",
             "name" : "@Author::KENTNL/Author::KENTNL::TravisCI",
             "version" : "0.001002"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Author::KENTNL::CONTRIBUTING",
+            "config" : {
+               "Dist::Zilla::Plugin::Author::KENTNL::CONTRIBUTING" : {
+                  "document_version" : "0.1"
+               },
+               "Dist::Zilla::Plugin::GenerateFile::ShareDir" : {
+                  "destination_filename" : "CONTRIBUTING.pod",
+                  "dist" : "Dist-Zilla-Plugin-Author-KENTNL-CONTRIBUTING",
+                  "encoding" : "UTF-8",
+                  "location" : "root",
+                  "phase" : "build",
+                  "source_filename" : "contributing-0.1.pod"
+               }
+            },
+            "name" : "@Author::KENTNL/Author::KENTNL::CONTRIBUTING",
+            "version" : "0.001004"
          },
          {
             "class" : "Dist::Zilla::Plugin::CopyFilesFromBuild",
@@ -328,11 +349,6 @@
             },
             "name" : "@Author::KENTNL/Test::EOL",
             "version" : "0.18"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::Test::MinimumVersion",
-            "name" : "@Author::KENTNL/Test::MinimumVersion",
-            "version" : "2.000006"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
@@ -528,7 +544,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes",
             "name" : "@Author::KENTNL/Author::KENTNL::RecommendFixes",
-            "version" : "0.004003"
+            "version" : "0.005001"
          },
          {
             "class" : "Dist::Zilla::Plugin::Readme::Brief",
@@ -537,6 +553,11 @@
          },
          {
             "class" : "Dist::Zilla::Plugin::ReadmeAnyFromPod",
+            "config" : {
+               "Dist::Zilla::Role::FileWatcher" : {
+                  "version" : "0.006"
+               }
+            },
             "name" : "@Author::KENTNL/ReadmeAnyFromPod",
             "version" : "0.150250"
          },
@@ -615,7 +636,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "0.7.1-source",
+                  "tag" : "0.8.0-source",
                   "tag_format" : "%v-source",
                   "tag_message" : "v%v",
                   "time_zone" : "local"
@@ -629,6 +650,11 @@
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::NextRelease",
+            "config" : {
+               "Dist::Zilla::Plugin::Git::NextRelease" : {
+                  "default_branch" : "master"
+               }
+            },
             "name" : "@Author::KENTNL/Git::NextRelease",
             "version" : "0.004000"
          },
@@ -686,7 +712,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : "releases",
                   "signed" : 0,
-                  "tag" : "0.7.1",
+                  "tag" : "0.8.0",
                   "tag_format" : "%v",
                   "tag_message" : "v%v",
                   "time_zone" : "local"
@@ -748,6 +774,11 @@
             },
             "name" : "@Author::KENTNL/always_latest_develop_bundle",
             "version" : "0.003001"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::RemovePrereqs::Provided",
+            "name" : "@Author::KENTNL/RemovePrereqs::Provided",
+            "version" : "0.001000"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
