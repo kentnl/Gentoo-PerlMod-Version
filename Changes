@@ -1,6 +1,6 @@
 ﻿Release history for Gentoo-PerlMod-Version
 
-0.8.0 2015-07-16T22:58:19Z 4c362b4
+0.8.0 2015-07-16T23:14:24Z 99e15cf
  [00 Major / Features]
  - gentoo-perlmod-version.pl is now fatpacked.
  - This means the code should run better in mixed environments as well as between perl upgrades
