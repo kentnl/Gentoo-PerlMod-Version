@@ -7,7 +7,7 @@
 
  [Dependencies::Stats]
  - Dependencies changed since 0.8.0, see misc/*.deps* for details
- - develop: +2 ↑2 (suggests: ↑2)
+ - develop: +8 ↑2 (recommends: +1, suggests: ↑2)
 
  [Misc]
  - Version scheme now includes a "v" due to upstream tooling constraints

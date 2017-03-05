@@ -88,6 +88,8 @@ sub map_version {
 
 1;
 
+__END__
+
 =head1 SYNOPSIS
 
     gentoo-perlmod-version.pl 1.4 1.5 1.6
