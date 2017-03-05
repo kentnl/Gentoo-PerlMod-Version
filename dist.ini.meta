@@ -10,7 +10,7 @@ copyright_holder = Kent Fredric <kentnl@cpan.org>
 
 [@Author::KENTNL]
 bumpversions      = 1
-normal_form       = normal_3
+normal_form       = normal
 toolkit           = eumm
 toolkit_hardness  = soft
 srcreadme         = mkdn
