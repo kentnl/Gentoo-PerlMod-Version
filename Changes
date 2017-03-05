@@ -1,6 +1,8 @@
-﻿Release history for Gentoo-PerlMod-Version
+Release history for Gentoo-PerlMod-Version
 
 {{$NEXT}}
+
+v0.8.1 2017-03-05T11:11:43Z 2465f66
  [Bugfix]
  - Fix test problems with -Ddefault_inc_excludes_dot
  - Closes https://github.com/kentnl/Gentoo-PerlMod-Version/issues/1

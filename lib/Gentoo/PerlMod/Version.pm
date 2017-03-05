@@ -4,7 +4,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version;
 
-our $VERSION = 'v0.8.1';
+our $VERSION = 'v0.8.2';
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalized Gentoo versions.
 

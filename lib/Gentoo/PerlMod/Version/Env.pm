@@ -4,7 +4,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version::Env;
 
-our $VERSION = 'v0.8.1';
+our $VERSION = 'v0.8.2';
 
 # ABSTRACT: Get/parse settings from %ENV
 
