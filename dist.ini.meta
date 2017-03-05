@@ -13,7 +13,7 @@ copyright_holder = Kent Fredric <kentnl@cpan.org>
 
 ; authordep Perl::Strip
 ; authordep App::FatPacker
-; authordep Path::Tiny
+; authordep Path::Tiny = 0.065
 ; authordep Test::TempDir::Tiny
 [Run::AfterBuild]
 run = perl maint/fatpack.pl %d
