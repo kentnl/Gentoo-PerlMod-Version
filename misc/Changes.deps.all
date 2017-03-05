@@ -1,6 +1,8 @@
 This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL dependencies for all phases (configure/build/runtime/test/develop)
 
-0.8.1
+v0.8.2
+
+v0.8.1 2017-03-05T11:11:43Z
  [Added / develop requires]
  - App::FatPacker
  - Dist::Zilla::Plugin::FileFinder::ByName
