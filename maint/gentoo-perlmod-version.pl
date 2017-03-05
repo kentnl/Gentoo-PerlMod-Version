@@ -5,7 +5,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version::Tool;
 
-our $VERSION = '0.8.0';
+our $VERSION = '0.8.1';
 
 # PODNAME: gentoo-perlmod-version.pl
 
@@ -88,6 +88,20 @@ sub map_version {
 
 1;
 
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+gentoo-perlmod-version.pl - Command line utility for translating CPAN versions to Gentoo equivalents.
+
+=head1 VERSION
+
+version v0.8.1
+
 =head1 SYNOPSIS
 
     gentoo-perlmod-version.pl 1.4 1.5 1.6
@@ -103,9 +117,19 @@ sub map_version {
     SOMEVAR="$(  gentoo-perlmod-version.pl --oneshot 1.4_5 )" # Invalid, dies
     SOMEVAR="$(  gentoo-perlmod-version.pl --lax=1 --oneshot 1.4_5 )" # Ok
 
-
 See C<perldoc> for L<< C<Gentoo::PerlMod::Versions> documentation|Gentoo::PerlMod::Version >> for more information.
 
     perldoc Gentoo::PerlMod::Version
+
+=head1 AUTHOR
+
+Kent Fredric <kentnl@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2017 by Kent Fredric <kentnl@cpan.org>.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut

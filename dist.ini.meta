@@ -8,16 +8,34 @@ copyright_holder = Kent Fredric <kentnl@cpan.org>
 ; Uncomment this to bootstrap via self 
 ; [Bootstrap::lib]
 
+; Weirdly placed because it has to run before all the other
+; after-builders
+
+; authordep Perl::Strip
+; authordep App::FatPacker
+; authordep Path::Tiny = 0.065
+; authordep Test::TempDir::Tiny
+[Run::AfterBuild]
+run = perl maint/fatpack.pl %d
+
+[FileFinder::ByName / ExtraFiles]
+dir = maint
+match = /gentoo-perlmod-version\.pl$
+
 [@Author::KENTNL]
 bumpversions      = 1
-normal_form       = normal_3
+normal_form       = normal
 toolkit           = eumm
 toolkit_hardness  = soft
 srcreadme         = mkdn
 twitter_extra_hash_tags = #gentoo
 AutoPrereqs.finder = :InstallModules
 MinimumPerl.runtime_finder = :InstallModules
+PodWeaver.finder[0] = ExtraFiles
+PodWeaver.finder[1] = :InstallModules
+PodWeaver.finder[2] = :ExecFiles
 -remove = Test::MinimumVersion
+
 
 ;version_major     = 0
 ;version_minor     = 1

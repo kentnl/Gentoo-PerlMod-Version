@@ -4,7 +4,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version::Env;
 
-our $VERSION = '0.8.0';
+our $VERSION = 'v0.8.1';
 
 # ABSTRACT: Get/parse settings from %ENV
 
@@ -82,7 +82,7 @@ Gentoo::PerlMod::Version::Env - Get/parse settings from %ENV
 
 =head1 VERSION
 
-version 0.8.0
+version v0.8.1
 
 =head1 FUNCTIONS
 
@@ -112,7 +112,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2017 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
