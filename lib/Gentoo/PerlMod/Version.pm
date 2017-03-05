@@ -4,7 +4,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version;
 
-our $VERSION = '0.8.1';
+our $VERSION = 'v0.8.1';
 
 # ABSTRACT: Convert arbitrary Perl Modules' versions into normalized Gentoo versions.
 
@@ -241,7 +241,7 @@ Gentoo::PerlMod::Version - Convert arbitrary Perl Modules' versions into normali
 
 =head1 VERSION
 
-version 0.8.1
+version v0.8.1
 
 =head1 SYNOPSIS
 
@@ -441,7 +441,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Kent Fredric <kentnl@cpan.org>.
+This software is copyright (c) 2017 by Kent Fredric <kentnl@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

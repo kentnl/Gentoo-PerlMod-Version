@@ -5,7 +5,7 @@ use warnings;
 
 package Gentoo::PerlMod::Version::Tool;
 
-our $VERSION = '0.8.0';
+our $VERSION = '0.8.1';
 
 # PODNAME: gentoo-perlmod-version.pl
 
