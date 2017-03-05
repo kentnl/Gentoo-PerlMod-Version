@@ -1,15 +1,12 @@
 This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL dependencies for all phases (configure/build/runtime/test/develop)
 
 0.8.1
- [Added / develop recommends]
- - Path::Tiny 0.058
-
  [Added / develop requires]
  - App::FatPacker
  - Dist::Zilla::Plugin::FileFinder::ByName
  - Dist::Zilla::Plugin::Run::AfterBuild
  - English
- - Path::Tiny
+ - Path::Tiny 0.065
  - Perl::Strip
  - Software::License::Perl_5
  - Test::TempDir::Tiny
